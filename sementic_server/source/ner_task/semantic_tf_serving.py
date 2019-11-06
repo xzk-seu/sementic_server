@@ -5,19 +5,20 @@
 @time: 2019-02-27
 @version: 0.0.1
 """
-import jieba
 import logging
 
+import jieba
+
 from sementic_server.source.ner_task.entity_code import EntityCode
-from sementic_server.source.ner_task.system_info import SystemInfo
 from sementic_server.source.ner_task.model_tf_serving import ModelServing
+from sementic_server.source.ner_task.system_info import SystemInfo
 
 logger = logging.getLogger("server_log")
 
 
 class SemanticSearch(object):
     """
-    通过调用 sentence_ner_entities 函数实现对：人名、组织结构名、地名和日期 的识别
+    通过调用 sentence_ner_entities 函数实现对：姓、名、称谓、组织结构名、地名和日期 的识别
     """
 
     def __init__(self):
@@ -31,7 +32,8 @@ class SemanticSearch(object):
         self.entity_code = EntityCode()
         self.ner_entities = self.entity_code.get_ner_entities()
         self.code = self.entity_code.get_entity_code()
-        self.entity_map_dic = {"ORG": "CPNY_NAME", "PER": "NAME", "DATE": "DATE", "LOC": "ADDR_VALUE"}
+        self.entity_map_dic = {"ORG": "CPNY_NAME", "FNAME": "FIRSTNAME", "LNAME": "LASTNAME", "CW": "CHENWEI",
+                               "DATE": "DATE", "LOC": "ADDR_VALUE"}
 
         self.labels_list = []
         self.labels_list_split = []
@@ -135,8 +137,11 @@ class SemanticSearch(object):
         :param pred_label_result: 对该句子预测的标签
         :return: 返回识别的实体
         """
+        # print(sentence)
+        print(pred_label_result)
         word = ""
         label = ""
+        pre_label = pred_label_result[0]
         entities = []
         for i in range(len(sentence)):
             temp_label = pred_label_result[i]
@@ -144,28 +149,29 @@ class SemanticSearch(object):
                 if word != "":
                     if "##" in word:
                         word = word.replace('##', '')
-                    if len(word) > 1:
-                        entities.append([word, label])
+                    if pre_label is not label:
+                        entities.append([word, label1])
+                    pre_label = label
                     word = ""
-
-                label = self.entity_map_dic[temp_label[2:]]
-
+                label1 = self.entity_map_dic[temp_label[2:]]
+                label = temp_label[2:]
                 word += sentence[i]
             elif temp_label[0] == 'I' and word != "":
                 word += sentence[i]
             elif temp_label == 'O' and word != "":
                 if "##" in word:
                     word = word.replace('##', '')
-                if len(word) > 1:
-                    entities.append([word, label])
+                if pre_label is not label:
+                    entities.append([word, label1])
+                pre_label = label
                 word = ""
                 label = ""
         if word != "":
             if "##" in word:
                 word = word.replace('##', '')
-            if len(word) > 1:
-                entities.append([word, label])
-
+            if pre_label is not label:
+                entities.append([word, label1])
+        print(entities)
         return entities
 
     def get_ner_result(self, query):
@@ -175,15 +181,12 @@ class SemanticSearch(object):
         :return:
         """
         sentence, pred_label_result = self.client.send_grpc_request_ner(query)
-
         if pred_label_result is None:
             logger.error("句子: {0}\t实体识别结果为空".format(query))
             return None
-
+        if len(sentence) != len(pred_label_result):
+            return None
         entities = self.__get_entities(sentence, pred_label_result)
-
-        # if len(entities) != 0:
-        #     self.__combine_com_add(entities)
 
         entity = []
         for word, label in entities:
