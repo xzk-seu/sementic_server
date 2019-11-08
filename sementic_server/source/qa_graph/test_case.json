@@ -1,1 +1,0 @@
-{"query": "\u5f20\u4e09\u7684\u7236\u4eb2\u662f\u8c01", "entity": [{"type": "NAME", "value": "\u5f20\u4e09", "code": 100, "begin": 0, "end": 3}], "relation": [{"type": "Kindred", "value": "\u7236\u4eb2", "begin": 3, "end": 5, "code": 2501}], "intent": "Person", "dependency": null}
