@@ -29,7 +29,7 @@ if __name__ == '__main__':
     account = Account()
 
     ner_results = list()
-
+    # account_info = account.get_account_labels_info(questions[173])
     for index, sentence in tqdm(enumerate(questions)):
         account_info = account.get_account_labels_info(sentence)
         intent = item_matcher.match(sentence, accounts_info=account_info)

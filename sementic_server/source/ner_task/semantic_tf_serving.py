@@ -138,7 +138,7 @@ class SemanticSearch(object):
         :return: 返回识别的实体
         """
         # print(sentence)
-        print(pred_label_result)
+        # print(pred_label_result)
         word = ""
         label = ""
         pre_label = pred_label_result[0]
@@ -171,7 +171,7 @@ class SemanticSearch(object):
                 word = word.replace('##', '')
             if pre_label is not label:
                 entities.append([word, label1])
-        print(entities)
+        # print(entities)
         return entities
 
     def get_ner_result(self, query):
