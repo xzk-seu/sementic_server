@@ -1,0 +1,788 @@
+IMEI:
+- 值域: string
+  定义域: IMEI
+  属性名称: IMEI_VALUE
+  属性描述: IMEI
+IMSI:
+- 值域: string
+  定义域: IMSI
+  属性名称: IMSI_VALUE
+  属性描述: IMSI
+MAC:
+- 值域: string
+  定义域: MAC
+  属性名称: MAC_VALUE
+  属性描述: MAC
+MAC所属设备类型:
+- 值域: string
+  定义域: MAC
+  属性名称: DEV_TYPE
+  属性描述: MAC所属设备类型
+QQ号码:
+- 值域: string
+  定义域: QQ
+  属性名称: QQ_NUM
+  属性描述: QQ号码
+QQ昵称:
+- 值域: string
+  定义域: QQ
+  属性名称: NICKNAME
+  属性描述: QQ昵称
+QQ群公告:
+- 值域: string
+  定义域: QQGroup
+  属性名称: GROUP_NOT
+  属性描述: QQ群公告
+QQ群号:
+- 值域: string
+  定义域: QQGroup
+  属性名称: GROUP_NUM
+  属性描述: QQ群号
+QQ群名称:
+- 值域: string
+  定义域: QQGroup
+  属性名称: GROUP_NAME
+  属性描述: QQ群名称
+QQ群标签:
+- 值域: string
+  定义域: QQGroup
+  属性名称: GROUP_TAG
+  属性描述: QQ群标签
+UUID:
+- 值域: string
+  定义域: Person
+  属性名称: UUID
+  属性描述: UUID
+京东账号:
+- 值域: string
+  定义域: JD
+  属性名称: JD_VALUE
+  属性描述: 京东账号
+企业状态:
+- 值域: string
+  定义域: Company
+  属性名称: COMPSTATUS
+  属性描述: 企业状态
+企业类型:
+- 值域: string
+  定义域: Company
+  属性名称: COMPTYPE
+  属性描述: 企业类型
+公司名称:
+- 值域: string
+  定义域: Company
+  属性名称: CPNY_NAME
+  属性描述: 公司名称
+公司地址:
+- 值域: string
+  定义域: Company
+  属性名称: CPNY_ADDR
+  属性描述: 公司地址
+其他名称:
+- 值域: string
+  定义域: Company
+  属性名称: CPNY_OTHER_NAME
+  属性描述: 其他名称
+出生地:
+- 值域: string
+  定义域: Person
+  属性名称: BIRTH_PLACE
+  属性描述: 出生地
+创建时间:
+- 值域: string
+  定义域: QQGroup
+  属性名称: GROUP_CREATE_DATE_FS
+  属性描述: 创建时间
+- 值域: string
+  定义域: WeChatGroup
+  属性名称: GROUP_CREATE_DATE_FS
+  属性描述: 创建时间
+别名:
+- 值域: string
+  定义域: Person
+  属性名称: ALIAS
+  属性描述: 别名
+办理时间:
+- 值域: string
+  定义域: Card
+  属性名称: CAR_OPEN_DATE_FS
+  属性描述: 办理时间
+区:
+- 值域: Unknown
+  定义域: Addr
+  属性名称: AREA
+  属性描述: 区
+- 值域: Unknown
+  定义域: Idcard
+  属性名称: AREA
+  属性描述: 区
+卡号码:
+- 值域: string
+  定义域: Card
+  属性名称: CARD_NO
+  属性描述: 卡号码
+卡类型:
+- 值域: string
+  定义域: Card
+  属性名称: CARD_TYPE
+  属性描述: 卡类型
+- 值域: string
+  定义域: MobileNumber
+  属性名称: MOB_CARD_TYPE
+  属性描述: 卡类型
+厂商:
+- 值域: string
+  定义域: IMEI
+  属性名称: DEV_MANUFA
+  属性描述: 厂商
+- 值域: string
+  定义域: MAC
+  属性名称: DEV_MANUFA
+  属性描述: 厂商
+原始地址名称:
+- 值域: string
+  定义域: Addr
+  属性名称: ADDR_VALUE
+  属性描述: 原始地址名称
+发牌单位:
+- 值域: string
+  定义域: VehicleCard
+  属性名称: DEAL_UNIT
+  属性描述: 发牌单位
+发牌地区:
+- 值域: string
+  定义域: VehicleCard
+  属性名称: DEAL_AREA
+  属性描述: 发牌地区
+唯一标识:
+- 值域: string
+  定义域: Card
+  属性名称: CARD_VALUE
+  属性描述: 唯一标识
+- 值域: string
+  定义域: Company
+  属性名称: COID
+  属性描述: 唯一标识
+固话号码:
+- 值域: int
+  定义域: FixedPhoneNumber
+  属性名称: PHONE_NUM
+  属性描述: 固话号码
+国籍:
+- 值域: string
+  定义域: Person
+  属性名称: NATIONNALITY
+  属性描述: 国籍
+地址id:
+- 值域: string
+  定义域: Addr
+  属性名称: ADDR_ID
+  属性描述: 地址id
+地址类型:
+- 值域: string
+  定义域: Addr
+  属性名称: ADDR_TYPE
+  属性描述: 地址类型
+域名:
+- 值域: string
+  定义域: Email
+  属性名称: DOMAIN
+  属性描述: 域名
+备注名:
+- 值域: string
+  定义域: Alipay
+  属性名称: USER_MARK
+  属性描述: 备注名
+- 值域: string
+  定义域: DouYin
+  属性名称: USER_MARK
+  属性描述: 备注名
+- 值域: string
+  定义域: Email
+  属性名称: USER_MARK
+  属性描述: 备注名
+- 值域: string
+  定义域: FixedPhoneNumber
+  属性名称: PHONE_REMARK
+  属性描述: 备注名
+- 值域: string
+  定义域: JD
+  属性名称: USER_MARK
+  属性描述: 备注名
+- 值域: string
+  定义域: MicroBlog
+  属性名称: USER_MARK
+  属性描述: 备注名
+- 值域: string
+  定义域: MobileNumber
+  属性名称: MOB_REM_NAME
+  属性描述: 备注名
+- 值域: string
+  定义域: QQ
+  属性名称: USER_MARK
+  属性描述: 备注名
+- 值域: string
+  定义域: TaoBao
+  属性名称: USER_MARK
+  属性描述: 备注名
+- 值域: string
+  定义域: WeChat
+  属性名称: USER_MARK
+  属性描述: 备注名
+姓名:
+- 值域: string
+  定义域: Idcard
+  属性名称: NAME
+  属性描述: 姓名
+- 值域: string
+  定义域: Person
+  属性名称: NAME
+  属性描述: 姓名
+婚姻状况:
+- 值域: string
+  定义域: Person
+  属性名称: MARR
+  属性描述: 婚姻状况
+宗教状况:
+- 值域: string
+  定义域: Person
+  属性名称: RELIGION
+  属性描述: 宗教状况
+工商注册号:
+- 值域: string
+  定义域: Company
+  属性名称: BUSINESSREGNo
+  属性描述: 工商注册号
+市:
+- 值域: Unknown
+  定义域: Addr
+  属性名称: CITY
+  属性描述: 市
+- 值域: Unknown
+  定义域: Idcard
+  属性名称: CITY
+  属性描述: 市
+开户时间:
+- 值域: string
+  定义域: MobileNumber
+  属性名称: MOB_REG_DATE_FS
+  属性描述: 开户时间
+归属地:
+- 值域: string
+  定义域: MobileNumber
+  属性名称: MOB_ATTR
+  属性描述: 归属地
+微信内部ID:
+- 值域: string
+  定义域: WeChat
+  属性名称: WECHAT_UIN
+  属性描述: 微信内部ID
+微信昵称:
+- 值域: string
+  定义域: WeChat
+  属性名称: NICKNAME
+  属性描述: 微信昵称
+微信群号:
+- 值域: string
+  定义域: WeChatGroup
+  属性名称: GROUP_NUM
+  属性描述: 微信群号
+微信群名称:
+- 值域: string
+  定义域: WeChatGroup
+  属性名称: GROUP_NAME
+  属性描述: 微信群名称
+微信账号:
+- 值域: string
+  定义域: WeChat
+  属性名称: WECHAT_VALUE
+  属性描述: 微信账号
+微博内部ID:
+- 值域: string
+  定义域: MicroBlog
+  属性名称: UID
+  属性描述: 微博内部ID
+性别:
+- 值域: string
+  定义域: Idcard
+  属性名称: SEX
+  属性描述: 性别
+- 值域: string
+  定义域: Person
+  属性名称: SEX
+  属性描述: 性别
+户籍地:
+- 值域: string
+  定义域: Person
+  属性名称: HJD_ADDR
+  属性描述: 户籍地
+手机号:
+- 值域: int
+  定义域: MobileNumber
+  属性名称: MOB_NUM
+  属性描述: 手机号
+抖音账号:
+- 值域: string
+  定义域: DouYin
+  属性名称: DOUYIN_Value
+  属性描述: 抖音账号
+支付宝账号:
+- 值域: string
+  定义域: Alipay
+  属性名称: ALIPAY_VALUE
+  属性描述: 支付宝账号
+政治面貌:
+- 值域: string
+  定义域: Person
+  属性名称: POL_AFF
+  属性描述: 政治面貌
+文化程度:
+- 值域: string
+  定义域: Person
+  属性名称: EDUCATION
+  属性描述: 文化程度
+新浪微博账号:
+- 值域: string
+  定义域: MicroBlog
+  属性名称: MICROBLOG_VALUE
+  属性描述: 新浪微博账号
+昵称:
+- 值域: string
+  定义域: Alipay
+  属性名称: NICKNAME
+  属性描述: 昵称
+- 值域: string
+  定义域: DouYin
+  属性名称: NICKNAME
+  属性描述: 昵称
+- 值域: string
+  定义域: JD
+  属性名称: NICKNAME
+  属性描述: 昵称
+- 值域: string
+  定义域: MicroBlog
+  属性名称: NICKNAME
+  属性描述: 昵称
+- 值域: string
+  定义域: TaoBao
+  属性名称: NICKNAME
+  属性描述: 昵称
+曾用名:
+- 值域: string
+  定义域: Person
+  属性名称: OLD_NAME
+  属性描述: 曾用名
+最后发现时间:
+- 值域: string
+  定义域: Addr
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: Alipay
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: Card
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: Company
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: DouYin
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: Email
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: FixedPhoneNumber
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: IMEI
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: IMSI
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: Idcard
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: JD
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: MAC
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: MicroBlog
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: MobileNumber
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: QQ
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: QQGroup
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: TaoBao
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: Vehicle
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: VehicleCard
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: WeChat
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+- 值域: string
+  定义域: WeChatGroup
+  属性名称: LST_DATE_FS
+  属性描述: 最后发现时间
+服役状况:
+- 值域: string
+  定义域: Person
+  属性名称: MILIT_COND
+  属性描述: 服役状况
+标签:
+- 值域: string
+  定义域: Person
+  属性名称: PER_TAG
+  属性描述: 标签
+核准日期:
+- 值域: string
+  定义域: Company
+  属性名称: APPROVALDATE
+  属性描述: 核准日期
+民族:
+- 值域: string
+  定义域: Person
+  属性名称: NATION
+  属性描述: 民族
+法人:
+- 值域: string
+  定义域: Company
+  属性名称: lEGALPERSON
+  属性描述: 法人
+注册地址:
+- 值域: string
+  定义域: Company
+  属性名称: REGADDR
+  属性描述: 注册地址
+注册时间:
+- 值域: string
+  定义域: Company
+  属性名称: REG_DATE_FS
+  属性描述: 注册时间
+注册资本金:
+- 值域: string
+  定义域: Company
+  属性名称: REG_CAP
+  属性描述: 注册资本金
+淘宝账号:
+- 值域: string
+  定义域: TaoBao
+  属性名称: TAOBAO_VALUE
+  属性描述: 淘宝账号
+生日:
+- 值域: string
+  定义域: Person
+  属性名称: BIRTHDAY
+  属性描述: 生日
+电话:
+- 值域: string
+  定义域: Company
+  属性名称: TEL
+  属性描述: 电话
+登记机关:
+- 值域: string
+  定义域: Company
+  属性名称: REGAUTHORITY
+  属性描述: 登记机关
+省:
+- 值域: Unknown
+  定义域: Addr
+  属性名称: PROVINCE
+  属性描述: 省
+- 值域: Unknown
+  定义域: Idcard
+  属性名称: PROVINCE
+  属性描述: 省
+籍贯:
+- 值域: string
+  定义域: Idcard
+  属性名称: ORG_PLACE
+  属性描述: 籍贯
+- 值域: string
+  定义域: Person
+  属性名称: ORG_PLACE
+  属性描述: 籍贯
+类型:
+- 值域: string
+  定义域: Idcard
+  属性名称: TYPE
+  属性描述: 类型
+纬度:
+- 值域: float
+  定义域: Addr
+  属性名称: LAT
+  属性描述: 纬度
+纳税人识别号:
+- 值域: string
+  定义域: Company
+  属性名称: TAXPAYERID
+  属性描述: 纳税人识别号
+组织机构代码:
+- 值域: string
+  定义域: Company
+  属性名称: ORGCODE
+  属性描述: 组织机构代码
+经度:
+- 值域: float
+  定义域: Addr
+  属性名称: LON
+  属性描述: 经度
+经营范围:
+- 值域: string
+  定义域: Company
+  属性名称: BUSS_RGE
+  属性描述: 经营范围
+统一信用代码:
+- 值域: string
+  定义域: Company
+  属性名称: UNIFIEDCREDITCode
+  属性描述: 统一信用代码
+网站:
+- 值域: string
+  定义域: Company
+  属性名称: URL
+  属性描述: 网站
+职业:
+- 值域: string
+  定义域: Person
+  属性名称: PROF
+  属性描述: 职业
+英文名:
+- 值域: string
+  定义域: Person
+  属性名称: EN_GIV_NAME
+  属性描述: 英文名
+营业期限终止:
+- 值域: string
+  定义域: Company
+  属性名称: OPERATINGPERIODSTOP
+  属性描述: 营业期限终止
+营业期限起始:
+- 值域: string
+  定义域: Company
+  属性名称: OPERATINGPERIODSTART
+  属性描述: 营业期限起始
+行业:
+- 值域: string
+  定义域: Company
+  属性名称: INDUSTRY
+  属性描述: 行业
+装机地址:
+- 值域: string
+  定义域: FixedPhoneNumber
+  属性名称: PHONE_ADDR
+  属性描述: 装机地址
+- 值域: string
+  定义域: MobileNumber
+  属性名称: INSTALL_ADDR
+  属性描述: 装机地址
+装机时间:
+- 值域: string
+  定义域: FixedPhoneNumber
+  属性名称: INSTALL_DATE_FS
+  属性描述: 装机时间
+证件头像:
+- 值域: string
+  定义域: Idcard
+  属性名称: CERT_PHOTO
+  属性描述: 证件头像
+- 值域: string
+  定义域: Person
+  属性名称: CERT_PHOTO
+  属性描述: 证件头像
+身份证件号码:
+- 值域: string
+  定义域: Idcard
+  属性名称: IDCARD_VALUE
+  属性描述: 身份证件号码
+车架号:
+- 值域: string
+  定义域: Vehicle
+  属性名称: VEH_FRAM_NO
+  属性描述: 车架号
+车牌号:
+- 值域: string
+  定义域: VehicleCard
+  属性名称: VEHCARD_VALUE
+  属性描述: 车牌号
+车牌颜色:
+- 值域: string
+  定义域: VehicleCard
+  属性名称: VEH_COL
+  属性描述: 车牌颜色
+车身颜色:
+- 值域: string
+  定义域: Vehicle
+  属性名称: VEH_COL
+  属性描述: 车身颜色
+车辆发动机号码:
+- 值域: string
+  定义域: Vehicle
+  属性名称: VEH_ENG_NO
+  属性描述: 车辆发动机号码
+车辆发动机型号:
+- 值域: string
+  定义域: Vehicle
+  属性名称: VEH_ENG_MOD
+  属性描述: 车辆发动机型号
+车辆品牌:
+- 值域: string
+  定义域: Vehicle
+  属性名称: VEH_CH_BR
+  属性描述: 车辆品牌
+车辆型号:
+- 值域: string
+  定义域: Vehicle
+  属性名称: VEH_MOD
+  属性描述: 车辆型号
+车辆登记日期:
+- 值域: string
+  定义域: Vehicle
+  属性名称: VEH_REG_DATE
+  属性描述: 车辆登记日期
+车辆类型:
+- 值域: string
+  定义域: Vehicle
+  属性名称: VEH_TYPE
+  属性描述: 车辆类型
+运营商:
+- 值域: string
+  定义域: FixedPhoneNumber
+  属性名称: PHONE_OPERAT
+  属性描述: 运营商
+- 值域: string
+  定义域: IMSI
+  属性名称: MOB_OPT
+  属性描述: 运营商
+- 值域: string
+  定义域: MobileNumber
+  属性名称: MOB_OPT
+  属性描述: 运营商
+邮箱:
+- 值域: string
+  定义域: Company
+  属性名称: EMAIL
+  属性描述: 邮箱
+邮箱账号:
+- 值域: string
+  定义域: Email
+  属性名称: EMAIL_VALUE
+  属性描述: 邮箱账号
+首次发现时间:
+- 值域: string
+  定义域: Addr
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: Alipay
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: Card
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: Company
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: DouYin
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: Email
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: FixedPhoneNumber
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: IMEI
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: IMSI
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: Idcard
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: JD
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: MAC
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: MicroBlog
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: MobileNumber
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: QQ
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: QQGroup
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: TaoBao
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: Vehicle
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: VehicleCard
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: WeChat
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间
+- 值域: string
+  定义域: WeChatGroup
+  属性名称: FST_DATE_FS
+  属性描述: 首次发现时间

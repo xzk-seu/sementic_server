@@ -78,7 +78,7 @@ class QueryParser(object):
         # print('Query Graph Parsing...')
         self.relation = query_data.setdefault('relation', list())
         self.entity = query_data.setdefault('entity', list())
-
+        self.value_prop = query_data.setdefault('value_props', list())
         self.pre_process()
 
         self.intent = query_data['intent']
@@ -88,14 +88,15 @@ class QueryParser(object):
         # 获取实体和关系对应的子图组件
         self.init_relation_component()
         self.init_entity_component()
+        self.init_value_prop_component()
 
         # 若有依存分析，根据依存分析来获取组件图
-        if self.dependency and len(self.dependency) > 0:
-            logger.info('dependency exist.')
-            # print('dependency exist.')
-            dm = DepMap(self.dependency, self.relation_component_list, self.entity_component_list)
-            if dm.check_dep() and dm.dep_graph and nx.algorithms.is_weakly_connected(dm.dep_graph):
-                self.query_graph = dm.dep_graph
+        # if self.dependency and len(self.dependency) > 0:
+        #     logger.info('dependency exist.')
+        #     # print('dependency exist.')
+        #     dm = DepMap(self.dependency, self.relation_component_list, self.entity_component_list)
+        #     if dm.check_dep() and dm.dep_graph and nx.algorithms.is_weakly_connected(dm.dep_graph):
+        #         self.query_graph = dm.dep_graph
 
         self.query_graph = None
         # 得到子图组件构成的集合，用图表示
@@ -292,6 +293,11 @@ class QueryParser(object):
     def init_entity_component(self):
         for e in self.entity:
             component = QueryGraphComponent(e)
+            self.entity_component_list.append(nx.MultiDiGraph(component))
+
+    def init_value_prop_component(self):
+        for e in self.value_prop:
+            component = QueryGraphComponent(e, is_value_prop=True)
             self.entity_component_list.append(nx.MultiDiGraph(component))
 
     def company_trick(self):

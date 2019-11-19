@@ -19,10 +19,25 @@ class QueryGraphComponent(Graph):
     """
     获取实体，生成相对应的子图组件
     """
-    def __init__(self, entity):
+    def __init__(self, entity, is_value_prop=False):
         logger.info('Getting Graph Component......')
-        logger.info('Type: %s \t Value: %s' % (entity['type'], entity['value']))
+
         nx.MultiDiGraph.__init__(self)
+
+        if is_value_prop:
+            value_prop = entity
+            dom = value_prop['定义域']
+            node_name = dom + '0'
+            ran = value_prop['值域']
+            prop_name = value_prop['属性名称']
+            self.add_edge(node_name, 'p_name', prop_name, **value_prop)
+            self.nodes[node_name]['label'] = 'concept'
+            self.nodes[node_name]['type'] = dom
+            self.nodes['p_name']['label'] = 'literal'
+            self.nodes['p_name']['type'] = ran
+            return
+
+        logger.info('Type: %s \t Value: %s' % (entity['type'], entity['value']))
         self.entity = entity
 
         self.account = ['QQ_NUM', 'MOB_NUM', 'PHONE_NUM', 'IDCARD_VALUE', 'EMAIL_VALUE', 'WECHAT_VALUE', 'QQ_GROUP_NUM',
