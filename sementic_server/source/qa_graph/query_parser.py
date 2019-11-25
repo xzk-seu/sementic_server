@@ -86,9 +86,10 @@ class QueryParser(object):
         self.relation_component_list = list()
         self.entity_component_list = list()
         # 获取实体和关系对应的子图组件
-        self.init_relation_component()
+
         self.init_entity_component()
         self.init_value_prop_component()
+        self.init_relation_component()
 
         # 若有依存分析，根据依存分析来获取组件图
         # if self.dependency and len(self.dependency) > 0:
@@ -321,6 +322,9 @@ class QueryParser(object):
     def init_relation_component(self):
         self.company_trick()
         for r in self.relation:
+            if r['type'] == 'Ambiguous':
+                r = self.ambiguity_resolution(r)
+
             if r['type'] in RELATION_DATA.keys():
                 relation_component = nx.MultiDiGraph()
                 relation_component.add_edge('temp_0', 'temp_1', r['type'], **r)
@@ -364,6 +368,26 @@ class QueryParser(object):
                     # for rel in self.relation:
                     #     if rel['type'] == rel_name:
                     #         self.relation.remove(rel)
+
+    def ambiguity_resolution(self, rel):
+        reverse_dict = {'好友': ['QQFriend', 'Friend']}
+        ambiguity_list = reverse_dict[rel['value']]
+        sim_list = list()
+        for n, r in enumerate(ambiguity_list):
+            count = 0
+            d_t = RELATION_DATA[r]['domain']
+            r_t = RELATION_DATA[r]['range']
+            for e_com in self.entity_component_list:
+                for node in e_com.nodes:
+                    e = e_com.nodes[node]
+                    if e['type'] == d_t or e['type'] == r_t:
+                        count += 1
+            sim = count/len(self.entity)
+            sim_list.append(sim)
+        max_sim = max(sim_list)
+        m_index = sim_list.index(max_sim)
+        rel['type'] = ambiguity_list[m_index]
+        return rel
 
 
 if __name__ == '__main__':

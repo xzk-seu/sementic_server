@@ -51,8 +51,8 @@ class QueryGraphComponent(Graph):
                                    'VehicleCard', 'IMEI', 'MAC']
         if entity['type'] in self.account:
             self.init_account_component()
-        elif entity['type'] == 'NAME':
-            self.add_edge('p', 'p_name', 'NAME')
+        elif entity['type'] == 'FIRSTNAME':
+            self.add_edge('p', 'p_name', 'FIRSTNAME')
             self.nodes['p']['label'] = 'concept'
             self.nodes['p']['type'] = 'Person'
             self.nodes['p_name']['label'] = 'literal'

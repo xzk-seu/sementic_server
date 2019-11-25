@@ -19,6 +19,7 @@ MemberOfQQGroup,QQGroup,QQ
 MemberOfWeChatGroup,WeChat,WeChatGroup
 MobileNumLoginWeChat,MobileNum,WeChat
 PhasQQ,Person,QQ,True
+Friend,Person,Person
 QQFriend,QQ,QQ
 RegisterPlace,Company,Company
 Remark,MobileNum,MobileNum

@@ -592,5 +592,7 @@ PhasVehicleCard:
   - 车牌
 PhasVehicle:
   - 汽车
+Ambiguous:
+  - 好友
 
 
