@@ -5,8 +5,8 @@
 @time: 2019-11-26
 @version: 0.0.1
 """
-from os import getcwd, makedirs
-from os.path import abspath, join, exists, pardir
+from os import getcwd
+from os.path import abspath, join, pardir
 
 
 class SystemInfo(object):

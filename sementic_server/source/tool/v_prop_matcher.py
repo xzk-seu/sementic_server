@@ -6,25 +6,10 @@
 @version: 0.0.1
 """
 
-import os
-from os.path import join, exists
-
-import yaml
+from os.path import join
 
 from sementic_server.source.aho_matcher.match import build_aho
-from sementic_server.source.tool.system_info import SystemInfo
-
-SI = SystemInfo()
-DATA_DIR = join(SI.base_path, "data")
-DATA_DIR = os.path.abspath(DATA_DIR)
-ONTO_DIR = join(DATA_DIR, "ontology")
-AHO_DIR = join(DATA_DIR, "aho")
-
-if not exists(AHO_DIR):
-    os.makedirs(AHO_DIR)
-
-with open(join(ONTO_DIR, 'v_property_list.yml'), 'r') as fr:
-    V_PROPERTY_LIST = yaml.load(fr, Loader=yaml.SafeLoader)
+from sementic_server.source.tool.global_value import ONTO_DIR, V_PROPERTY_LIST
 
 
 class VpMatcher(object):
@@ -43,7 +28,6 @@ class VpMatcher(object):
 
 
 if __name__ == '__main__':
-    # match()
     s = '烽火科技的网站是多少?'
     vm = VpMatcher()
     r = vm.match(s)

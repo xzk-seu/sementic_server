@@ -6,58 +6,23 @@
 @version: 0.0.1
 """
 
+import copy
+import itertools
+import json
+import os
 
 import networkx as nx
-import logging
-import os
-import itertools
-import pandas as pd
-import csv
-import json
-import copy
-import yaml
+
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
 from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
-from sementic_server.source.tool.system_info import SystemInfo
-from sementic_server.source.qa_graph.dep_map import DepMap
-
-DEFAULT_EDGE = dict()
-RELATION_DATA = dict()
-SI = SystemInfo()
-logger = logging.getLogger("server_log")
-
-
-def init_default_edge():
-    """
-    初始化默认边列表
-    :return:
-    """
-    global DEFAULT_EDGE
-    path = os.path.join(SI.base_path, 'data', 'ontology', 'default_relation.yml')
-    path = os.path.abspath(path)
-    with open(path, 'r', encoding='utf-8') as d_fr:
-        DEFAULT_EDGE = yaml.load(d_fr, Loader=yaml.SafeLoader)
-
-
-def init_relation_data():
-    """
-    将object_attribute.csv中的对象属性读取为一个关系字典
-    :return:
-    """
-    global RELATION_DATA
-    path = os.path.join(SI.base_path, 'data', 'ontology', 'object_attribute.yml')
-    with open(path, 'r', encoding='utf-8') as d_fr:
-        RELATION_DATA = yaml.load(d_fr, Loader=yaml.SafeLoader)
-
-
-init_default_edge()
-init_relation_data()
+from sementic_server.source.tool.global_value import logger, RELATION_DATA, DEFAULT_EDGE
 
 
 class QueryParser(object):
     """
     动态问答图语义解析模块
     """
+
     def __init__(self, query_data, dependency=None):
         logger.info('Query Graph Parsing...')
         self.error_info = None
@@ -163,7 +128,7 @@ class QueryParser(object):
         flag = False
         components_set = self.query_graph.get_connected_components_subgraph()
         for i in range(len(components_set)):
-            flag = self.add_default_edge_between_components(components_set, i, i+1)
+            flag = self.add_default_edge_between_components(components_set, i, i + 1)
             if flag:
                 break
         return flag
@@ -386,7 +351,7 @@ class QueryParser(object):
                     e = e_com.nodes[node]
                     if e['type'] == d_t or e['type'] == r_t:
                         count += 1
-            sim = count/len(self.entity)
+            sim = count / len(self.entity)
             sim_list.append(sim)
         max_sim = max(sim_list)
         m_index = sim_list.index(max_sim)
