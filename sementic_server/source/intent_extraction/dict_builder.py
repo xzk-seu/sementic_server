@@ -10,7 +10,7 @@ from os.path import join
 import yaml
 from pypinyin import lazy_pinyin
 from collections import Counter
-from sementic_server.source.intent_extraction.system_info import SystemInfo
+from sementic_server.source.tool.system_info import SystemInfo
 from sementic_server.source.intent_extraction.recognizer import cmp, cmp_to_key
 from sementic_server.source.intent_extraction.helper \
     import replace_items_in_sentence, power_set, replace_position_with_another_by_combination

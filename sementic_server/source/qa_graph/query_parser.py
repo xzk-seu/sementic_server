@@ -224,9 +224,23 @@ class QueryParser(object):
             logger.info('intention candidates is %s' % str(intention_candidates))
         return intention_candidates
 
+    def literal_intention(self):
+        """
+        确定是否由字面值上的意图
+        :return:
+        """
+        for k, v in self.query_graph.get_nodes_dict().items():
+            if v['label'] == 'literal':
+                t = dict(v).setdefault('entity', None)
+                if not t:
+                    self.add_intention_on_node(int(k))
+                    return True
+
     def determine_intention(self):
         """
         确定意图：
+        0.是否有空的值属性节点
+
         1. 意图识别模块通过关键词，获取意图类型；
         2. 根据依存分析模块，将句法依存树根节点附近的实体节点中作为候选意图节点，若上一步得到了意图类型，删去候选意图中的与意图类型冲突的节点；
         3. 在所有候选节点中，若有空节点（即没有字面值描述的节点），则将候选节点集合中的所有空节点作为新的候选节点集合；
@@ -234,6 +248,9 @@ class QueryParser(object):
         5. 在候选节点集合中，按照候选意图节点的入度与出度之差，对候选节点进行排序，选出入度与出度之差最大的节点；
         :return:
         """
+        if self.literal_intention():
+            return
+
         intention_candidates = self.get_intention_candidate()
         if self.error_info:
             return

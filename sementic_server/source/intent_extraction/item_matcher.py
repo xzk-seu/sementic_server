@@ -13,7 +13,7 @@ import yaml
 import logging
 from time import time
 from sementic_server.source.intent_extraction.recognizer import Recognizer
-from sementic_server.source.intent_extraction.system_info import SystemInfo
+from sementic_server.source.tool.system_info import SystemInfo
 from sementic_server.source.intent_extraction.dict_builder import build_wrong_table
 from sementic_server.source.intent_extraction.logger import construt_log, get_logger
 from sementic_server.source.intent_extraction.helper \

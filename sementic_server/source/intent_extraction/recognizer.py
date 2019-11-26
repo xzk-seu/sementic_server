@@ -8,7 +8,7 @@
 from sementic_server.source.intent_extraction.actree import Aho
 from functools import cmp_to_key
 from sementic_server.source.intent_extraction.logger import get_logger
-from sementic_server.source.intent_extraction.system_info import SystemInfo
+from sementic_server.source.tool.system_info import SystemInfo
 
 
 def build_vocab(vo_dict: dict):

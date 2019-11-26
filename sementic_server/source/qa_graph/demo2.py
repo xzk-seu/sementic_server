@@ -14,7 +14,7 @@ from pprint import pprint
 import yaml
 
 from sementic_server.source.intent_extraction.item_matcher import ItemMatcher
-from sementic_server.source.intent_extraction.system_info import SystemInfo
+from sementic_server.source.tool.system_info import SystemInfo
 from sementic_server.source.ner_task.account import Account
 from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
 from sementic_server.source.qa_graph.query_parser import QueryParser
@@ -55,6 +55,15 @@ def main():
     sentence = "QQ号13756478的好友有哪些？"
 
     # sentence = "张三的好友"
+
+    # sentence = "在东南大学上学的徐忠锴的舅舅"
+
+    """
+    根据称谓区分关系和称谓
+    
+    在东南大学上学的徐同学
+    在东南大学上学的徐忠锴的同学
+    """
 
     account_info = account.get_account_labels_info(sentence)
     intent = item_matcher.match(sentence, accounts_info=account_info)

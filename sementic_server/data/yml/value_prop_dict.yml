@@ -123,10 +123,6 @@ UUID:
   属性描述: 卡号码
 卡类型:
 - 值域: string
-  定义域: Card
-  属性名称: CARD_TYPE
-  属性描述: 卡类型
-- 值域: string
   定义域: MobileNumber
   属性名称: MOB_CARD_TYPE
   属性描述: 卡类型
@@ -155,10 +151,6 @@ UUID:
   属性名称: DEAL_AREA
   属性描述: 发牌地区
 唯一标识:
-- 值域: string
-  定义域: Card
-  属性名称: CARD_VALUE
-  属性描述: 唯一标识
 - 值域: string
   定义域: Company
   属性名称: COID
@@ -372,91 +364,6 @@ UUID:
   定义域: Person
   属性名称: OLD_NAME
   属性描述: 曾用名
-最后发现时间:
-- 值域: string
-  定义域: Addr
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: Alipay
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: Card
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: Company
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: DouYin
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: Email
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: FixedPhoneNumber
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: IMEI
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: IMSI
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: Idcard
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: JD
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: MAC
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: MicroBlog
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: MobileNumber
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: QQ
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: QQGroup
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: TaoBao
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: Vehicle
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: VehicleCard
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: WeChat
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
-- 值域: string
-  定义域: WeChatGroup
-  属性名称: LST_DATE_FS
-  属性描述: 最后发现时间
 服役状况:
 - 值域: string
   定义域: Person
@@ -701,88 +608,3 @@ UUID:
   定义域: Email
   属性名称: EMAIL_VALUE
   属性描述: 邮箱账号
-首次发现时间:
-- 值域: string
-  定义域: Addr
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: Alipay
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: Card
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: Company
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: DouYin
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: Email
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: FixedPhoneNumber
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: IMEI
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: IMSI
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: Idcard
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: JD
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: MAC
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: MicroBlog
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: MobileNumber
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: QQ
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: QQGroup
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: TaoBao
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: Vehicle
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: VehicleCard
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: WeChat
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
-- 值域: string
-  定义域: WeChatGroup
-  属性名称: FST_DATE_FS
-  属性描述: 首次发现时间
