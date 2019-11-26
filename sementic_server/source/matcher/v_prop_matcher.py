@@ -28,24 +28,23 @@ with open(join(ONTO_DIR, 'v_property_list.yml'), 'r') as fr:
 
 
 class VpMatcher(object):
-    def __init__(self, sentence):
-        self.sentence = sentence
+    def __init__(self):
         dict_path = join(ONTO_DIR, 'v_property_mentions.yml')
-        aho = build_aho(dict_path)  # load a dict from path
-        self.match_result = aho.query4type(sentence)
-        self.result = list()
-        for mr in self.match_result:
+        self.aho = build_aho(dict_path)  # load a dict from path
+
+    def match(self, sentence):
+        result = list()
+        match_result = self.aho.query4type(sentence)
+        for mr in match_result:
             info = V_PROPERTY_LIST[mr['type']]
             term = {**mr, **info}
-            self.result.append(term)
-
-    def get_result(self):
-        return self.result
+            result.append(term)
+        return result
 
 
 if __name__ == '__main__':
     # match()
     s = '烽火科技的网站是多少?'
-    vm = VpMatcher(s)
-    r = vm.get_result()
+    vm = VpMatcher()
+    r = vm.match(s)
     print(r)

@@ -118,7 +118,7 @@ class Recognizer(object):
         :param vocab:
         """
         si = SystemInfo()
-        self.behavior_logger = get_logger("Recognizer", si.log_path_behavior)
+        # self.behavior_logger = get_logger("Recognizer", si.log_path_behavior)
         self.w2tp, self.c2id, self.id2c = build_vocab(vocab)
         self.actree = Aho()
         for vls in vocab.values():
@@ -135,13 +135,13 @@ class Recognizer(object):
         """
         q2id = word2id(self.c2id, q)
         match_node = self.actree.match(q2id)
-        self.behavior_logger.info(f"AHO-MATCH-NODE: {match_node}")
+        # self.behavior_logger.info(f"AHO-MATCH-NODE: {match_node}")
 
         res_word_id = self.actree.parse(match_node)
-        self.behavior_logger.info(f"AHO-MATCH-WORD-ID: {res_word_id}")
+        # self.behavior_logger.info(f"AHO-MATCH-WORD-ID: {res_word_id}")
 
         res_words = [id2word(self.id2c, rwi) for rwi in res_word_id]
-        self.behavior_logger.info(f"AHO-MATCH-WORD: {res_words}")
+        # self.behavior_logger.info(f"AHO-MATCH-WORD: {res_words}")
 
         return res_words
 
@@ -178,7 +178,7 @@ class Recognizer(object):
                     "begin": t[0],
                     "end":  t[1] + 1
                 })
-        self.behavior_logger.info(f"RAW-MATCH-RES: {res}")
+        # self.behavior_logger.info(f"RAW-MATCH-RES: {res}")
 
         return res
 

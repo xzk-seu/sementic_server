@@ -6,27 +6,26 @@
 @version: 0.0.1
 """
 
-
-import os
 from pprint import pprint
-import json
-from sementic_server.source.qa_graph.query_parser import QueryParser
-from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
-from sementic_server.source.ner_task.account import Account
+
 from sementic_server.source.intent_extraction.item_matcher import ItemMatcher
+from sementic_server.source.ner_task.account import Account
+from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
 from sementic_server.source.qa_graph.query_interface import QueryInterface
-from sementic_server.source.dependency_parser.dependency_parser import DependencyParser
+from sementic_server.source.qa_graph.query_parser import QueryParser
+from sementic_server.source.matcher.v_prop_matcher import VpMatcher
 
 if __name__ == '__main__':
     semantic = SemanticSearch()
     item_matcher = ItemMatcher(True)
     account = Account()
+    vpmatch = VpMatcher()
     while True:
         sentence = input("please input:")
         account_info = account.get_account_labels_info(sentence)
         intent = item_matcher.match(sentence, accounts_info=account_info)
         result, _ = semantic.sentence_ner_entities(intent)
-        pprint(result)
+
         entity = result.get('entity') + result.get('accounts')
         relation = result.get('relation')
         intention = result.get('intent')
@@ -36,10 +35,10 @@ if __name__ == '__main__':
             continue
 
         data = dict(query=sentence, entity=entity, relation=relation, intent=intention, dependency=None)
+        data['value_props'] = vpmatch.match(sentence)
         print(entity)
         print(relation)
-        # p = os.path.join(os.getcwd(), 'test_case.json')
-        # json.dump(data, open(p, 'w'))
+
         qg = QueryParser(data, None)
 
         error_info = qg.error_info
@@ -48,13 +47,7 @@ if __name__ == '__main__':
             continue
         query_graph = qg.query_graph.get_data()
         qg.query_graph.show()
-        qi = QueryInterface(qg.query_graph, intent["query"])
-        query_interface = qi.get_query_data()
-        query_graph_result = {'query_graph': query_graph, 'query_interface': query_interface}
-        pprint(query_graph_result)
-
-
-
-
-
-
+        # qi = QueryInterface(qg.query_graph, intent["query"])
+        # query_interface = qi.get_query_data()
+        # query_graph_result = {'query_graph': query_graph, 'query_interface': query_interface}
+        # pprint(query_graph_result)

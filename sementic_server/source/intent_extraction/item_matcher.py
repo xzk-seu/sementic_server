@@ -37,8 +37,8 @@ class ItemMatcher(object):
         self.aho_correction = None  # 纠错AC
 
         si = SystemInfo()
-        self.correct_logger = get_logger("Correction", si.log_path_corr)
-        self.behavior_logger = get_logger("ItemMatcher", si.log_path_behavior)
+        # self.correct_logger = get_logger("Correction", si.log_path_corr)
+        # self.behavior_logger = get_logger("ItemMatcher", si.log_path_behavior)
 
         # 获得根目录的地址
         dir_data = join(si.base_path, "data")
@@ -64,7 +64,7 @@ class ItemMatcher(object):
                                              encoding="utf-8"), Loader=yaml.SafeLoader)
         except FileNotFoundError as e:
             server_logger.error(f"Cannot find the file in {dir_yml}, {e}")
-            self.behavior_logger.error(f"Cannot find the file in {dir_yml}, {e}")
+            # self.behavior_logger.error(f"Cannot find the file in {dir_yml}, {e}")
 
         all_kv_pair = self.relations.copy()
         all_kv_pair.update(self.ques_word)
@@ -106,7 +106,8 @@ class ItemMatcher(object):
             else:
                 self.aho_recognizer = self.__load_actree(dict_info=wrong_word, pkl_path=path_reg)
 
-    def __build_actree(self, dict_info, pkl_path):
+    @staticmethod
+    def __build_actree(dict_info, pkl_path):
         """
         创建Recognizer实例
         :param pkl_path:
@@ -118,7 +119,8 @@ class ItemMatcher(object):
             pickle.dump(reg, open(pkl_path, "wb"))
             server_logger.info(f"Building AC-Tree \"{pkl_path.split('/')[-1]}\", time used: {time() - start}")
         except Exception as e:
-            self.behavior_logger.error(f"Pickle dump can't work temporarily, path: {pkl_path}, error: {e}")
+            server_logger.error(f"Pickle dump can't work temporarily, path: {pkl_path}, error: {e}")
+            # self.behavior_logger.error(f"Pickle dump can't work temporarily, path: {pkl_path}, error: {e}")
 
         return reg
 
@@ -136,7 +138,8 @@ class ItemMatcher(object):
                 reg = pickle.load(f)
                 server_logger.info(f"Loading AC-Tree \"{pkl_path.split('/')[-1]}\", time used: {time() - start}")
         except Exception as e:
-            self.behavior_logger.error(f"Pickle load can't work temporarily, path: {pkl_path}, error: {e}")
+            server_logger.error(f"Pickle load can't work temporarily, path: {pkl_path}, error: {e}")
+            # self.behavior_logger.error(f"Pickle load can't work temporarily, path: {pkl_path}, error: {e}")
 
         if reg is None:
             reg = self.__build_actree(dict_info, pkl_path)
@@ -149,7 +152,8 @@ class ItemMatcher(object):
         :param ban_list: 应当屏蔽的位置
         :return:    纠错列表
         """
-        self.behavior_logger.info(f"BAN-LIST: {ban_list if ban_list is not None else 'none'}")
+        # self.behavior_logger.info(f"BAN-LIST: {ban_list if ban_list is not None else 'none'}")
+        server_logger.info(f"BAN-LIST: {ban_list if ban_list is not None else 'none'}")
 
         start_time = time()
         res_correction = {"correct_query": query, "correct": []}
@@ -167,9 +171,10 @@ class ItemMatcher(object):
 
         res_correction["correct_query"] = replace_items_in_sentence(query, record)
 
-        self.correct_logger.info(
+        # self.correct_logger.info(
+        #     f"{construt_log(raw_query=query, correct_info=res_correction, using_time=time()-start_time)}")
+        server_logger.info(
             f"{construt_log(raw_query=query, correct_info=res_correction, using_time=time()-start_time)}")
-
         server_logger.info(f"Correcting the query time used: {time()-start_time}")
         return res_correction
 
@@ -217,10 +222,12 @@ class ItemMatcher(object):
                 else:
                     res["intent"] = item["type"]
 
-        self.behavior_logger.info(
+        # self.behavior_logger.info(
+        #     f"INTENT-RESULT: "
+        #     f"{construt_log(raw_query=query, correct_info=res, using_time=time()-start_time)}\n")
+        server_logger.info(
             f"INTENT-RESULT: "
-            f"{construt_log(raw_query=query, correct_info=res, using_time=time()-start_time)}\n")
-
+            f"{construt_log(raw_query=query, correct_info=res, using_time=time() - start_time)}\n")
         return res
 
 
