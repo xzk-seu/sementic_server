@@ -42,8 +42,8 @@ if __name__ == '__main__':
         data = dict(query=sentence, entity=entity, relation=relation, intent=intention, dependency=None)
         print(entity)
         print(relation)
-        p = os.path.join(os.getcwd(), 'test_case.json')
-        json.dump(data, open(p, 'w'))
+        # p = os.path.join(os.getcwd(), 'test_case.json')
+        # json.dump(data, open(p, 'w'))
         qg = QueryParser(data, None)
 
         error_info = qg.error_info

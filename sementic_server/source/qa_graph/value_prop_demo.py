@@ -71,8 +71,8 @@ def main():
     data['value_props'] = get_value_props(sentence)
     print(entity)
     print(relation)
-    p = os.path.join(os.getcwd(), 'test_case.json')
-    json.dump(data, open(p, 'w'))
+    # p = os.path.join(os.getcwd(), 'test_case.json')
+    # json.dump(data, open(p, 'w'))
     qg = QueryParser(data, None)
 
     error_info = qg.error_info

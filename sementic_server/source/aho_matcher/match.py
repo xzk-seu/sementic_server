@@ -6,8 +6,10 @@ import pickle
 import yaml
 
 from sementic_server.source.aho_matcher.recognizer import Recognizer
+from sementic_server.source.tool.system_info import SystemInfo
 
-DATA_DIR = join(os.getcwd(), os.pardir, os.pardir, "data")
+SI = SystemInfo()
+DATA_DIR = join(SI.base_path, "data")
 DATA_DIR = os.path.abspath(DATA_DIR)
 DICT_DIR = join(DATA_DIR, "yml")
 AHO_DIR = join(DATA_DIR, "aho")

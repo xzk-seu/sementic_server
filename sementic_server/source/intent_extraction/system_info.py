@@ -20,8 +20,8 @@ class SystemInfo(object):
         """
         初始化
         """
-        rootpath = str(getcwd()).replace("\\", "/")
-        if 'source' in rootpath.split('/'):
+        root_path = str(getcwd()).replace("\\", "/")
+        if 'source' in root_path.split('/'):
             self.base_path = join(pardir, pardir)
         else:
             self.base_path = join(getcwd(), 'sementic_server')

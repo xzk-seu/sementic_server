@@ -52,9 +52,9 @@ def main():
 
     # sentence = input("please input:")
 
-    # sentence = "QQ为13756478的好友有哪些？"
+    sentence = "QQ号13756478的好友有哪些？"
 
-    sentence = "张三的好友"
+    # sentence = "张三的好友"
 
     account_info = account.get_account_labels_info(sentence)
     intent = item_matcher.match(sentence, accounts_info=account_info)
@@ -73,16 +73,20 @@ def main():
     data['value_props'] = get_value_props(sentence)
     print(entity)
     print(relation)
-    p = os.path.join(os.getcwd(), 'test_case.json')
-    json.dump(data, open(p, 'w'))
+
     qg = QueryParser(data, None)
 
     error_info = qg.error_info
     if error_info:
         print(error_info)
         # continue
-    query_graph = qg.query_graph.get_data()
+    # query_graph = qg.query_graph.get_data()
     qg.query_graph.show()
+
+    t = qg.query_graph.get_edges_dict()
+    print(t)
+    t = qg.query_graph.get_nodes_dict()
+    print(t)
 
     # qi = QueryInterface(qg.query_graph, intent["query"])
     # query_interface = qi.get_query_data()

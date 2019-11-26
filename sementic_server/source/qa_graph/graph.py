@@ -125,6 +125,30 @@ class Graph(nx.MultiDiGraph):
         data = nx.node_link_data(temp_graph)
         return data
 
+    def get_nodes_dict(self):
+        """
+        返回节点字典
+        :return:
+        """
+        r_dict = dict()
+        for n in self.nodes:
+            data = self.nodes[n]
+            r_dict[str(n)] = data
+        return r_dict
+
+    def get_edges_dict(self):
+        """
+        返回边字典
+        :return:
+        """
+        r_dict = dict()
+        for n, e in enumerate(self.edges):
+            data = self.get_edge_data(e[0], e[1], e[2])
+            data['from'] = e[0]
+            data['to'] = e[1]
+            r_dict[str(n)] = data
+        return r_dict
+
     def show(self):
         """将图显示至屏幕"""
         if not self:

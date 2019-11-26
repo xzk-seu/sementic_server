@@ -17,10 +17,12 @@ import json
 import copy
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
 from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
+from sementic_server.source.tool.system_info import SystemInfo
 from sementic_server.source.qa_graph.dep_map import DepMap
 
 DEFAULT_EDGE = dict()
 RELATION_DATA = dict()
+SI = SystemInfo()
 logger = logging.getLogger("server_log")
 
 
@@ -29,10 +31,7 @@ def init_default_edge():
     初始化默认边列表
     :return:
     """
-    if os.path.basename(os.getcwd()) == 'qa_graph':
-        path = os.path.join(os.getcwd(), os.path.pardir, os.path.pardir, 'data', 'ontology', 'default_relation.csv')
-    else:
-        path = os.path.join(os.getcwd(), 'sementic_server', 'data', 'ontology', 'default_relation.csv')
+    path = os.path.join(SI.base_path, 'data', 'ontology', 'default_relation.csv')
     path = os.path.abspath(path)
     with open(path, 'r', encoding='utf-8') as csv_file:
         csv_file.readline()
@@ -47,11 +46,7 @@ def init_relation_data():
     :return:
     """
     global RELATION_DATA
-    if os.path.basename(os.getcwd()) == 'qa_graph':
-        relation_path = os.path.join(os.getcwd(), os.path.pardir, os.path.pardir,
-                                     'data', 'ontology', 'object_attribute.csv')
-    else:
-        relation_path = os.path.join(os.getcwd(), 'sementic_server', 'data', 'ontology', 'object_attribute.csv')
+    relation_path = os.path.join(SI.base_path, 'data', 'ontology', 'object_attribute.csv')
     df = pd.read_csv(relation_path)
     for i, row in df.iterrows():
         temp_dict = dict()
