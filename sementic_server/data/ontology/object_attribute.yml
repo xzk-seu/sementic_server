@@ -1,0 +1,244 @@
+Appear:
+  belong: true
+  domain: Person
+  range: Addr
+AuthorizedBy:
+  belong: false
+  domain: Company
+  range: Company
+Call:
+  belong: false
+  domain: MobileNum
+  range: MobileNum
+ChasAddr:
+  belong: true
+  domain: Company
+  range: Addr
+ChasQQ:
+  belong: true
+  domain: Company
+  range: QQ
+Colleague:
+  belong: false
+  domain: Person
+  range: Person
+CreateQQGroup:
+  belong: false
+  domain: QQ
+  range: QQGroup
+CreateWeChatGroup:
+  belong: false
+  domain: WeChat
+  range: WeChatGroup
+CreatorOfQQGroup:
+  belong: false
+  domain: QQGroup
+  range: QQ
+CreatorOfWeChatGroup:
+  belong: false
+  domain: WeChatGroup
+  range: WeChat
+DouYin_FansOf:
+  belong: false
+  domain: DouYin
+  range: DouYin
+Employ:
+  belong: false
+  domain: Company
+  range: Person
+Friend:
+  belong: false
+  domain: Person
+  range: Person
+Kindred:
+  belong: false
+  domain: Person
+  range: Person
+LegalPerson:
+  belong: false
+  domain: Company
+  range: Person
+Manager:
+  belong: false
+  domain: Company
+  range: Person
+MemberOfQQGroup:
+  belong: false
+  domain: QQGroup
+  range: QQ
+MemberOfWeChatGroup:
+  belong: false
+  domain: WeChat
+  range: WeChatGroup
+MobileNumLoginWeChat:
+  belong: false
+  domain: MobileNum
+  range: WeChat
+PersonToAddr:
+  belong: true
+  domain: Person
+  range: Addr
+PersonToCompany:
+  belong: false
+  domain: Person
+  range: Company
+PersonToDouYin:
+  belong: true
+  domain: Person
+  range: DouYin
+PersonToPerson:
+  belong: false
+  domain: Person
+  range: Person
+PhasAddr:
+  belong: true
+  domain: Person
+  range: Addr
+PhasAlipay:
+  belong: true
+  domain: Person
+  range: Alipay
+PhasBankCard:
+  belong: true
+  domain: Person
+  range: BankCard
+PhasBirthPlace:
+  belong: true
+  domain: Person
+  range: Addr
+PhasDouYin:
+  belong: true
+  domain: Person
+  range: DouYin
+PhasEmail:
+  belong: true
+  domain: Person
+  range: Email
+PhasFixedPhone:
+  belong: true
+  domain: Person
+  range: FixedPhone
+PhasIDCard_DL:
+  belong: true
+  domain: Person
+  range: IDCard_DL
+PhasIDCard_TW:
+  belong: true
+  domain: Person
+  range: IDCard_TW
+PhasIMEI:
+  belong: true
+  domain: Person
+  range: IMEI
+PhasIMSI:
+  belong: true
+  domain: Person
+  range: IMSI
+PhasIdcard:
+  belong: true
+  domain: Person
+  range: Idcard
+PhasJD:
+  belong: true
+  domain: Person
+  range: JD
+PhasMAC:
+  belong: true
+  domain: Person
+  range: MAC
+PhasMicroBlog:
+  belong: true
+  domain: Person
+  range: MicroBlog
+PhasMobileNum:
+  belong: true
+  domain: Person
+  range: MobileNum
+PhasOrgPlace:
+  belong: true
+  domain: Person
+  range: Addr
+PhasPlateNum:
+  belong: true
+  domain: Person
+  range: PlateNum
+PhasQQ:
+  belong: true
+  domain: Person
+  range: QQ
+PhasSSC:
+  belong: true
+  domain: Person
+  range: SSC
+PhasTaoBao:
+  belong: true
+  domain: Person
+  range: TaoBao
+PhasVehicle:
+  belong: true
+  domain: Person
+  range: Vehicle
+PhasWeChat:
+  belong: true
+  domain: Person
+  range: WeChat
+QQFriend:
+  belong: false
+  domain: QQ
+  range: QQ
+RegisterPlace:
+  belong: false
+  domain: Company
+  range: Company
+Remark:
+  belong: false
+  domain: MobileNum
+  range: MobileNum
+Reside:
+  belong: true
+  domain: Person
+  range: Addr
+SameCase:
+  belong: false
+  domain: Person
+  range: Person
+SameInternetBar:
+  belong: false
+  domain: Person
+  range: Person
+SamePrison:
+  belong: false
+  domain: Person
+  range: Person
+SameRoom:
+  belong: false
+  domain: Person
+  range: Person
+SameTown:
+  belong: false
+  domain: Person
+  range: Person
+SameTrip:
+  belong: false
+  domain: Person
+  range: Person
+SchoolMate:
+  belong: false
+  domain: Person
+  range: Person
+SendMessageTo:
+  belong: false
+  domain: MobileNum
+  range: MobileNum
+WeChatFriend:
+  belong: false
+  domain: WeChat
+  range: WeChat
+WorkAt:
+  belong: true
+  domain: Person
+  range: Addr
+WorkFor:
+  belong: false
+  domain: Person
+  range: Company

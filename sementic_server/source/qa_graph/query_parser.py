@@ -15,6 +15,7 @@ import pandas as pd
 import csv
 import json
 import copy
+import yaml
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
 from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
 from sementic_server.source.tool.system_info import SystemInfo
@@ -31,13 +32,11 @@ def init_default_edge():
     初始化默认边列表
     :return:
     """
-    path = os.path.join(SI.base_path, 'data', 'ontology', 'default_relation.csv')
+    global DEFAULT_EDGE
+    path = os.path.join(SI.base_path, 'data', 'ontology', 'default_relation.yml')
     path = os.path.abspath(path)
-    with open(path, 'r', encoding='utf-8') as csv_file:
-        csv_file.readline()
-        csv_reader = csv.reader(csv_file)
-        for line in csv_reader:
-            DEFAULT_EDGE[line[0]] = {'domain': line[1], 'range': line[2], 'value': line[3]}
+    with open(path, 'r', encoding='utf-8') as d_fr:
+        DEFAULT_EDGE = yaml.load(d_fr, Loader=yaml.SafeLoader)
 
 
 def init_relation_data():
@@ -46,16 +45,9 @@ def init_relation_data():
     :return:
     """
     global RELATION_DATA
-    relation_path = os.path.join(SI.base_path, 'data', 'ontology', 'object_attribute.csv')
-    df = pd.read_csv(relation_path)
-    for i, row in df.iterrows():
-        temp_dict = dict()
-        temp_dict['domain'] = row['domain']
-        temp_dict['range'] = row['range']
-        if not isinstance(row['belong'], bool):
-            row['belong'] = False
-        temp_dict['belong'] = row['belong']
-        RELATION_DATA[row['property']] = temp_dict
+    path = os.path.join(SI.base_path, 'data', 'ontology', 'object_attribute.yml')
+    with open(path, 'r', encoding='utf-8') as d_fr:
+        RELATION_DATA = yaml.load(d_fr, Loader=yaml.SafeLoader)
 
 
 init_default_edge()
@@ -70,18 +62,18 @@ class QueryParser(object):
         logger.info('Query Graph Parsing...')
         self.error_info = None
 
-        # print('Query Graph Parsing...')
         self.relation = query_data.setdefault('relation', list())
         self.entity = query_data.setdefault('entity', list())
         self.value_prop = query_data.setdefault('value_props', list())
-        self.pre_process()
+
+        self.pre_process()  # 若问句中存在账号类实体，过滤对应账号类关系
 
         self.intent = query_data['intent']
         self.dependency = dependency
         self.relation_component_list = list()
         self.entity_component_list = list()
-        # 获取实体和关系对应的子图组件
 
+        # 获取实体和关系对应的子图组件
         self.init_entity_component()
         self.init_value_prop_component()
         self.init_relation_component()
