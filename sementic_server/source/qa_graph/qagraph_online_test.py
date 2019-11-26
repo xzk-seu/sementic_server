@@ -6,14 +6,11 @@
 @version: 0.0.1
 """
 
-from pprint import pprint
-
 from sementic_server.source.intent_extraction.item_matcher import ItemMatcher
 from sementic_server.source.ner_task.account import Account
 from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
-from sementic_server.source.qa_graph.query_interface import QueryInterface
 from sementic_server.source.qa_graph.query_parser import QueryParser
-from sementic_server.source.matcher.v_prop_matcher import VpMatcher
+from sementic_server.source.tool.v_prop_matcher import VpMatcher
 
 if __name__ == '__main__':
     semantic = SemanticSearch()
