@@ -6,10 +6,10 @@
 @version: 0.0.1
 """
 
-
-import os
 import json
 import logging
+import os
+
 from sementic_server.source.qa_graph.query_parser import QueryParser
 
 logger = logging.getLogger("server_log")
@@ -37,7 +37,3 @@ if __name__ == '__main__':
         qg.query_graph.export(output_path)
     except Exception as e:
         print(e)
-
-
-
-

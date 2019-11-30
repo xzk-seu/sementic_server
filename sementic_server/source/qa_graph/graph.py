@@ -6,17 +6,18 @@
 @version: 0.0.1
 """
 
-import networkx as nx
 import json
-import logging
 
-logger = logging.getLogger("server_log")
+import networkx as nx
+
+from sementic_server.source.tool.global_value import logger
 
 
 class Graph(nx.MultiDiGraph):
     """
     图基类实现
     """
+
     def __init__(self, graph=None, file_path=None):
         if file_path:
             try:
@@ -44,8 +45,8 @@ class Graph(nx.MultiDiGraph):
             # 没有字面值，且没有账号和地址
             # 考虑拓扑排序的终点
             account_list = ['QQ', 'MobileNum', 'FixedPhone', 'Idcard', 'Email', 'WeChat', 'QQGroup',
-                                  'WeChatGroup', 'Alipay', 'DouYin', 'JD', 'TaoBao', 'MicroBlog', 'UNLABEL',
-                                  'VehicleCard', 'IMEI', 'MAC', 'Addr']
+                            'WeChatGroup', 'Alipay', 'DouYin', 'JD', 'TaoBao', 'MicroBlog', 'UNLABEL',
+                            'VehicleCard', 'IMEI', 'MAC', 'Addr']
             if self.nodes[n]['label'] == 'literal' or self.nodes[n]['type'] in account_list:
                 return False
         return True
@@ -84,7 +85,7 @@ class Graph(nx.MultiDiGraph):
         """
         node_in = self.get_in_degree(node)
         node_out = self.get_out_degree(node)
-        return node_out-node_in
+        return node_out - node_in
 
     def get_outdiff(self, node1_node2):
         """
@@ -94,7 +95,7 @@ class Graph(nx.MultiDiGraph):
         node1, node2 = node1_node2
         t1 = self.get_out_index(node1)
         t2 = self.get_out_index(node2)
-        r = t1-t2
+        r = t1 - t2
         return r
 
     def node_type_statistic(self):
@@ -277,5 +278,3 @@ if __name__ == '__main__':
     g = Graph(test_graph)
     g.show()
     # g.export('text')
-
-

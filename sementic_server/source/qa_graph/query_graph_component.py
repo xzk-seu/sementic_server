@@ -6,19 +6,17 @@
 @version: 0.0.1
 """
 
-
-import logging
 import networkx as nx
+
 from sementic_server.source.qa_graph.graph import Graph
-
-
-logger = logging.getLogger("server_log")
+from sementic_server.source.tool.global_value import logger
 
 
 class QueryGraphComponent(Graph):
     """
     获取实体，生成相对应的子图组件
     """
+
     def __init__(self, entity, is_value_prop=False):
         logger.info('Getting Graph Component......')
 
@@ -114,4 +112,3 @@ if __name__ == '__main__':
     c0.show()
     c1 = QueryGraphComponent(e[1])
     c1.show()
-

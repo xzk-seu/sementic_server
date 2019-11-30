@@ -6,47 +6,18 @@
 @version: 0.0.1
 """
 
-from os.path import join
-
-import yaml
-
 from sementic_server.source.intent_extraction.item_matcher import ItemMatcher
 from sementic_server.source.ner_task.account import Account
 from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
 from sementic_server.source.qa_graph.query_parser import QueryParser
-from sementic_server.source.tool.system_info import SystemInfo
-
-VALUE_PROP = dict()
-
-
-def init_value_prop():
-    global VALUE_PROP
-    si = SystemInfo()
-    # 获得根目录的地址
-    dir_data = join(si.base_path, "data")
-    dir_yml = join(dir_data, "yml")
-    file_path = join(dir_yml, 'value_prop_dict.yml')
-    with open(file_path, 'r') as fr:
-        data = yaml.load(fr, Loader=yaml.SafeLoader)
-    VALUE_PROP = data
-
-
-init_value_prop()
-
-
-def get_value_props(sentence):
-    value_props = list()
-    for k in VALUE_PROP.keys():
-        if k in sentence:
-            value_props.extend(VALUE_PROP[k])
-    return value_props
+from sementic_server.source.tool.v_prop_matcher import VpMatcher
 
 
 def main():
     semantic = SemanticSearch()
     item_matcher = ItemMatcher(True)
     account = Account()
-
+    vp_matcher = VpMatcher()
     # sentence = input("please input:")
 
     sentence = "QQ号13756478的好友有哪些？"
@@ -76,7 +47,8 @@ def main():
         # continue
 
     data = dict(query=sentence, entity=entity, relation=relation, intent=intention, dependency=None)
-    data['value_props'] = get_value_props(sentence)
+
+    data['value_props'] = vp_matcher.match(sentence)
     print(entity)
     print(relation)
 
@@ -85,8 +57,6 @@ def main():
     error_info = qg.error_info
     if error_info:
         print(error_info)
-        # continue
-    # query_graph = qg.query_graph.get_data()
     qg.query_graph.show()
 
     t = qg.query_graph.get_edges_dict()
@@ -102,7 +72,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    # sentence = "烽火科技的工商注册号是多少？"
-    # for k in VALUE_PROP.keys():
-    #     if k in sentence:
-    #         print(VALUE_PROP[k])

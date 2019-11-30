@@ -6,12 +6,12 @@
 @version: 0.0.1
 """
 
-
-import os
 import json
+import os
 from pprint import pprint
-from sementic_server.source.qa_graph.query_parser import QueryParser
+
 from sementic_server.source.qa_graph.query_interface import QueryInterface
+from sementic_server.source.qa_graph.query_parser import QueryParser
 
 if __name__ == '__main__':
     case_num = 20

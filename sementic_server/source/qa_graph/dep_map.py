@@ -6,12 +6,13 @@
 @version: 0.0.1
 """
 
-import os
 import json
 import logging
-import networkx as nx
-from sementic_server.source.qa_graph.graph import Graph
+import os
 
+import networkx as nx
+
+from sementic_server.source.qa_graph.graph import Graph
 
 logger = logging.getLogger("server_log")
 
@@ -21,6 +22,7 @@ class DepMap(object):
     将依存分析结果映射到图上
     初始化的三个参数为依存信息、关系组件列表、实体组件列表
     """
+
     def __init__(self, dependency, r_components, e_components):
         logger.info('components assemble by dependency...')
         self.dependency = dependency
@@ -127,5 +129,3 @@ if __name__ == '__main__':
     # print(data)
     dep = data['dependency']
     print(dep)
-
-

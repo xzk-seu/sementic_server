@@ -6,12 +6,11 @@
 @version: 0.0.1
 """
 
-
-import os
 import json
-from sementic_server.source.qa_graph.query_parser import QueryParser
-from sementic_server.source.qa_graph.query_interface import QueryInterface
+import os
 
+from sementic_server.source.qa_graph.query_interface import QueryInterface
+from sementic_server.source.qa_graph.query_parser import QueryParser
 
 if __name__ == '__main__':
     case_num = 2
@@ -27,5 +26,3 @@ if __name__ == '__main__':
 
     qi = QueryInterface(qp.query_graph, data['query'])
     qd = qi.get_query_data()
-
-

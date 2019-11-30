@@ -6,14 +6,15 @@
 @version: 0.0.1
 """
 
-
-import os
 import json
 import logging
+import os
 from copy import deepcopy
+
 import networkx as nx
-from sementic_server.source.qa_graph.query_parser import QueryParser, RELATION_DATA
+
 from sementic_server.source.qa_graph.graph import Graph
+from sementic_server.source.qa_graph.query_parser import QueryParser, RELATION_DATA
 
 logger = logging.getLogger("server_log")
 
@@ -22,6 +23,7 @@ class QueryInterface(object):
     """
     实现从问答图到查询接口的转化
     """
+
     def __init__(self, graph, query):
         self.graph = nx.convert_node_labels_to_integers(graph)
         self.graph = Graph(self.graph)
@@ -185,7 +187,7 @@ class QueryInterface(object):
             n, m, k = edge
             if self.is_belong_property((n, m, k)):
                 continue
-            edge_id = i+1
+            edge_id = i + 1
             temp_dict = dict()
 
             temp_dict['id'] = 'relation%d' % edge_id
