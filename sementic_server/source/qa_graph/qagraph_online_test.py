@@ -6,19 +6,15 @@
 @version: 0.0.1
 """
 
-from sementic_server.source.intent_extraction.item_matcher import ItemMatcher
-from sementic_server.source.ner_task.account import Account
-from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
 from sementic_server.source.qa_graph.query_parser import QueryParser
-from sementic_server.source.tool.v_prop_matcher import VpMatcher
+from sementic_server.source.tool.global_object import semantic, account, vp_matcher, item_matcher
 
 if __name__ == '__main__':
-    semantic = SemanticSearch()
-    item_matcher = ItemMatcher(True)
-    account = Account()
-    vpmatch = VpMatcher()
     while True:
         sentence = input("please input:")
+        """
+        微信群10319046645有哪些成员
+        """
         account_info = account.get_account_labels_info(sentence)
         intent = item_matcher.match(sentence, accounts_info=account_info)
         result, _ = semantic.sentence_ner_entities(intent)
@@ -32,7 +28,7 @@ if __name__ == '__main__':
             continue
 
         data = dict(query=sentence, entity=entity, relation=relation, intent=intention, dependency=None)
-        data['value_props'] = vpmatch.match(sentence)
+        data['value_props'] = vp_matcher.match(sentence)
         print(entity)
         print(relation)
 

@@ -2,16 +2,15 @@ import os
 from os.path import join, exists
 
 import yaml
-import logging
 
 from sementic_server.source.tool.system_info import SystemInfo
 
 SI = SystemInfo()
-logger = logging.getLogger("server_log")
 
 DATA_DIR = join(SI.base_path, "data")
 DATA_DIR = os.path.abspath(DATA_DIR)
 ONTO_DIR = join(DATA_DIR, "ontology")
+YML_DIR = join(DATA_DIR, "yml")
 AHO_DIR = join(DATA_DIR, "aho")
 if not exists(AHO_DIR):
     os.makedirs(AHO_DIR)

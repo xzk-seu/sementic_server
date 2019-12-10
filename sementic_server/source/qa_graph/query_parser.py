@@ -15,7 +15,8 @@ import networkx as nx
 
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
 from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
-from sementic_server.source.tool.global_value import logger, RELATION_DATA, DEFAULT_EDGE
+from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE
+from sementic_server.source.tool.global_object import logger
 
 
 class QueryParser(object):
@@ -33,7 +34,7 @@ class QueryParser(object):
 
         self.pre_process()  # 若问句中存在账号类实体，过滤对应账号类关系
 
-        self.intent = query_data['intent']
+        self.intent = None
         self.dependency = dependency
         self.relation_component_list = list()
         self.entity_component_list = list()
@@ -328,7 +329,8 @@ class QueryParser(object):
                         'TAOBAO_VALUE': ['PhasTaoBao'],
                         'MICROBLOG_VALUE': ['PhasMicroBlog'],
                         'VEHCARD_VALUE': ['PhasVehicleCard'],
-                        'IDCARD_VALUE': ['PhasIdcard']}
+                        'IDCARD_VALUE': ['PhasIdcard'],
+                        'WX_GROUP_NUM': ['PhasWeChat']}
         for e in self.entity:
             if e['type'] in account_dict.keys():
                 for rel_name in account_dict[e['type']]:
@@ -339,7 +341,9 @@ class QueryParser(object):
                     #         self.relation.remove(rel)
 
     def ambiguity_resolution(self, rel):
-        reverse_dict = {'好友': ['QQFriend', 'Friend']}
+        reverse_dict = {'好友': ['QQFriend', 'Friend'],
+                        "成员": ['WeChatGroupMember', 'QQGroupMember'],
+                        "群成员": ['WeChatGroupMember', 'QQGroupMember']}
         ambiguity_list = reverse_dict[rel['value']]
         sim_list = list()
         for n, r in enumerate(ambiguity_list):
