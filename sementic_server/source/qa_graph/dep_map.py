@@ -20,7 +20,9 @@ class Token(object):
     def match_mention(self, mentions: list):
         for m in mentions:
             if max(m.begin, self.begin) <= min(m.end, self.end):
-                pass
+                self.mention_type = m.mention_type
+                self.small_type = m.small_type
+                return
 
 
 class DepMap(object):
@@ -28,6 +30,13 @@ class DepMap(object):
         for att_link in att_links:
             source = att_link['source']
             token = Token(source)
+            token.match_mention(mentions)
+            print(token.__dict__)
+
+            source = att_link['att']
+            token = Token(source)
+            token.match_mention(mentions)
+            print(token.__dict__)
 
 
 if __name__ == '__main__':
