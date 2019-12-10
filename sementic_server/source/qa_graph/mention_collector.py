@@ -13,6 +13,7 @@ class MentionCollector(object):
         self.entity = result.get('entity') + result.get('accounts')
         self.relation = result.get('relation')
         self.value_props = vp_matcher.match(sentence)
+        self.relation_filter()
 
         self.set_mentions(self.entity, 'entity')
         self.set_mentions(self.relation, 'relation')
@@ -36,9 +37,31 @@ class MentionCollector(object):
     def get_mentions(self):
         return self.mentions
 
+    def relation_filter(self):
+        """
+        对账号进行过滤，如果实体中出现QQ实体，则在关系中过滤ChasQQ关系
+        :return:
+        """
+        account_dict = {'QQ_NUM': ['ChasQQ', 'PhasQQ'],
+                        'MOB_NUM': ['PhasMobileNum', 'ChasMobileNum'],
+                        'EMAIL_VALUE': ['PhasEmail'],
+                        'WECHAT_VALUE': ['PhasWeChat'],
+                        'ALIPAY_VALUE': ['PhasAlipay'],
+                        'DOUYIN_VALUE': ['PhasDouYin'],
+                        'JD_VALUE': ['PhasJD'],
+                        'TAOBAO_VALUE': ['PhasTaoBao'],
+                        'MICROBLOG_VALUE': ['PhasMicroBlog'],
+                        'VEHCARD_VALUE': ['PhasVehicleCard'],
+                        'IDCARD_VALUE': ['PhasIdcard'],
+                        'WX_GROUP_NUM': ['PhasWeChat']}
+        for e in self.entity:
+            if e['type'] in account_dict.keys():
+                for rel_name in account_dict[e['type']]:
+                    new_relation = [x for x in self.relation if x['type'] != rel_name]
+                    self.relation = new_relation
+
 
 def main():
-
     sentence = "微信帐户DonDdon担任什么群的群主"
     m_collector = MentionCollector(sentence)
 
