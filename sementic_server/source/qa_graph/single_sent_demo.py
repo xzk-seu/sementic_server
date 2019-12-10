@@ -15,8 +15,11 @@ def main():
     通过：
     微信群10319046645有哪些成员
     张三的好友
+
+    意图不通过：
+    微信帐户DonDdon担任什么群的群主
     """
-    sentence = "微信帐户DonDdon担任什么群的群主"
+    sentence = "东南大学汪老师的学生张三"
 
     """
     根据称谓区分关系和称谓
@@ -33,17 +36,13 @@ def main():
 
     data = dict(query=sentence, entity=m_collector.entity,
                 relation=m_collector.relation, value_props=m_collector.value_props)
+    print(data)
     qg = QueryParser(data, None)
 
     error_info = qg.error_info
     if error_info:
         print(error_info)
     qg.query_graph.show()
-
-    t = qg.query_graph.get_edges_dict()
-    print(t)
-    t = qg.query_graph.get_nodes_dict()
-    print(t)
 
 
 if __name__ == '__main__':

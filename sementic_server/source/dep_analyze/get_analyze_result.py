@@ -1,6 +1,22 @@
-import requests
 import json
-from sementic_server.source.tool.global_value import logger
+
+import requests
+
+from sementic_server.source.tool.logger import logger
+
+
+def scope_cal(tokens):
+    """
+    为依存分析结果添加下标
+    :param tokens:
+    :return:
+    """
+    index = 0
+    for token in tokens:
+        token['begin'] = index
+        index = index + len(token['word'])
+        token['end'] = index - 1
+    return tokens
 
 
 class DepAnalyzer(object):
@@ -15,7 +31,8 @@ class DepAnalyzer(object):
             logger.error(str(e))
         if resp:
             temp = json.loads(resp.text)
-            return temp['data']
+            result = scope_cal(temp['data'])
+            return result
 
     def get_att_deps(self, sent):
         deps_list = list()
@@ -30,7 +47,7 @@ class DepAnalyzer(object):
 
 def demo_1():
     da = DepAnalyzer()
-    r = da.get_result("微信帐户DonDdon担任什么群的群主")
+    r = da.get_result("东南大学汪老师的学生张三")
     for i in r:
         print(i)
     print("======================")

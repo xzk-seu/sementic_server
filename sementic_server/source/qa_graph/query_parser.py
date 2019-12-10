@@ -16,7 +16,7 @@ import networkx as nx
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
 from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
 from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE
-from sementic_server.source.tool.global_object import logger
+from sementic_server.source.tool.logger import logger
 
 
 class QueryParser(object):
@@ -294,8 +294,6 @@ class QueryParser(object):
                 relation_component.nodes['temp_0']['type'] = RELATION_DATA[r['type']]['domain']
                 relation_component.nodes['temp_1']['type'] = RELATION_DATA[r['type']]['range']
                 self.relation_component_list.append(relation_component)
-
-
 
     def ambiguity_resolution(self, rel):
         reverse_dict = {'好友': ['QQFriend', 'Friend'],

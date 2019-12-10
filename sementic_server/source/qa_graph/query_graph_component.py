@@ -9,7 +9,7 @@
 import networkx as nx
 
 from sementic_server.source.qa_graph.graph import Graph
-from sementic_server.source.tool.global_object import logger
+from sementic_server.source.tool.logger import logger
 
 
 class QueryGraphComponent(Graph):
