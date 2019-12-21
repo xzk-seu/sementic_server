@@ -15,7 +15,8 @@ import networkx as nx
 
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
 from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
-from sementic_server.source.tool.global_value import logger, RELATION_DATA, DEFAULT_EDGE
+from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE
+from sementic_server.source.tool.logger import logger
 
 
 class QueryParser(object):
@@ -31,9 +32,7 @@ class QueryParser(object):
         self.entity = query_data.setdefault('entity', list())
         self.value_prop = query_data.setdefault('value_props', list())
 
-        self.pre_process()  # 若问句中存在账号类实体，过滤对应账号类关系
-
-        self.intent = query_data['intent']
+        self.intent = None
         self.dependency = dependency
         self.relation_component_list = list()
         self.entity_component_list = list()
@@ -42,14 +41,6 @@ class QueryParser(object):
         self.init_entity_component()
         self.init_value_prop_component()
         self.init_relation_component()
-
-        # 若有依存分析，根据依存分析来获取组件图
-        # if self.dependency and len(self.dependency) > 0:
-        #     logger.info('dependency exist.')
-        #     # print('dependency exist.')
-        #     dm = DepMap(self.dependency, self.relation_component_list, self.entity_component_list)
-        #     if dm.check_dep() and dm.dep_graph and nx.algorithms.is_weakly_connected(dm.dep_graph):
-        #         self.query_graph = dm.dep_graph
 
         self.query_graph = None
         # 得到子图组件构成的集合，用图表示
@@ -304,42 +295,10 @@ class QueryParser(object):
                 relation_component.nodes['temp_1']['type'] = RELATION_DATA[r['type']]['range']
                 self.relation_component_list.append(relation_component)
 
-    def pre_process(self):
-        """
-        对账号进行过滤，如果实体中出现QQ实体，则在关系中过滤ChasQQ关系
-        :return:
-        """
-        """
-        self.account = ['QQ_NUM', 'MOB_NUM', 'PHONE_NUM', 'IDCARD_VALUE', 'EMAIL_VALUE', 'WECHAT_VALUE', 'QQ_GROUP_NUM',
-                        'WX_GROUP_NUM', 'ALIPAY_VALUE', 'DOUYIN_VALUE', 'JD_VALUE', 'TAOBAO_VALUE', 'MICROBLOG_VALUE',
-                        'UNLABEL', 'VEHCARD_VALUE', 'IMEI_VALUE', 'MAC_VALUE']
-
-        self.p_has_account_list = ['QQ', 'MobileNum', 'FixedPhone', 'Idcard', 'Email', 'WeChat', 'QQGroup',
-                                   'WeChatGroup', 'Alipay', 'DouYin', 'JD', 'TaoBao', 'MicroBlog', 'UNLABEL',
-                                   'PlateNum', 'IMEI', 'MAC']
-        """
-        account_dict = {'QQ_NUM': ['ChasQQ', 'PhasQQ'],
-                        'MOB_NUM': ['PhasMobileNum', 'ChasMobileNum'],
-                        'EMAIL_VALUE': ['PhasEmail'],
-                        'WECHAT_VALUE': ['PhasWeChat'],
-                        'ALIPAY_VALUE': ['PhasAlipay'],
-                        'DOUYIN_VALUE': ['PhasDouYin'],
-                        'JD_VALUE': ['PhasJD'],
-                        'TAOBAO_VALUE': ['PhasTaoBao'],
-                        'MICROBLOG_VALUE': ['PhasMicroBlog'],
-                        'VEHCARD_VALUE': ['PhasVehicleCard'],
-                        'IDCARD_VALUE': ['PhasIdcard']}
-        for e in self.entity:
-            if e['type'] in account_dict.keys():
-                for rel_name in account_dict[e['type']]:
-                    new_relation = [x for x in self.relation if x['type'] != rel_name]
-                    self.relation = new_relation
-                    # for rel in self.relation:
-                    #     if rel['type'] == rel_name:
-                    #         self.relation.remove(rel)
-
     def ambiguity_resolution(self, rel):
-        reverse_dict = {'好友': ['QQFriend', 'Friend']}
+        reverse_dict = {'好友': ['QQFriend', 'Friend'],
+                        "成员": ['WeChatGroupMember', 'QQGroupMember'],
+                        "群成员": ['WeChatGroupMember', 'QQGroupMember']}
         ambiguity_list = reverse_dict[rel['value']]
         sim_list = list()
         for n, r in enumerate(ambiguity_list):

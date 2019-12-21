@@ -287,8 +287,8 @@ class Account(object):
     def get_candidate_label(self, raw_input, account):
         """
         判断账户是否有对应的账户标识符，如果有则返回
-        :param raw_input:
-        :param account:
+        :param raw_input: 原始字符串
+        :param account: 账号的值
         :param qq_group:
         :return:
         """

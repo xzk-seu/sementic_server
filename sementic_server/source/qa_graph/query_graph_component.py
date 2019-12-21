@@ -9,7 +9,7 @@
 import networkx as nx
 
 from sementic_server.source.qa_graph.graph import Graph
-from sementic_server.source.tool.global_value import logger
+from sementic_server.source.tool.logger import logger
 
 
 class QueryGraphComponent(Graph):
@@ -92,11 +92,11 @@ class QueryGraphComponent(Graph):
         index = self.account.index(t)
         edge_type = self.p_has_account_list[index]
 
-        self.add_edge('p', 'account', 'Phas%s' % edge_type)
+        # self.add_edge('p', 'account', 'Phas%s' % edge_type)
         self.add_edge('account', 'account_num', t)
 
-        self.nodes['p']['label'] = 'concept'
-        self.nodes['p']['type'] = 'Person'
+        # self.nodes['p']['label'] = 'concept'
+        # self.nodes['p']['type'] = 'Person'
 
         self.nodes['account']['label'] = 'concept'
         self.nodes['account']['type'] = edge_type

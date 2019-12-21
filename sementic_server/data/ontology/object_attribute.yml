@@ -242,3 +242,9 @@ WorkFor:
   belong: false
   domain: Person
   range: Company
+WeChatGroupMember:
+  domain: WeChatGroup
+  range: WeChat
+QQGroupMember:
+  domain: QQGroup
+  range: QQ

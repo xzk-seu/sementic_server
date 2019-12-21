@@ -6,16 +6,7 @@ import pickle
 import yaml
 
 from sementic_server.source.aho_matcher.recognizer import Recognizer
-from sementic_server.source.tool.system_info import SystemInfo
-
-SI = SystemInfo()
-DATA_DIR = join(SI.base_path, "data")
-DATA_DIR = os.path.abspath(DATA_DIR)
-DICT_DIR = join(DATA_DIR, "yml")
-AHO_DIR = join(DATA_DIR, "aho")
-
-if not exists(AHO_DIR):
-    os.makedirs(AHO_DIR)
+from sementic_server.source.tool.global_value import AHO_DIR, YML_DIR
 
 
 def load_aho(path, f_type='pkl'):
@@ -62,7 +53,7 @@ def save_aho(aho, path):
 
 
 def match():
-    dict_path = join(DICT_DIR, 'relation.yml')
+    dict_path = join(YML_DIR, 'relation.yml')
     aho_path = join(AHO_DIR, 'relation.pkl')
 
     # 示例1: 构建一个匹配器对象并保存
