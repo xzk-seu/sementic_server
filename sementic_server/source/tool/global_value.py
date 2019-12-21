@@ -16,7 +16,7 @@ AHO_DIR = join(DATA_DIR, "aho")
 if not exists(AHO_DIR):
     os.makedirs(AHO_DIR)
 
-with open(join(ONTO_DIR, 'v_property_list.yml'), 'r') as fr:
+with open(join(ONTO_DIR, 'v_property_list.yml'), 'r', encoding='utf-8') as fr:
     V_PROPERTY_LIST = yaml.load(fr, Loader=yaml.SafeLoader)
 
 

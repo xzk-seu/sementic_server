@@ -20,8 +20,8 @@ def main():
     vp_matcher = VpMatcher()
     # sentence = input("please input:")
 
-    sentence = "QQ号13756478的好友有哪些？"
-
+    # sentence = "QQ号13756478的好友有哪些？"
+    sentence = "张三的老婆是谁"
     # sentence = "张三的好友"
 
     # sentence = "在东南大学上学的徐忠锴的舅舅"

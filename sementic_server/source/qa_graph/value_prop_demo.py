@@ -22,8 +22,8 @@ def main():
     vp_matcher = VpMatcher()
     # sentence = input("please input:")
 
-    sentence = "烽火科技的网站是多少？"
-    # sentence = "张三的国籍？"
+    # sentence = "烽火科技的网站是多少？"
+    sentence = "南京市在烽火科技工作的张三的国籍？"
 
     account_info = account.get_account_labels_info(sentence)
     intent = item_matcher.match(sentence, accounts_info=account_info)
@@ -41,6 +41,12 @@ def main():
     data['value_props'] = vp_matcher.match(sentence)
     print(entity)
     print(relation)
+    print(data['value_props'])
+
+    d = dict(rels=relation, v_props=data['value_props'])
+    with open('test.json', 'w') as fw:
+        import json
+        json.dump(entity, fw)
 
     qg = QueryParser(data, None)
 
