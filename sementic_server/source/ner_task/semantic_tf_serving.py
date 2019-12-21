@@ -145,7 +145,6 @@ class SemanticSearch(object):
             if temp_label[0] == 'B':
                 if word:
                     add_entity(entities, word, label, w_begin)
-                    word = None
                 w_begin = i
                 label = self.entity_map_dic[temp_label[2:]]
                 word = sentence[i]
