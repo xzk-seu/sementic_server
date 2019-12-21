@@ -210,11 +210,14 @@ class SemanticSearch(object):
         entity, entities = self.get_ner_result(sentence)
 
         result_intent["entity"] = entity
+        """
         # 如果一个词被标识为命名实体，而该词又被检测为关系，那么从关系中将该词去除
         for index, rel in enumerate(result_intent["relation"]):
             for word, _ in entities:
                 if word.find(rel["value"]) != -1:
                     result_intent["relation"].pop(index)
+        
+        """
         # 如果识别的实体已经被识别为账户，那么其为账户的可能性更大，从实体列表里面去除该实体
         for index, entity in enumerate(result_intent["entity"]):
             for account in result_intent["accounts"]:
