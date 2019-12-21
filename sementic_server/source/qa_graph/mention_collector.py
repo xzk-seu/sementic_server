@@ -16,8 +16,6 @@ class MentionCollector(object):
     """
     三类mention：实体、关系、值属性
 
-    称谓和关系冲突的时候，根据前一个字判断是称谓还是关系
-    称谓无处可挂的时候，挂在最近的人上，或新建一个人
     """
 
     def __init__(self, sentence):
@@ -25,7 +23,9 @@ class MentionCollector(object):
         account_info = account.get_account_labels_info(sentence)
         intent = item_matcher.match(sentence, accounts_info=account_info)
         result, _ = semantic.sentence_ner_entities(intent)
-        self.entity = result.get('entity') + result.get('accounts')
+        self.entity = result.get('entity')
+        self.entity_check()
+        self.entity.extend(result.get('accounts'))
         self.relation = result.get('relation')
         self.value_props = vp_matcher.match(sentence)
         self.scope_correction()
@@ -52,6 +52,27 @@ class MentionCollector(object):
         for e in self.value_props:
             e_len = len(e['value'])
             e['end'] = e['begin'] + e_len - 1
+
+    def entity_check(self):
+        """
+        检查当前实体是否与后续实体构成一个：
+        姓+名
+        姓+称谓
+        姓+名+称谓
+        :return:
+        """
+        state = 0
+        entity_stack = list()
+        for e in self.entity:
+            entity_stack.append(e)
+            if e['type'] == 'FIRSTNAME':
+                state = 1
+            elif e['type'] == 'LASTNAME':
+                pass
+            elif e['type'] == 'CHENWEI':
+                pass
+
+            print(e)
 
     def set_mentions(self, mentions, t_type):
         """
@@ -95,8 +116,28 @@ class MentionCollector(object):
                     self.relation = new_relation
 
 
+def check_entity_continuous(e1, e2):
+    """
+    判断两个实体是否连续
+    :param e1:
+    :param e2:
+    :return:
+    """
+    if e1['end'] == e2['begin'] - 1:
+        return True
+    else:
+        return False
+
+
+def merge_entity(entities):
+    """
+    合并一组实体
+    """
+    pass
+
+
 def main():
-    sentence = "东南大学汪老师的学生张三"
+    sentence = "东南大学汪鹏老师的学生张三"
     m_collector = MentionCollector(sentence)
 
     for m in m_collector.mentions:
