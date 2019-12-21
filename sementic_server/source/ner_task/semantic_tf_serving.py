@@ -137,41 +137,25 @@ class SemanticSearch(object):
         :param pred_label_result: 对该句子预测的标签
         :return: 返回识别的实体
         """
-        # print(sentence)
-        # print(pred_label_result)
-        word = ""
-        label = ""
-        pre_label = pred_label_result[0]
+        word = None
         entities = []
-        for i in range(len(sentence)):
-            temp_label = pred_label_result[i]
+        label = ""
+        w_begin = 0
+        for i, temp_label in enumerate(pred_label_result):
             if temp_label[0] == 'B':
-                if word != "":
-                    if "##" in word:
-                        word = word.replace('##', '')
-                    if pre_label is not label:
-                        entities.append([word, label1])
-                    pre_label = label
-                    word = ""
-                label1 = self.entity_map_dic[temp_label[2:]]
-                label = temp_label[2:]
+                if word:
+                    add_entity(entities, word, label, w_begin)
+                    word = None
+                w_begin = i
+                label = self.entity_map_dic[temp_label[2:]]
+                word = sentence[i]
+            elif temp_label[0] == 'I':
                 word += sentence[i]
-            elif temp_label[0] == 'I' and word != "":
-                word += sentence[i]
-            elif temp_label == 'O' and word != "":
-                if "##" in word:
-                    word = word.replace('##', '')
-                if pre_label is not label:
-                    entities.append([word, label1])
-                pre_label = label
-                word = ""
-                label = ""
-        if word != "":
-            if "##" in word:
-                word = word.replace('##', '')
-            if pre_label is not label:
-                entities.append([word, label1])
-        # print(entities)
+            elif temp_label == 'O' and word:
+                add_entity(entities, word, label, w_begin)
+                word = None
+        if word:
+            add_entity(entities, word, label, w_begin)
         return entities
 
     def get_ner_result(self, query):
@@ -189,12 +173,11 @@ class SemanticSearch(object):
         entities = self.__get_entities(sentence, pred_label_result)
 
         entity = []
-        for word, label in entities:
-            begin = query.find(word)
+        for word, label, begin in entities:
             if begin != -1 and word.isdigit() is False:
                 entity.append(
                     {"type": label, "value": word, "code": self.code[label], "begin": begin,
-                     "end": begin + len(word) + 1 if begin != -1 else -1})
+                     "end": begin + len(word) - 1 if begin != -1 else -1})
         return entity, entities
 
     def sentence_ner_entities(self, result_intent):
@@ -234,3 +217,10 @@ class SemanticSearch(object):
         else:
             unlabel_result = {"sentence": sentence, "unlabels": unlabels, "error": "账户类型不明确"}
         return result_intent, unlabel_result
+
+
+def add_entity(entities, word, label, w_begin):
+    if "##" in word:
+        word = word.replace('##', '')
+    entities.append([word, label, w_begin])
+
