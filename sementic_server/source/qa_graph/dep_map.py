@@ -10,6 +10,9 @@ from sementic_server.source.tool.global_object import dep_analyzer
 
 
 class Token(object):
+    """
+    依存分析中的一个词
+    """
     def __init__(self, t_dict):
         self.word = t_dict['word']
         self.begin = t_dict['begin']
@@ -26,6 +29,11 @@ class Token(object):
 
 
 class DepMap(object):
+    """
+    将mention和依存分析中的att_links进行匹配
+    多个token对应一个mention：长实体被依存切分
+    多个mention对应一个token：姓和名、称谓被切分
+    """
     def __init__(self, mentions, att_links):
         for att_link in att_links:
             source = att_link['source']
@@ -40,7 +48,7 @@ class DepMap(object):
 
 
 if __name__ == '__main__':
-    sentence = '东南大学汪老师的学生张三'
+    sentence = '东南大学汪同学的同学张李同学同学'
     m_collector = MentionCollector(sentence)
     ms = m_collector.get_mentions()
     for mt in m_collector.mentions:
