@@ -6,7 +6,7 @@
 @version: 0.0.1
 """
 from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
-from sementic_server.source.qa_graph.mention_collector import MentionCollector
+from sementic_server.source.tool.mention_collector import MentionCollector
 from sementic_server.source.tool.global_object import dep_analyzer
 
 

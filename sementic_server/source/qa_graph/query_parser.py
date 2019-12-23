@@ -12,9 +12,9 @@ import itertools
 import networkx as nx
 
 from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
-from sementic_server.source.qa_graph.dep_map import DepMap
+from sementic_server.source.dep_analyze.dep_map import DepMap
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
-from sementic_server.source.qa_graph.mention_collector import MentionCollector
+from sementic_server.source.tool.mention_collector import MentionCollector
 from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
 from sementic_server.source.tool.global_object import dep_analyzer
 from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE

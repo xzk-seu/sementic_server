@@ -3,6 +3,7 @@ import json
 import requests
 
 from sementic_server.source.tool.logger import logger
+from sementic_server.source.tool.global_value import DEP_URL
 
 
 def scope_cal(tokens):
@@ -36,7 +37,7 @@ class DepInfo(object):
 
 class DepAnalyzer(object):
     def __init__(self):
-        self.url = 'http://120.132.109.87:10088/jfycfx'
+        self.url = DEP_URL
 
     def get_result(self, sent):
         resp = None

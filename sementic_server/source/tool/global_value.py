@@ -4,6 +4,7 @@ from os.path import join, exists
 import yaml
 
 from sementic_server.source.tool.system_info import SystemInfo
+import json
 
 SI = SystemInfo()
 
@@ -14,6 +15,12 @@ YML_DIR = join(DATA_DIR, "yml")
 AHO_DIR = join(DATA_DIR, "aho")
 if not exists(AHO_DIR):
     os.makedirs(AHO_DIR)
+
+CONF_DIR = join(SI.base_path, "config")
+CONF_DIR = os.path.abspath(CONF_DIR)
+
+with open(join(CONF_DIR, 'model.config'), 'r', encoding='utf-8') as fr:
+    DEP_URL = json.load(fr)['dependence_url']
 
 with open(join(ONTO_DIR, 'v_property_list.yml'), 'r', encoding='utf-8') as fr:
     V_PROPERTY_LIST = yaml.load(fr, Loader=yaml.SafeLoader)
