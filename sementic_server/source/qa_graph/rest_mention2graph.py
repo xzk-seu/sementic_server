@@ -34,7 +34,9 @@ class RestMentionGraph(object):
             self.mention_graphs.append(mg)
 
     def get_mention_graph(self):
-        r = my_disjoint_union_all(self.mention_graphs)
+        r = Graph()
+        if len(self.mention_graphs) > 0:
+            r = my_disjoint_union_all(self.mention_graphs)
         return r
 
 

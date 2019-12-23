@@ -44,8 +44,13 @@ class DepGraph(Graph):
             if k in RELATION_DATA.keys():
                 self.nodes[n1]['type'] = RELATION_DATA[k]['domain']
                 self.nodes[n2]['type'] = RELATION_DATA[k]['range']
+                self.nodes[n1]['label'] = 'concept'
+                self.nodes[n2]['label'] = 'concept'
         for n in self.nodes:
-            temp_type = self.nodes[n]['content']['type']
+            temp_content = self.nodes[n].get('content')
+            if not temp_content:
+                continue
+            temp_type = temp_content['type']
             self.nodes[n]['type'] = get_node_type(temp_type)
 
     def get_rest_mentions(self):
@@ -89,7 +94,6 @@ class DepGraph(Graph):
             self.nodes[t2]['label'] = 'concept'
             self.nodes[t2]['value'] = self.mentions[t2].value
             self.nodes[t2]['content'] = self.mentions[t2].content
-            # TODO 添加默认边
         elif m1.mention_type == 'entity' and m2.mention_type == 'relation':
             self.add_edge(t1, t2, m2.small_type, **m2.content)
             self.nodes[t1]['label'] = 'concept'

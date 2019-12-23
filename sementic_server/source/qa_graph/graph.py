@@ -265,6 +265,8 @@ def my_disjoint_union(g, h):
     to the union graph.  If a graph attribute is present in both
     G and H the value from H is used.
     """
+    g = Graph(g)
+    h = Graph(h)
     r1 = nx.convert_node_labels_to_integers(g, ordering='increasing degree')
     r2 = nx.convert_node_labels_to_integers(h, first_label=len(r1), ordering='increasing degree')
     r = nx.union(r1, r2)

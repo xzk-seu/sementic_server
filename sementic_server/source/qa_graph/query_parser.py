@@ -13,7 +13,7 @@ import networkx as nx
 
 from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
 from sementic_server.source.dep_analyze.dep_map import DepMap
-from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
+from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union
 from sementic_server.source.tool.mention_collector import MentionCollector
 from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
 from sementic_server.source.tool.global_object import dep_analyzer
@@ -45,9 +45,17 @@ class QueryParser(object):
         self.entity_component_list = list()
 
         self.dep_graph = DepGraph(self.m_collector, self.dep_info)
-        self.dep_graph.show()  # TODO 待删除
-        self.dep_rest_mentions = self.dep_graph.get_rest_mentions()
-        self.rest_mention_graph = RestMentionGraph(self.dep_rest_mentions)
+        print("=============================dep_graph===========================")
+        self.dep_graph.show()
+        dep_rest_mentions = self.dep_graph.get_rest_mentions()
+        self.rest_mention_graph = RestMentionGraph(dep_rest_mentions).get_mention_graph()
+        print('==========================rest_mention_graph=========================')
+        self.rest_mention_graph.show()
+        print('==========================rest_mention_graph=end========================')
+        self.query_graph = my_disjoint_union(self.dep_graph, self.rest_mention_graph)
+        self.query_graph.show()
+
+        """
         # 获取实体和关系对应的子图组件
         self.init_entity_component()
         self.init_value_prop_component()
@@ -70,6 +78,8 @@ class QueryParser(object):
             self.old_query_graph = copy.deepcopy(self.query_graph)
             self.node_type_dict = self.query_graph.node_type_statistic()
             self.component_assemble()
+        """
+
         if not self.query_graph:
             self.error_info = '问句缺失必要实体'
             return
