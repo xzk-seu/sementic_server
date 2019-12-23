@@ -43,20 +43,16 @@ class QueryParser(object):
         self.entity_component_list = list()
 
         self.dep_graph = DepGraph(self.m_collector, self.dep_info)
-        print("=============================dep_graph===========================")
-        self.dep_graph.show()
+
         dep_rest_mentions = self.dep_graph.get_rest_mentions()
         self.rest_mention_graph = RestMentionGraph(dep_rest_mentions).get_mention_graph()
-        print('==========================rest_mention_graph=========================')
-        self.rest_mention_graph.show()
-        print('==========================rest_mention_graph=end========================')
+
         self.query_graph = my_disjoint_union(self.dep_graph, self.rest_mention_graph)
         self.ambiguity_links_process()
         self.query_graph.type_correct()
 
         self.node_type_dict = self.query_graph.node_type_statistic()
         self.component_assemble()
-        self.query_graph.show()
 
         """
         # 获取实体和关系对应的子图组件

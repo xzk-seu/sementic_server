@@ -31,9 +31,7 @@ class DepGraph(Graph):
         for t_pair in self.token_pairs:
             self.pair_process(t_pair)
         self.remove_inner_node()
-        self.show()
         self.type_correct()
-        self.show()
 
     def get_rest_mentions(self):
         m_id_list = [x.idx for x in self.mentions]

@@ -1,5 +1,6 @@
 from sementic_server.source.tool.global_object import semantic, account, vp_matcher, item_matcher, dep_analyzer
 from sementic_server.source.tool.logger import logger
+from itertools import combinations
 
 
 class Mention(object):
@@ -46,10 +47,14 @@ class MentionCollector(object):
         """
         判断一个mention是实体还是关系
         若实体和关系end相同，删除关系，如汪鹏老师和老师
+        若实体和关系end,begin相同，且实体类型为称谓，删除实体，如同学
         :return:
         """
         for e in self.entity:
-            self.relation = [x for x in self.relation if x['end'] != e['end']]
+            self.relation = [x for x in self.relation if x['end'] != e['end'] or x['begin'] == e['begin']]
+        for r in self.relation:
+            self.entity = [x for x in self.entity if x['end'] != r['end'] or x['begin'] != r['begin']
+                           or x['type'] != 'CHENWEI']
 
     def scope_correction(self):
         """

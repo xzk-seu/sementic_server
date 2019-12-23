@@ -17,24 +17,16 @@ def main():
     在东南大学上学的刘欢的舅舅
     微信群10319046645有哪些成员
     张三的好友
+    # 根据称谓区分关系和称谓
+    在东南大学上学的徐同学
+    在东南大学上学的徐忠锴的同学
 
     意图不通过：
     微信帐户DonDdon担任什么群的群主
     """
-    sentence = "张三的好友"
-
-    """
-    根据称谓区分关系和称谓
-    
-    在东南大学上学的徐同学
-    在东南大学上学的徐忠锴的同学
-    
-    QQ号13756478的好友有哪些？
-    微信群10319046645有哪些成员
-    # sentence = "在东南大学上学的徐忠锴的舅舅"
-    """
-
+    sentence = "QQ号13756478的好友有哪些"
     m_collector = MentionCollector(sentence)
+
     dep_info = dep_analyzer.get_dep_info(sentence)
     qg = QueryParser(m_collector, dep_info)
     error_info = qg.error_info

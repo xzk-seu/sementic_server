@@ -169,7 +169,7 @@ class SemanticSearch(object):
             return None
         if len(sentence) != len(pred_label_result):
             return None
-        entities = self.__get_entities(sentence, pred_label_result)
+        entities = self.__get_entities(query, pred_label_result)
 
         entity = []
         for word, label, begin in entities:
