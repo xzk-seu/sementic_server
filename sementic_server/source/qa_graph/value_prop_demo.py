@@ -20,9 +20,11 @@ def main():
     item_matcher = ItemMatcher(True)
     account = Account()
     vp_matcher = VpMatcher()
+    """
     # sentence = input("please input:")
 
     # sentence = "烽火科技的网站是多少？"
+        """
     sentence = "南京市在烽火科技工作的张三的国籍？"
 
     account_info = account.get_account_labels_info(sentence)
@@ -42,8 +44,9 @@ def main():
     print(entity)
     print(relation)
     print(data['value_props'])
-
-    d = dict(rels=relation, v_props=data['value_props'])
+    """
+    # d = dict(rels=relation, v_props=data['value_props'])
+    """
     with open('test.json', 'w') as fw:
         import json
         json.dump(entity, fw)

@@ -13,6 +13,7 @@ class Token(object):
     """
     依存分析中的一个词
     """
+
     def __init__(self, t_dict):
         self.word = t_dict['word']
         self.begin = t_dict['begin']
@@ -39,6 +40,7 @@ class DepMap(object):
     # 多个mention对应一个token：姓和名、称谓被切分（在mention_collector中已合并)
     update: 根据依存信息组织mention
     """
+
     def __init__(self, mentions, att_links):
         self.token_pairs = list()
         for att_link in att_links:

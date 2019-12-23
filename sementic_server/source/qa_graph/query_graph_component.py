@@ -95,8 +95,11 @@ class QueryGraphComponent(Graph):
         # self.add_edge('p', 'account', 'Phas%s' % edge_type)
         self.add_edge('account', 'account_num', t)
 
+        """
         # self.nodes['p']['label'] = 'concept'
         # self.nodes['p']['type'] = 'Person'
+
+        """
 
         self.nodes['account']['label'] = 'concept'
         self.nodes['account']['type'] = edge_type

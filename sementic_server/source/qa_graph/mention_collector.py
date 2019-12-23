@@ -1,6 +1,7 @@
 from sementic_server.source.tool.global_object import semantic, account, vp_matcher, item_matcher, dep_analyzer
 from sementic_server.source.tool.logger import logger
 
+
 class Mention(object):
     def __init__(self, m_dict):
         self.idx = m_dict['id']
