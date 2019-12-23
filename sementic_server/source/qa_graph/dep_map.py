@@ -48,7 +48,7 @@ class DepMap(object):
 
 
 if __name__ == '__main__':
-    sentence = '东南大学汪同学的同学张李同学同学'
+    sentence = '东南大学汪鹏老师的学生张三'
     m_collector = MentionCollector(sentence)
     ms = m_collector.get_mentions()
     for mt in m_collector.mentions:
