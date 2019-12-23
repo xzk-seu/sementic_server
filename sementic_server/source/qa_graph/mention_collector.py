@@ -7,6 +7,7 @@ class Mention(object):
         self.idx = m_dict['id']
         self.mention_type = m_dict['type']
         self.content = m_dict['content']
+        self.value = m_dict['content']['value']
         self.begin = m_dict['content']['begin']
         self.end = m_dict['content']['end']
         self.small_type = m_dict['content']['type']

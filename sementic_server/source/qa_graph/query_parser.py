@@ -17,6 +17,10 @@ from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
 from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
 from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE
 from sementic_server.source.tool.logger import logger
+from sementic_server.source.dep_analyze.get_analyze_result import DepAnalyzer, DepInfo
+from sementic_server.source.qa_graph.dep_map import DepMap
+from sementic_server.source.qa_graph.mention_collector import MentionCollector, Mention
+from sementic_server.source.tool.global_object import dep_analyzer
 
 
 class QueryParser(object):
@@ -24,18 +28,33 @@ class QueryParser(object):
     动态问答图语义解析模块
     """
 
-    def __init__(self, query_data, dependency=None):
+    def __init__(self, m_collector: MentionCollector, dep_info: DepInfo):
         logger.info('Query Graph Parsing...')
         self.error_info = None
 
+        self.m_collector = m_collector
+        self.mentions = m_collector.mentions
+
+        self.entity = m_collector.entity
+        self.relation = m_collector.relation
+        self.value_prop = m_collector.value_props
+
+        """
         self.relation = query_data.setdefault('relation', list())
         self.entity = query_data.setdefault('entity', list())
         self.value_prop = query_data.setdefault('value_props', list())
 
+        """
+
         self.intent = None
-        self.dependency = dependency
+        self.dep_info = dep_info
         self.relation_component_list = list()
         self.entity_component_list = list()
+
+        self.dep_map = DepMap(self.m_collector, self.dep_info)
+        tp = self.dep_map.token_pairs
+        for t in tp:
+            print(t)
 
         # 获取实体和关系对应的子图组件
         self.init_entity_component()
@@ -319,16 +338,15 @@ class QueryParser(object):
 
 
 if __name__ == '__main__':
-    q = '在东莞常平司马村珠江啤酒厂斜对面合租的15842062826的老婆'
-    case_num = 6
-    p = os.path.join(os.getcwd(), os.path.pardir, os.path.pardir, 'data', 'test_case', 'case%d.json' % case_num)
-    p = os.path.abspath(p)
+    """
+    # q = '在东莞常平司马村珠江啤酒厂斜对面合租的15842062826的老婆'
+    """
 
-    with open(p, 'r') as fr:
-        data = json.load(fr)
-    # print(data)
-    dp = data['dependency']
-    # print('dependency', d)
-
-    qg = QueryParser(data, data['dependency'])
+    sentence = '东南大学汪鹏老师的同学张三'
+    m_c = MentionCollector(sentence)
+    dep_i = dep_analyzer.get_dep_info(sentence)
+    qg = QueryParser(m_c, dep_i)
+    error_info = qg.error_info
+    if error_info:
+        print(error_info)
     qg.query_graph.show()

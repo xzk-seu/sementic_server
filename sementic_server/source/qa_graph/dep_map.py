@@ -1,5 +1,5 @@
 """
-@description: 依存信息映射为问答图
+@description: 用依存信息将mention关联
 @author: Xu Zhongkai
 @email: 1399350807@qq.com
 @time: 2019-12-10
@@ -7,6 +7,10 @@
 """
 from sementic_server.source.qa_graph.mention_collector import MentionCollector
 from sementic_server.source.tool.global_object import dep_analyzer
+from sementic_server.source.qa_graph.graph import Graph
+import networkx as nx
+from sementic_server.source.dep_analyze.get_analyze_result import DepAnalyzer, DepInfo
+from itertools import permutations
 
 
 class Token(object):
@@ -41,7 +45,9 @@ class DepMap(object):
     update: 根据依存信息组织mention
     """
 
-    def __init__(self, mentions, att_links):
+    def __init__(self, mention_collector: MentionCollector, dep_info: DepInfo):
+        mentions = mention_collector.get_mentions()
+        att_links = dep_info.get_att_deps()
         self.token_pairs = list()
         for att_link in att_links:
             source = att_link['source']
@@ -68,12 +74,13 @@ if __name__ == '__main__':
     print("===============mention==================")
     for mt in m_collector.mentions:
         print(mt)
-    dep_att = dep_analyzer.get_att_deps(sentence)
+    d_info = dep_analyzer.get_dep_info(sentence)
     print("=================dependency=========================")
-    for att in dep_att:
+    for att in d_info.get_att_deps():
         print(att)
-    print("=================dependency=========================")
-    em = DepMap(ms, dep_att)
+    print("=================dependency_map=========================")
+    em = DepMap(m_collector, d_info)
     tp = em.token_pairs
     for t in tp:
         print(t)
+

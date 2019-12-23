@@ -19,6 +19,21 @@ def scope_cal(tokens):
     return tokens
 
 
+class DepInfo(object):
+    def __init__(self, source_data):
+        self.source_data = source_data
+
+    def get_att_deps(self):
+        deps_list = list()
+        dep_result = self.source_data
+        for i in dep_result:
+            if i['tag'] == 'ATT':
+                fr = int(i['idx2']) - 1
+                temp = {'source': i, 'att': dep_result[fr]}
+                deps_list.append(temp)
+        return deps_list
+
+
 class DepAnalyzer(object):
     def __init__(self):
         self.url = 'http://120.132.109.87:10088/jfycfx'
@@ -33,6 +48,11 @@ class DepAnalyzer(object):
             temp = json.loads(resp.text)
             result = scope_cal(temp['data'])
             return result
+
+    def get_dep_info(self, sent):
+        dep_result = self.get_result(sent)
+        dep_info = DepInfo(dep_result)
+        return dep_info
 
     def get_att_deps(self, sent):
         deps_list = list()

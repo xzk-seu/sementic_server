@@ -8,6 +8,8 @@
 
 from sementic_server.source.qa_graph.mention_collector import MentionCollector
 from sementic_server.source.qa_graph.query_parser import QueryParser
+from sementic_server.source.dep_analyze.get_analyze_result import DepAnalyzer, DepInfo
+from sementic_server.source.tool.global_object import dep_analyzer
 
 
 def main():
@@ -33,12 +35,8 @@ def main():
     """
 
     m_collector = MentionCollector(sentence)
-
-    data = dict(query=sentence, entity=m_collector.entity,
-                relation=m_collector.relation, value_props=m_collector.value_props)
-    print(data)
-    qg = QueryParser(data, None)
-
+    dep_info = dep_analyzer.get_dep_info(sentence)
+    qg = QueryParser(m_collector, dep_info)
     error_info = qg.error_info
     if error_info:
         print(error_info)
