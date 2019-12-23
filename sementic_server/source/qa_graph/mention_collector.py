@@ -1,7 +1,6 @@
 from sementic_server.source.tool.global_object import semantic, account, vp_matcher, item_matcher, dep_analyzer
 from sementic_server.source.tool.logger import logger
 
-
 class Mention(object):
     def __init__(self, m_dict):
         self.idx = m_dict['id']
@@ -31,13 +30,23 @@ class MentionCollector(object):
         self.scope_correction()
         self.relation_filter()
 
+        # 判断一个mention是实体还是关系
+        self.relation_or_entity()
         self.set_mentions(self.entity, 'entity')
         self.set_mentions(self.relation, 'relation')
         self.set_mentions(self.value_props, 'value_props')
-        # TODO 判断一个mention是实体还是关系
 
         if len(result.get("entity") + result.get("accounts")) == 0:
             logger.error(sentence + "\t实体识别模块返回空值")
+
+    def relation_or_entity(self):
+        """
+        判断一个mention是实体还是关系
+        若实体和关系end相同，删除关系，如汪鹏老师和老师
+        :return:
+        """
+        for e in self.entity:
+            self.relation = [x for x in self.relation if x['end'] != e['end']]
 
     def scope_correction(self):
         """
