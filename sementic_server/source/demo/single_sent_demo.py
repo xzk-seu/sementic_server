@@ -14,13 +14,14 @@ from sementic_server.source.tool.mention_collector import MentionCollector
 def main():
     """
     通过：
+    在东南大学上学的刘欢的舅舅
     微信群10319046645有哪些成员
     张三的好友
 
     意图不通过：
     微信帐户DonDdon担任什么群的群主
     """
-    sentence = "在东南大学上学的刘欢的舅舅"
+    sentence = "微信群10319046645有哪些成员"
 
     """
     根据称谓区分关系和称谓

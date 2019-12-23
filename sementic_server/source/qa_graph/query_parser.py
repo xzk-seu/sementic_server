@@ -51,6 +51,11 @@ class QueryParser(object):
         self.rest_mention_graph.show()
         print('==========================rest_mention_graph=end========================')
         self.query_graph = my_disjoint_union(self.dep_graph, self.rest_mention_graph)
+        self.ambiguity_links_process()
+        self.query_graph.type_correct()
+
+        self.node_type_dict = self.query_graph.node_type_statistic()
+        self.component_assemble()
         self.query_graph.show()
 
         """
@@ -136,7 +141,7 @@ class QueryParser(object):
         """
         flag = False
         components_set = self.query_graph.get_connected_components_subgraph()
-        for i in range(len(components_set)):
+        for i in range(len(components_set)-1):
             flag = self.add_default_edge_between_components(components_set, i, i + 1)
             if flag:
                 break
@@ -269,69 +274,43 @@ class QueryParser(object):
                         nx.relabel_nodes(self.query_graph, mapping, copy=False)
                         break
 
-    def init_entity_component(self):
-        for e in self.entity:
-            component = QueryGraphComponent(e)
-            self.entity_component_list.append(nx.MultiDiGraph(component))
-
-    def init_value_prop_component(self):
-        for e in self.value_prop:
-            component = QueryGraphComponent(e, is_value_prop=True)
-            self.entity_component_list.append(nx.MultiDiGraph(component))
-
-    def company_trick(self):
+    def ambiguity_links_process(self):
         """
-        当同时出现法人，总经理、员工等关系时，抛弃“的公司”关系
+        将query_graph中的类型为ambiguity的边确定一个类型，更具整张图的节点类型
         :return:
         """
-        company_rels = ['LegalPerson', 'Employ', 'Manager', 'WorkFor']
-        flag = False
-        for rel in self.relation:
-            if rel['type'] in company_rels and rel['value'] != '的公司':
-                # 存在非'的公司'的关系
-                flag = True
-        if not flag:
-            return
-        for r in self.relation:
-            if r['value'] == '的公司':
-                self.relation.remove(r)
-                break
+        for n1, n2, k in self.query_graph.edges:
+            if k == 'Ambiguous':
+                rel_data = self.ambiguity_resolution(n1, n2)
+                d_type = rel_data['type']
+                self.query_graph.add_edge(n1, n2, d_type, **rel_data)
+                self.query_graph.remove_edge(n1, n2, k)
 
-    def init_relation_component(self):
-        self.company_trick()
-        for r in self.relation:
-            if r['type'] == 'Ambiguous':
-                r = self.ambiguity_resolution(r)
-
-            if r['type'] in RELATION_DATA.keys():
-                relation_component = nx.MultiDiGraph()
-                relation_component.add_edge('temp_0', 'temp_1', r['type'], **r)
-                for n in relation_component.nodes:
-                    relation_component.nodes[n]['label'] = 'concept'
-
-                self.relation_component_list.append(relation_component)
-
-    def ambiguity_resolution(self, rel):
+    def ambiguity_resolution(self, n1, n2):
+        """
+        将一条ambiguity的边确定一个类型，更具整张图的节点类型
+        :return:
+        """
+        rel_data = self.query_graph.get_edge_data(n1, n2, 'Ambiguous')
         reverse_dict = {'好友': ['QQFriend', 'Friend'],
                         "成员": ['WeChatGroupMember', 'QQGroupMember'],
                         "群成员": ['WeChatGroupMember', 'QQGroupMember']}
-        ambiguity_list = reverse_dict[rel['value']]
+        ambiguity_list = reverse_dict[rel_data['value']]
         sim_list = list()
         for n, r in enumerate(ambiguity_list):
             count = 0
             d_t = RELATION_DATA[r]['domain']
             r_t = RELATION_DATA[r]['range']
-            for e_com in self.entity_component_list:
-                for node in e_com.nodes:
-                    e = e_com.nodes[node]
-                    if e['type'] == d_t or e['type'] == r_t:
-                        count += 1
-            sim = count / len(self.entity)
+            for t_node in self.query_graph.nodes:
+                temp_type = self.query_graph.nodes[t_node]['type']
+                if temp_type == d_t or temp_type == r_t:
+                    count += 1
+            sim = count / len(self.query_graph.nodes)
             sim_list.append(sim)
         max_sim = max(sim_list)
         m_index = sim_list.index(max_sim)
-        rel['type'] = ambiguity_list[m_index]
-        return rel
+        rel_data['type'] = ambiguity_list[m_index]
+        return rel_data
 
 
 if __name__ == '__main__':

@@ -25,7 +25,8 @@ class MentionCollector(object):
         intent = item_matcher.match(sentence, accounts_info=account_info)
         result, _ = semantic.sentence_ner_entities(intent)
         self.entity = result.get('entity')
-        self.entity_check()
+        if len(self.entity) > 1:
+            self.entity_check()
         self.entity.extend(result.get('accounts'))
         self.relation = result.get('relation')
         self.value_props = vp_matcher.match(sentence)

@@ -11,6 +11,8 @@ import json
 import networkx as nx
 
 from sementic_server.source.tool.logger import logger
+from sementic_server.source.qa_graph.ent2node import get_node_type
+from sementic_server.source.tool.global_value import RELATION_DATA
 
 
 class Graph(nx.MultiDiGraph):
@@ -200,6 +202,24 @@ class Graph(nx.MultiDiGraph):
             else:
                 data = self.get_edge_data(e[0], e[1])
             logger.info('{0}\t{1}'.format(e, data))
+
+    def type_correct(self):
+        """
+        对节点和边的类型进行映射
+        :return:
+        """
+        for n1, n2, k in self.edges:
+            if k in RELATION_DATA.keys():
+                self.nodes[n1]['type'] = RELATION_DATA[k]['domain']
+                self.nodes[n2]['type'] = RELATION_DATA[k]['range']
+                self.nodes[n1]['label'] = 'concept'
+                self.nodes[n2]['label'] = 'concept'
+        for n in self.nodes:
+            temp_content = self.nodes[n].get('content')
+            if not temp_content:
+                continue
+            temp_type = temp_content['type']
+            self.nodes[n]['type'] = get_node_type(temp_type)
 
 
 def my_disjoint_union_all(graphs):
