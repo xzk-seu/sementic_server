@@ -209,11 +209,11 @@ class Graph(nx.MultiDiGraph):
         :return:
         """
         for n1, n2, k in self.edges:
+            self.nodes[n1]['label'] = 'concept'
+            self.nodes[n2]['label'] = 'concept'
             if k in RELATION_DATA.keys():
                 self.nodes[n1]['type'] = RELATION_DATA[k]['domain']
                 self.nodes[n2]['type'] = RELATION_DATA[k]['range']
-                self.nodes[n1]['label'] = 'concept'
-                self.nodes[n2]['label'] = 'concept'
         for n in self.nodes:
             temp_content = self.nodes[n].get('content')
             if not temp_content:

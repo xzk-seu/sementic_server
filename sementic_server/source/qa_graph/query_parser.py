@@ -302,7 +302,7 @@ class QueryParser(object):
             d_t = RELATION_DATA[r]['domain']
             r_t = RELATION_DATA[r]['range']
             for t_node in self.query_graph.nodes:
-                temp_type = self.query_graph.nodes[t_node]['type']
+                temp_type = self.query_graph.nodes[t_node].get('type')
                 if temp_type == d_t or temp_type == r_t:
                     count += 1
             sim = count / len(self.query_graph.nodes)
