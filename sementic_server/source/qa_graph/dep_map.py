@@ -5,12 +5,9 @@
 @time: 2019-12-10
 @version: 0.0.1
 """
+from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
 from sementic_server.source.qa_graph.mention_collector import MentionCollector
 from sementic_server.source.tool.global_object import dep_analyzer
-from sementic_server.source.qa_graph.graph import Graph
-import networkx as nx
-from sementic_server.source.dep_analyze.get_analyze_result import DepAnalyzer, DepInfo
-from itertools import permutations
 
 
 class Token(object):
@@ -83,4 +80,3 @@ if __name__ == '__main__':
     tp = em.token_pairs
     for t in tp:
         print(t)
-

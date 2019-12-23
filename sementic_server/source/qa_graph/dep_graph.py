@@ -5,13 +5,15 @@
 @time: 2019-12-23
 @version: 0.0.1
 """
+from itertools import permutations
+
+import networkx as nx
+
+from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
+from sementic_server.source.qa_graph.dep_map import DepMap
+from sementic_server.source.qa_graph.graph import Graph
 from sementic_server.source.qa_graph.mention_collector import MentionCollector
 from sementic_server.source.tool.global_object import dep_analyzer
-from sementic_server.source.qa_graph.graph import Graph
-import networkx as nx
-from sementic_server.source.dep_analyze.get_analyze_result import DepAnalyzer, DepInfo
-from itertools import permutations
-from sementic_server.source.qa_graph.dep_map import DepMap
 
 
 class DepGraph(Graph):
