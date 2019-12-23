@@ -19,9 +19,10 @@ from __future__ import division
 from __future__ import print_function
 
 import collections
-import unicodedata
+
 import six
 import tensorflow as tf
+import unicodedata
 
 
 def convert_to_unicode(text):

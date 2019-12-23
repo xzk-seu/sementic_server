@@ -6,18 +6,20 @@
 @version: 0.0.1
 """
 
-from os.path import join, exists
-from os import mkdir
-import pickle
-import yaml
 import logging
+import pickle
+from os import mkdir
+from os.path import join, exists
 from time import time
-from sementic_server.source.intent_extraction.recognizer import Recognizer
-from sementic_server.source.tool.system_info import SystemInfo
+
+import yaml
+
 from sementic_server.source.intent_extraction.dict_builder import build_wrong_table
-from sementic_server.source.intent_extraction.logger import construt_log, get_logger
 from sementic_server.source.intent_extraction.helper \
     import replace_items_in_sentence, resolve_list_confilct, update_account_in_sentence
+from sementic_server.source.intent_extraction.logger import construt_log
+from sementic_server.source.intent_extraction.recognizer import Recognizer
+from sementic_server.source.tool.system_info import SystemInfo
 
 server_logger = logging.getLogger("server_log")
 UNLABEL = 'UNLABEL'
@@ -55,13 +57,13 @@ class ItemMatcher(object):
             self.relations = yaml.load(open(join(dir_yml, "relation.yml"),
                                             encoding="utf-8"), Loader=yaml.SafeLoader)
             self.relation_code = yaml.load(open(join(dir_yml, "relation_code.yml"),
-                                            encoding="utf-8"), Loader=yaml.SafeLoader)
+                                                encoding="utf-8"), Loader=yaml.SafeLoader)
             self.ques_word = yaml.load(open(join(dir_yml, "quesword.yml"),
                                             encoding="utf-8"), Loader=yaml.SafeLoader)
             wrong_word = yaml.load(open(join(dir_yml, "wrong_table.yml"),
-                                            encoding="utf-8"), Loader=yaml.SafeLoader)
+                                        encoding="utf-8"), Loader=yaml.SafeLoader)
             validation = yaml.load(open(join(dir_yml, "intent_validation.yml"),
-                                             encoding="utf-8"), Loader=yaml.SafeLoader)
+                                        encoding="utf-8"), Loader=yaml.SafeLoader)
         except FileNotFoundError as e:
             server_logger.error(f"Cannot find the file in {dir_yml}, {e}")
             # self.behavior_logger.error(f"Cannot find the file in {dir_yml}, {e}")
@@ -78,7 +80,7 @@ class ItemMatcher(object):
         if not is_valid:
             build_wrong_table()
             wrong_word = yaml.load(open(join(dir_yml, "wrong_table.yml"),
-                                            encoding="utf-8"), Loader=yaml.SafeLoader)
+                                        encoding="utf-8"), Loader=yaml.SafeLoader)
             yaml.dump(
                 list(all_values),
                 open(join(dir_yml, "intent_validation.yml"), "w", encoding="utf-8"),
@@ -174,8 +176,8 @@ class ItemMatcher(object):
         # self.correct_logger.info(
         #     f"{construt_log(raw_query=query, correct_info=res_correction, using_time=time()-start_time)}")
         server_logger.info(
-            f"{construt_log(raw_query=query, correct_info=res_correction, using_time=time()-start_time)}")
-        server_logger.info(f"Correcting the query time used: {time()-start_time}")
+            f"{construt_log(raw_query=query, correct_info=res_correction, using_time=time() - start_time)}")
+        server_logger.info(f"Correcting the query time used: {time() - start_time}")
         return res_correction
 
     def match(self, query: str, need_correct=True, accounts_info=None):

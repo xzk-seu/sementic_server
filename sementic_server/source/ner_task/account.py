@@ -8,9 +8,10 @@
 @version: 0.1.1
 """
 import re
+from pprint import pprint
+
 import yaml
 
-from pprint import pprint
 from sementic_server.source.ner_task.entity_code import EntityCode
 from sementic_server.source.ner_task.system_info import SystemInfo
 

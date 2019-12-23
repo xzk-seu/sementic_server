@@ -6,22 +6,25 @@
 @version: 0.0.1
 """
 
+import logging
+from collections import Counter
 from os.path import join
+
 import yaml
 from pypinyin import lazy_pinyin
-from collections import Counter
-from sementic_server.source.tool.system_info import SystemInfo
-from sementic_server.source.intent_extraction.recognizer import cmp, cmp_to_key
+
 from sementic_server.source.intent_extraction.helper \
     import replace_items_in_sentence, power_set, replace_position_with_another_by_combination
-import logging
+from sementic_server.source.intent_extraction.recognizer import cmp, cmp_to_key
+from sementic_server.source.tool.system_info import SystemInfo
+
 logger = logging.getLogger("server_log")
 
 PINYIN_CAUTION = {
     "en": "eng",
     "in": "ing",
     "on": "ong",
-    }
+}
 
 
 def find_the_key_and_add_to_candidate(word, key, value, pos_list: list):

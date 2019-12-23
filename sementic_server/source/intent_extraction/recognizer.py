@@ -5,9 +5,9 @@
 @time: 2019-05-29
 @version: 0.0.1
 """
-from sementic_server.source.intent_extraction.actree import Aho
 from functools import cmp_to_key
-from sementic_server.source.intent_extraction.logger import get_logger
+
+from sementic_server.source.intent_extraction.actree import Aho
 from sementic_server.source.tool.system_info import SystemInfo
 
 
@@ -30,8 +30,8 @@ def build_vocab(vo_dict: dict):
                     char_pool.add(vii)
 
     char_pool = list(char_pool)
-    char2id = {c: i+1 for i, c in enumerate(char_pool)}
-    id2char = {i+1: c for i, c in enumerate(char_pool)}
+    char2id = {c: i + 1 for i, c in enumerate(char_pool)}
+    id2char = {i + 1: c for i, c in enumerate(char_pool)}
 
     return word2type, char2id, id2char
 
@@ -112,6 +112,7 @@ class Recognizer(object):
     @time: 2019-05-29
     @version: 0.0.1
     """
+
     def __init__(self, vocab: dict):
         """
         利用词典建树
@@ -161,9 +162,9 @@ class Recognizer(object):
 
         words_info = sorted(words_info, key=cmp_to_key(cmp))
         # 是否有重叠的关键词
-        last_end = -1   # 记录上一个关键词结束的位置
+        last_end = -1  # 记录上一个关键词结束的位置
         for i, t in enumerate(words_info):
-            if t[0] <= last_end:     # 如果本关键词开始的位置位于上个关键词内，则跳过此关键词
+            if t[0] <= last_end:  # 如果本关键词开始的位置位于上个关键词内，则跳过此关键词
                 continue
             ok = True
             for j in range(i - 1, -1, -1):
@@ -176,13 +177,8 @@ class Recognizer(object):
                     "type": self.w2tp.get(t[2], "NIL"),
                     "value": t[2],
                     "begin": t[0],
-                    "end":  t[1] + 1
+                    "end": t[1] + 1
                 })
         # self.behavior_logger.info(f"RAW-MATCH-RES: {res}")
 
         return res
-
-
-
-
-

@@ -6,8 +6,8 @@
 @version: 0.0.1
 """
 
-import os
 import json
+import os
 
 
 class SystemInfo(object):

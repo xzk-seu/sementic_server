@@ -1,8 +1,7 @@
-import os
-from os.path import join, exists
-
 import json
 import pickle
+from os.path import join, exists
+
 import yaml
 
 from sementic_server.source.aho_matcher.recognizer import Recognizer

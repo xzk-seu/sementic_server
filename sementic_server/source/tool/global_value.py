@@ -1,10 +1,10 @@
+import json
 import os
 from os.path import join, exists
 
 import yaml
 
 from sementic_server.source.tool.system_info import SystemInfo
-import json
 
 SI = SystemInfo()
 

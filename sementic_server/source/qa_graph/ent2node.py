@@ -33,5 +33,3 @@ def get_node_type(entity_type):
     else:
         logger.info('Unknown type: %s' % entity_type)
         return None
-
-

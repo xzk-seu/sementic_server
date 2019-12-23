@@ -6,10 +6,11 @@
 @version: 0.0.1
 """
 
-import os
 import codecs
-import pickle
 import collections
+import os
+import pickle
+
 import tensorflow as tf
 
 from sementic_server.source.ner_task.bert import tokenization

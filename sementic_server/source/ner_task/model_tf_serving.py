@@ -5,13 +5,13 @@
 @time: 2019-06-29
 @version: 0.0.1
 """
-import os
-import grpc
 import logging
+import os
 import pickle
+
+import grpc
 import numpy as np
 import tensorflow as tf
-
 from tensorflow_serving.apis import predict_pb2
 from tensorflow_serving.apis import prediction_service_pb2_grpc
 
@@ -185,4 +185,3 @@ class ModelServing(object):
             pred_label_result = convert_id_to_label(pred_ids_result, self.id2label)
 
             return sentence, pred_label_result
-

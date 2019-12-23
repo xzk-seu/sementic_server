@@ -6,8 +6,8 @@
 @version: 0.0.1
 """
 
-from sementic_server.source.tool.mention_collector import MentionCollector
 from sementic_server.source.qa_graph.query_parser import QueryParser
+from sementic_server.source.tool.mention_collector import MentionCollector
 
 if __name__ == '__main__':
     while True:

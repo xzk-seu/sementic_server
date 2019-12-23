@@ -6,8 +6,9 @@
 @version: 0.0.1
 """
 
-import yaml
 import os
+
+import yaml
 
 
 class EntityCode(object):

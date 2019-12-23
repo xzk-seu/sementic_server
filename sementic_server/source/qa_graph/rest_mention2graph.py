@@ -6,27 +6,20 @@
 @version: 0.0.1
 """
 
-import copy
-import itertools
-
 import networkx as nx
 
-from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
-from sementic_server.source.dep_analyze.dep_map import DepMap
-from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
-from sementic_server.source.tool.mention_collector import MentionCollector, Mention
-from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
-from sementic_server.source.tool.global_object import dep_analyzer
-from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE
-from sementic_server.source.tool.logger import logger
-from sementic_server.source.qa_graph.dep_info2graph import DepGraph
 from sementic_server.source.qa_graph.ent2node import get_node_type
+from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union_all
+from sementic_server.source.tool.global_value import RELATION_DATA
+from sementic_server.source.tool.logger import logger
+from sementic_server.source.tool.mention_collector import Mention
 
 
 class RestMentionGraph(object):
     """
     多个rest mention组合成一个不连通的图
     """
+
     def __init__(self, mentions: list):
         self.mention_graphs = list()
         for mention in mentions:
@@ -44,6 +37,7 @@ class MentionGraph(Graph):
     """
     一个 mention组合成一个不连通的图
     """
+
     def __init__(self, mention: Mention):
         nx.MultiDiGraph.__init__(self)
         self.mention = mention

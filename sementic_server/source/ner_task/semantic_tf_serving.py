@@ -222,4 +222,3 @@ def add_entity(entities, word, label, w_begin):
     if "##" in word:
         word = word.replace('##', '')
     entities.append([word, label, w_begin])
-

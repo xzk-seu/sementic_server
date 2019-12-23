@@ -5,13 +5,13 @@
 @time: 2019-02-27
 @version: 0.0.1
 """
-from collections import defaultdict
 
-import os
 import codecs
 import json
 import logging
+import os
 import timeit
+
 import numpy as np
 
 ACCOUNT_MAP = {"QQ_NUM": "QQ",

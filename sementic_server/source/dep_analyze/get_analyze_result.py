@@ -2,8 +2,8 @@ import json
 
 import requests
 
-from sementic_server.source.tool.logger import logger
 from sementic_server.source.tool.global_value import DEP_URL
+from sementic_server.source.tool.logger import logger
 
 
 def scope_cal(tokens):

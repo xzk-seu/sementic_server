@@ -49,4 +49,3 @@ def construt_log(raw_query, correct_info, using_time):
         "correct_info": correct_info,
         "using_time": using_time
     }
-

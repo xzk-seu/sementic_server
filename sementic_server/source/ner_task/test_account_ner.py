@@ -6,11 +6,12 @@
 @version: 0.1.1
 """
 
-from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
+from pprint import pprint
+
 from sementic_server.source.intent_extraction.item_matcher import ItemMatcher
 from sementic_server.source.ner_task.account import Account
+from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
 from sementic_server.source.ner_task.utils import convert_data_format
-from pprint import pprint
 
 if __name__ == '__main__':
     semantic = SemanticSearch()
