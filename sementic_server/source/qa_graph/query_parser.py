@@ -19,6 +19,8 @@ from sementic_server.source.qa_graph.query_graph_component import QueryGraphComp
 from sementic_server.source.tool.global_object import dep_analyzer
 from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE
 from sementic_server.source.tool.logger import logger
+from sementic_server.source.qa_graph.dep_info2graph import DepGraph
+from sementic_server.source.qa_graph.rest_mention2graph import RestMentionGraph
 
 
 class QueryParser(object):
@@ -37,29 +39,20 @@ class QueryParser(object):
         self.relation = m_collector.relation
         self.value_prop = m_collector.value_props
 
-        """
-        self.relation = query_data.setdefault('relation', list())
-        self.entity = query_data.setdefault('entity', list())
-        self.value_prop = query_data.setdefault('value_props', list())
-
-        """
-
         self.intent = None
         self.dep_info = dep_info
         self.relation_component_list = list()
         self.entity_component_list = list()
 
-        self.dep_map = DepMap(self.m_collector, self.dep_info)
-        tp = self.dep_map.token_pairs
-        for t in tp:
-            print(t)
-
+        self.dep_graph = DepGraph(self.m_collector, self.dep_info)
+        self.dep_graph.show()  # TODO 待删除
+        self.dep_rest_mentions = self.dep_graph.get_rest_mentions()
+        self.rest_mention_graph = RestMentionGraph(self.dep_rest_mentions)
         # 获取实体和关系对应的子图组件
         self.init_entity_component()
         self.init_value_prop_component()
         self.init_relation_component()
 
-        self.query_graph = None
         # 得到子图组件构成的集合，用图表示
         # self.component_graph = nx.disjoint_union_all(self.relation_component_list + self.entity_component_list)
         # self.component_graph的顺序决定了节点合并顺序，对最终构建的图有很大影响
@@ -308,8 +301,6 @@ class QueryParser(object):
                 for n in relation_component.nodes:
                     relation_component.nodes[n]['label'] = 'concept'
 
-                relation_component.nodes['temp_0']['type'] = RELATION_DATA[r['type']]['domain']
-                relation_component.nodes['temp_1']['type'] = RELATION_DATA[r['type']]['range']
                 self.relation_component_list.append(relation_component)
 
     def ambiguity_resolution(self, rel):

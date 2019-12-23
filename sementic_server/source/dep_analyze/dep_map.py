@@ -31,7 +31,8 @@ class Token(object):
                 self.mention_type = m.mention_type
                 self.small_type = m.small_type
                 self.mention_id = m.idx
-                return
+                return True
+        return False
 
 
 class DepMap(object):
@@ -49,11 +50,13 @@ class DepMap(object):
         for att_link in att_links:
             source = att_link['source']
             token_s = Token(source)
-            token_s.match_mention(mentions)
-
+            if not token_s.match_mention(mentions):
+                continue
             source = att_link['att']
             token_a = Token(source)
             token_a.match_mention(mentions)
+            if not token_a.match_mention(mentions):
+                continue
             if token_a.mention_id == token_s.mention_id:
                 continue
             token_pair = {'source': token_s.__dict__, 'att': token_a.__dict__}

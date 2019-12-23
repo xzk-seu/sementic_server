@@ -156,7 +156,7 @@ def merge_entity(e1, e2):
     r_entity['code'] = e1['code']
     r_entity['begin'] = e1['begin']
     r_entity['end'] = e2['end']
-    detail = e1.setdefault('detail', None)
+    detail = e1.get('detail')
     if detail:
         detail.append(e2)
         r_entity['detail'] = detail

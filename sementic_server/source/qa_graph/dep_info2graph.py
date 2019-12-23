@@ -14,6 +14,8 @@ from sementic_server.source.dep_analyze.dep_map import DepMap
 from sementic_server.source.qa_graph.graph import Graph
 from sementic_server.source.tool.mention_collector import MentionCollector
 from sementic_server.source.tool.global_object import dep_analyzer
+from sementic_server.source.tool.global_value import RELATION_DATA
+from sementic_server.source.qa_graph.ent2node import get_node_type
 
 
 class DepGraph(Graph):
@@ -25,9 +27,32 @@ class DepGraph(Graph):
         self.att_info = dep_info.get_att_deps()
         self.dep_map = DepMap(mention_collector, dep_info)
         self.token_pairs = self.dep_map.token_pairs
+        self.related_m_id_list = list()
         for t_pair in self.token_pairs:
             self.pair_process(t_pair)
         self.remove_inner_node()
+        self.show()
+        self.type_correct()
+        self.show()
+
+    def type_correct(self):
+        """
+        对节点和边的类型进行映射
+        :return:
+        """
+        for n1, n2, k in self.edges:
+            if k in RELATION_DATA.keys():
+                self.nodes[n1]['type'] = RELATION_DATA[k]['domain']
+                self.nodes[n2]['type'] = RELATION_DATA[k]['range']
+        for n in self.nodes:
+            temp_type = self.nodes[n]['content']['type']
+            self.nodes[n]['type'] = get_node_type(temp_type)
+
+    def get_rest_mentions(self):
+        m_id_list = [x.idx for x in self.mentions]
+        rest_mentions_ids = [x for x in m_id_list if x not in self.related_m_id_list]
+        rest_mentions = [x for x in self.mentions if x.idx in rest_mentions_ids]
+        return rest_mentions
 
     def remove_inner_node(self):
         """
@@ -49,13 +74,15 @@ class DepGraph(Graph):
         """
         t1 = t_pair['source']['mention_id']
         t2 = t_pair['att']['mention_id']
+        self.related_m_id_list.append(t1)
+        self.related_m_id_list.append(t2)
         m1 = self.mentions[t1]
         m2 = self.mentions[t2]
         """
         print(t1, m1.value, m1.mention_type, m1.small_type, t2, m2.value, m2.mention_type, m2.small_type)
         """
         if m1.mention_type == 'entity' and m2.mention_type == 'entity':
-            self.add_edge(t1, t2, 'known_relation')
+            self.add_edge(t1, t2, 'unknown_relation')
             self.nodes[t1]['label'] = 'concept'
             self.nodes[t1]['value'] = self.mentions[t1].value
             self.nodes[t1]['content'] = self.mentions[t1].content
