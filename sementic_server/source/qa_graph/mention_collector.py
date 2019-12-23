@@ -61,18 +61,23 @@ class MentionCollector(object):
         姓+名+称谓
         :return:
         """
-        state = 0
-        entity_stack = list()
-        for e in self.entity:
-            entity_stack.append(e)
-            if e['type'] == 'FIRSTNAME':
-                state = 1
-            elif e['type'] == 'LASTNAME':
-                pass
-            elif e['type'] == 'CHENWEI':
-                pass
-
-            print(e)
+        person_types = ['FIRSTNAME', 'LASTNAME', 'CHENWEI', 'PERSON']
+        self.entity = sorted(self.entity, key=lambda x: x['begin'])
+        new_entity = list()
+        e1 = self.entity[0]
+        for e2 in self.entity[1:]:
+            if e2['type'] in person_types and e1['type'] in person_types:
+                if check_entity_continuous(e1, e2):
+                    ent = merge_entity(e1, e2)
+                    e1 = ent
+                else:
+                    new_entity.append(e1)
+                    e1 = e2
+            else:
+                new_entity.append(e1)
+                e1 = e2
+        new_entity.append(e1)
+        self.entity = new_entity
 
     def set_mentions(self, mentions, t_type):
         """
@@ -129,11 +134,23 @@ def check_entity_continuous(e1, e2):
         return False
 
 
-def merge_entity(entities):
+def merge_entity(e1, e2):
     """
     合并一组实体
     """
-    pass
+    r_entity = dict()
+    r_entity['type'] = 'PERSON'
+    r_entity['value'] = e1['value'] + e2['value']
+    r_entity['code'] = e1['code']
+    r_entity['begin'] = e1['begin']
+    r_entity['end'] = e2['end']
+    detail = e1.setdefault('detail', None)
+    if detail:
+        detail.append(e2)
+        r_entity['detail'] = detail
+    else:
+        r_entity['detail'] = [e1, e2]
+    return r_entity
 
 
 def main():
