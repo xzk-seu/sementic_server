@@ -22,6 +22,7 @@ class Token(object):
 
     def match_mention(self, mentions: list):
         for m in mentions:
+            # 区间交
             if max(m.begin, self.begin) <= min(m.end, self.end):
                 self.mention_type = m.mention_type
                 self.small_type = m.small_type
@@ -32,7 +33,7 @@ class DepMap(object):
     """
     将mention和依存分析中的att_links进行匹配
     多个token对应一个mention：长实体被依存切分
-    多个mention对应一个token：姓和名、称谓被切分
+    # 多个mention对应一个token：姓和名、称谓被切分（在mention_collector中已合并)
     """
     def __init__(self, mentions, att_links):
         for att_link in att_links:
@@ -48,7 +49,7 @@ class DepMap(object):
 
 
 if __name__ == '__main__':
-    sentence = '东南大学汪鹏老师的学生张三'
+    sentence = '东南大学汪鹏老师的妻子张三'
     m_collector = MentionCollector(sentence)
     ms = m_collector.get_mentions()
     for mt in m_collector.mentions:

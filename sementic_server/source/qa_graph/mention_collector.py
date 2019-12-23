@@ -33,7 +33,8 @@ class MentionCollector(object):
 
         self.set_mentions(self.entity, 'entity')
         self.set_mentions(self.relation, 'relation')
-        self.set_mentions(self.value_props, 'entity')
+        self.set_mentions(self.value_props, 'value_props')
+        # TODO 判断一个mention是实体还是关系
 
         if len(result.get("entity") + result.get("accounts")) == 0:
             logger.error(sentence + "\t实体识别模块返回空值")
