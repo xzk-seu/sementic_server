@@ -5,19 +5,14 @@
 @time: 2019-12-24
 @version: 0.0.1
 """
-import itertools
-import networkx as nx
 import copy
+import itertools
 
-from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
-from sementic_server.source.qa_graph.dep_info2graph import DepGraph
+import networkx as nx
+
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union
-from sementic_server.source.qa_graph.query_graph_component import QueryGraphComponent
-from sementic_server.source.qa_graph.rest_mention2graph import RestMentionGraph
-from sementic_server.source.tool.global_object import dep_analyzer
 from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE
 from sementic_server.source.tool.logger import logger
-from sementic_server.source.tool.mention_collector import MentionCollector
 
 
 class QueryGraph(Graph):
@@ -69,7 +64,7 @@ class QueryGraph(Graph):
         """
         flag = False
         components_set = self.get_connected_components_subgraph()
-        for i in range(len(components_set)-1):
+        for i in range(len(components_set) - 1):
             flag = self.add_default_edge_between_components(components_set, i, i + 1)
             if flag:
                 break
@@ -189,4 +184,3 @@ class QueryGraph(Graph):
         m_index = sim_list.index(max_sim)
         rel_data['type'] = ambiguity_list[m_index]
         return rel_data
-
