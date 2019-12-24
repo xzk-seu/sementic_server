@@ -7,13 +7,13 @@
 """
 
 from copy import deepcopy
-
+import json
 import networkx as nx
 
 from sementic_server.source.qa_graph.graph import Graph
-from sementic_server.source.qa_graph.query_parser import QueryParser, RELATION_DATA
+from sementic_server.source.qa_graph.query_parser import QueryParser
 import itertools
-from sementic_server.source.query_interface.interface_term import Node
+from sementic_server.source.query_interface.interface_term import Node, Link
 from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
 from sementic_server.source.qa_graph.dep_info2graph import DepGraph
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union
@@ -41,6 +41,14 @@ class QueryInterface(object):
         self.targets = list()
 
         self.init_nodes()
+        self.init_links()
+
+    def init_links(self):
+        link_id = 0
+        for n1, n2, k in self.graph.edges:
+            temp = dict(link_id=link_id, start_node=n1, end_node=n2, link_type=k, link_property=dict())
+            self.links.append(temp)
+            link_id += 1
 
     def init_nodes(self):
         d = self.graph.get_nodes_dict()
@@ -77,3 +85,6 @@ if __name__ == '__main__':
     qi = QueryInterface(qg.query_graph, sentence)
     qid = qi.get_dict()
     print(qid)
+
+    with open('interface_demo.json', 'w') as fw:
+        json.dump(qid, fw)

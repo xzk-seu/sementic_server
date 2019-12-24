@@ -23,7 +23,7 @@ class Node(object):
 
 
 class Link(object):
-    def __init__(self):
+    def __init__(self, link_id, link_data: dict):
         self.link_id = 0
         self.start_node = 0
         self.end_node = 0
