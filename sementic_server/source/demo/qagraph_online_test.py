@@ -13,6 +13,7 @@ from sementic_server.source.tool.global_object import dep_analyzer
 
 """
 在东南大学上学的刘欢的舅舅
+汪鹏老师的同学
 微信群10319046645有哪些成员
 张三的好友
 # 根据称谓区分关系和称谓

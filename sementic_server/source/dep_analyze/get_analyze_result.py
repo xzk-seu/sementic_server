@@ -23,15 +23,23 @@ def scope_cal(tokens):
 class DepInfo(object):
     def __init__(self, source_data):
         self.source_data = source_data
+        self.non_data = False
+        if not self.source_data:
+            logger.error("DepInfo is None!")
+            self.non_data = True
 
     def get_att_deps(self):
         deps_list = list()
         dep_result = self.source_data
+        if self.non_data:
+            return deps_list
+
         for i in dep_result:
             if i['tag'] == 'ATT':
                 fr = int(i['idx2']) - 1
                 temp = {'source': i, 'att': dep_result[fr]}
                 deps_list.append(temp)
+
         return deps_list
 
 
