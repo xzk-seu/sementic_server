@@ -198,7 +198,6 @@ if __name__ == '__main__':
     for d in dep_i.get_att_deps():
         print(d)
     qg = QueryParser(m_c, dep_i)
-    error_info = qg.error_info
-    if error_info:
-        print(error_info)
+    if qg.error_info:
+        print(qg.error_info)
     qg.query_graph.show()

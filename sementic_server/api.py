@@ -17,7 +17,7 @@ from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
 from sementic_server.source.ner_task.utils import convert_data_format
 from sementic_server.source.intent_extraction.item_matcher import ItemMatcher
 from sementic_server.source.qa_graph.query_parser import QueryParser
-from sementic_server.source.qa_graph.query_interface import QueryInterface
+from sementic_server.source.query_interface.query_interface import QueryInterface
 from sementic_server.source.dependency_parser.dependency_parser import DependencyParser
 from sementic_server.source.recommend.recommend_server import RecommendServer
 
