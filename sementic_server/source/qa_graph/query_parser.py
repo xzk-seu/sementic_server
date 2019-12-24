@@ -53,15 +53,54 @@ class QueryParser(object):
             self.error_info = self.query_graph.error_info
             return
 
-        self.query_graph.show()
-
         # 经过上面两个循环，得到连通的图，下面确定意图
         logger.info('connected graph is already')
-        self.query_graph = nx.convert_node_labels_to_integers(self.query_graph)
         self.query_graph = Graph(self.query_graph)
+        self.query_graph = nx.convert_node_labels_to_integers(self.query_graph)
         self.query_graph.show_log()
         logger.info('next is determine intention')
         self.determine_intention()
+
+    def determine_intention(self):
+        """
+        确定意图：
+        0.是否有空的值属性节点
+
+        1. 意图识别模块通过关键词，获取意图类型；
+        2. 根据依存分析模块，将句法依存树根节点附近的实体节点中作为候选意图节点，若上一步得到了意图类型，删去候选意图中的与意图类型冲突的节点；
+        3. 在所有候选节点中，若有空节点（即没有字面值描述的节点），则将候选节点集合中的所有空节点作为新的候选节点集合；
+        4. 若上一步选出的节点有多个，则优先选择Person类型的节点。
+        5. 在候选节点集合中，按照候选意图节点的入度与出度之差，对候选节点进行排序，选出入度与出度之差最大的节点；
+        :return:
+        """
+        if self.literal_intention():
+            return
+
+        has_intent = False
+        for n in self.query_graph.nodes:
+            if self.query_graph.nodes[n].get('intent'):
+                has_intent = True
+            if not self.query_graph.nodes[n].get('value'):
+                self.add_intention_on_node(n)
+                has_intent = True
+        if has_intent:
+            return
+
+        intention_candidates = self.get_intention_candidate()
+        if self.error_info:
+            return
+        logger.info('determine intention by degree')
+        criterion_dict = dict()
+        for node in intention_candidates:
+            criterion_dict[node] = self.query_graph.get_out_index(node)
+
+        m = min(criterion_dict.values())
+        # 考虑到多个节点上都有最值
+        intention_nodes = [k for k, v in criterion_dict.items() if v == m]
+        logger.info('nodes: %s have degree: %d' % (str(intention_nodes), m))
+
+        logger.info('final intention node is %d' % intention_nodes[0])
+        self.add_intention_on_node(intention_nodes[0])
 
     def determine_intention_by_type(self):
         # 根据意图类型来确定意图，对应determine_intention中的1.2
@@ -131,37 +170,6 @@ class QueryParser(object):
                     self.add_intention_on_node(int(k))
                     return True
 
-    def determine_intention(self):
-        """
-        确定意图：
-        0.是否有空的值属性节点
-
-        1. 意图识别模块通过关键词，获取意图类型；
-        2. 根据依存分析模块，将句法依存树根节点附近的实体节点中作为候选意图节点，若上一步得到了意图类型，删去候选意图中的与意图类型冲突的节点；
-        3. 在所有候选节点中，若有空节点（即没有字面值描述的节点），则将候选节点集合中的所有空节点作为新的候选节点集合；
-        4. 若上一步选出的节点有多个，则优先选择Person类型的节点。
-        5. 在候选节点集合中，按照候选意图节点的入度与出度之差，对候选节点进行排序，选出入度与出度之差最大的节点；
-        :return:
-        """
-        if self.literal_intention():
-            return
-
-        intention_candidates = self.get_intention_candidate()
-        if self.error_info:
-            return
-        logger.info('determine intention by degree')
-        criterion_dict = dict()
-        for node in intention_candidates:
-            criterion_dict[node] = self.query_graph.get_out_index(node)
-
-        m = min(criterion_dict.values())
-        # 考虑到多个节点上都有最值
-        intention_nodes = [k for k, v in criterion_dict.items() if v == m]
-        logger.info('nodes: %s have degree: %d' % (str(intention_nodes), m))
-
-        logger.info('final intention node is %d' % intention_nodes[0])
-        self.add_intention_on_node(intention_nodes[0])
-
     def get_person_nodes(self, candidates):
         """
         从候选节点中选出任务person的节点
@@ -178,11 +186,17 @@ class QueryParser(object):
 if __name__ == '__main__':
     """
     # q = '在东莞常平司马村珠江啤酒厂斜对面合租的15842062826的老婆'
+    东南大学汪鹏老师的同学张三
     """
 
-    sentence = '东南大学汪鹏老师的同学张三'
+    sentence = '在广东省揭阳市惠来县定居的刘健坤的哥哥和表妹'
+    print(sentence)
     m_c = MentionCollector(sentence)
+    for m in m_c.mentions:
+        print(m)
     dep_i = dep_analyzer.get_dep_info(sentence)
+    for d in dep_i.get_att_deps():
+        print(d)
     qg = QueryParser(m_c, dep_i)
     error_info = qg.error_info
     if error_info:

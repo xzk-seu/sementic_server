@@ -21,6 +21,8 @@ class VpMatcher(object):
         result = list()
         match_result = self.aho.query4type(sentence)
         for mr in match_result:
+            if mr['type'] == 'Ambiguous':
+                continue
             info = V_PROPERTY_LIST[mr['type']]
             term = {**mr, **info}
             result.append(term)
@@ -28,7 +30,7 @@ class VpMatcher(object):
 
 
 if __name__ == '__main__':
-    s = '烽火科技的网站是多少?'
+    s = '在广东省揭阳市惠来县定居的刘健坤的哥哥和表妹'
     vm = VpMatcher()
     r = vm.match(s)
     print(r)

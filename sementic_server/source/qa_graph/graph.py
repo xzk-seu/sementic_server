@@ -33,8 +33,9 @@ class Graph(nx.MultiDiGraph):
     def get_connected_components_subgraph(self):
         # 获取连通子图
         component_list = list()
+        temp_graph = Graph(self)
         for c in nx.weakly_connected_components(self):
-            component = self.subgraph(c)
+            component = temp_graph.subgraph(c)
             component_list.append(component)
         return component_list
 
@@ -208,18 +209,35 @@ class Graph(nx.MultiDiGraph):
         对节点和边的类型进行映射
         :return:
         """
-        for n1, n2, k in self.edges:
-            self.nodes[n1]['label'] = 'concept'
-            self.nodes[n2]['label'] = 'concept'
-            if k in RELATION_DATA.keys():
-                self.nodes[n1]['type'] = RELATION_DATA[k]['domain']
-                self.nodes[n2]['type'] = RELATION_DATA[k]['range']
         for n in self.nodes:
             temp_content = self.nodes[n].get('content')
             if not temp_content:
                 continue
             temp_type = temp_content['type']
             self.nodes[n]['type'] = get_node_type(temp_type)
+        reverse_edge_list = list()
+        for n1, n2, k in self.edges:
+            self.nodes[n1]['label'] = 'concept'
+            self.nodes[n2]['label'] = 'concept'
+            n1_type = self.nodes[n1].get('type')
+            n2_type = self.nodes[n2].get('type')
+            if k not in RELATION_DATA.keys():
+                continue
+            dom = RELATION_DATA[k]['domain']
+            ran = RELATION_DATA[k]['range']
+            if not n1_type and not n2_type:
+                self.nodes[n1]['type'] = dom
+                self.nodes[n2]['type'] = ran
+                continue
+            if n1_type == dom or n2_type == ran:
+                self.nodes[n1]['type'] = dom
+                self.nodes[n2]['type'] = ran
+            else:
+                reverse_edge_list.append((n1, n2, k))
+        for n1, n2, k in reverse_edge_list:
+            data = self.get_edge_data(n1, n2, k)
+            self.add_edge(n2, n1, k, **data)
+            self.remove_edge(n1, n2, k)
 
 
 def my_disjoint_union_all(graphs):

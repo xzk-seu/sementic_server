@@ -87,7 +87,7 @@ class DepGraph(Graph):
 
 
 if __name__ == '__main__':
-    sentence = '东南大学汪鹏老师的同学张三'
+    sentence = '在广东省揭阳市惠来县定居的刘健坤的哥哥和表妹'
     """
     # sentence = '东南大学汪鹏老师的妻子张三'
     # sentence = '东南大学汪鹏老师的学生张三'
