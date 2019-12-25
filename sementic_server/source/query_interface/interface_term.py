@@ -1,3 +1,5 @@
+from sementic_server.source.qa_graph.graph import Graph
+import networkx as nx
 
 
 class Node(object):
@@ -29,3 +31,20 @@ class Link(object):
         self.end_node = 0
         self.link_type = "link_type"
         self.link_property = dict()
+
+
+class Target(object):
+    """
+        target_type [node, link, node_property, link_property]
+            目前只支持node和node_property
+        target_node
+        target_property
+        target_steps
+    """
+    def __init__(self, intent_node_id: int, graph: Graph):
+        self.target_type = "node"
+        self.target_node = intent_node_id
+        self.target_steps = list()
+
+        temp = list(reversed(list(nx.topological_sort(graph))))
+        print(temp)

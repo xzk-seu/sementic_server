@@ -13,7 +13,7 @@ import networkx as nx
 from sementic_server.source.qa_graph.graph import Graph
 from sementic_server.source.qa_graph.query_parser import QueryParser
 import itertools
-from sementic_server.source.query_interface.interface_term import Node, Link
+from sementic_server.source.query_interface.interface_term import Node, Link, Target
 from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
 from sementic_server.source.qa_graph.dep_info2graph import DepGraph
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union
@@ -42,6 +42,13 @@ class QueryInterface(object):
 
         self.init_nodes()
         self.init_links()
+        self.init_targets()
+
+    def init_targets(self):
+        #  TODO 完成这个函数
+        intent_node_ids = [x for x in self.graph.nodes if self.graph.nodes[x].get('intent')]
+        for iid in intent_node_ids:
+            Target(iid, self.graph)
 
     def init_links(self):
         link_id = 0
