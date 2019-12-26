@@ -153,6 +153,17 @@ class Graph(nx.MultiDiGraph):
             r_dict[str(n)] = data
         return r_dict
 
+    def get_neighbors(self, node):
+        """
+        获取节点node的邻居列表
+        :param node:
+        :return:
+        """
+        s = list(self.successors(node))+list(self.predecessors(node))
+        s = set(s)
+        s = list(s)
+        return s
+
     def show(self):
         """将图显示至屏幕"""
         if not self:
@@ -317,4 +328,5 @@ if __name__ == '__main__':
     test_graph = nx.complete_graph(5)
     g = Graph(test_graph)
     g.show()
+    print(g.get_neighbors(3))
     # g.export('text')
