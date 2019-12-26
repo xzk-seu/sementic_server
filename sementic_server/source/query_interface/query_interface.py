@@ -23,13 +23,13 @@ class QueryInterface(object):
     """
 
     def __init__(self, graph: Graph, query: str):
-        self.graph = nx.convert_node_labels_to_integers(graph)
-        self.graph = Graph(self.graph)
-
         self.query = query
         self.nodes = list()
         self.links = list()
         self.targets = list()
+
+        self.graph = Graph(graph)
+        self.graph = nx.convert_node_labels_to_integers(self.graph)
 
         self.init_nodes()
         self.init_links()
