@@ -1,6 +1,6 @@
-from sementic_server.source.qa_graph.graph import Graph
-import networkx as nx
 from copy import deepcopy
+
+from sementic_server.source.qa_graph.graph import Graph
 
 
 class Node(object):
@@ -16,22 +16,15 @@ class Node(object):
         if not detail or len(detail) == 0:
             p_type = content.get('type')
             p_value = content.get('value')
+            v_type = "string"
             if p_type:
-                self.node_property[p_type] = p_value
+                self.node_property[p_type] = dict(type=v_type, value=p_value)
             return
         for term in detail:
             p_type = term['type']
             p_value = term['value']
-            self.node_property[p_type] = p_value
-
-
-class Link(object):
-    def __init__(self, link_id, link_data: dict):
-        self.link_id = 0
-        self.start_node = 0
-        self.end_node = 0
-        self.link_type = "link_type"
-        self.link_property = dict()
+            v_type = "string"
+            self.node_property[p_type] = dict(type=v_type, value=p_value)
 
 
 class Target(object):
@@ -42,6 +35,7 @@ class Target(object):
         target_property
         target_steps
     """
+
     def __init__(self, intent_node_id: int, intent_node_ids: list, links: list, graph: Graph):
         self.target_type = "node"
         self.target_node = intent_node_id
@@ -96,6 +90,3 @@ class Target(object):
         temp_step['current_target_node_id'] = intent_node_id
         temp_step['related_links_id'], new_links = self.get_related_links(links, intent_node_id)
         return temp_step, new_links
-
-
-
