@@ -28,9 +28,8 @@ def load_aho(path, f_type='pkl'):
             一个匹配器对象
 
     """
-    if exists(path):
-        if f_type == 'pkl':
-            return pickle.load(open(path, 'rb'))
+    if exists(path) and f_type == 'pkl':
+        return pickle.load(open(path, 'rb'))
 
 
 def build_aho(path, f_type='yml'):
