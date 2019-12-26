@@ -6,11 +6,12 @@
 @version: 0.0.1
 """
 
+import json
+
 from sementic_server.source.qa_graph.query_parser import QueryParser
+from sementic_server.source.query_interface.query_interface import QueryInterface
 from sementic_server.source.tool.global_object import dep_analyzer
 from sementic_server.source.tool.mention_collector import MentionCollector
-from sementic_server.source.query_interface.query_interface import QueryInterface
-import json
 
 
 def main():
