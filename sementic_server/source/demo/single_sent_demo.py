@@ -2,7 +2,7 @@
 @description: 单句功能调试demo
 @author: Xu Zhongkai
 @email: 1399350807@qq.com
-@time: 2019-11-16
+@time: 2019-12-26
 @version: 0.0.1
 """
 
@@ -24,14 +24,13 @@ def main():
     # 根据称谓区分关系和称谓
     在东南大学上学的徐同学
     在东南大学上学的徐忠锴的同学
-
-    值属性问题：
+    # 值属性问题
     烽火科技的行业
 
     意图不通过：
     微信帐户DonDdon担任什么群的群主
     """
-    sentence = "烽火科技的行业"
+    sentence = "张三的生日"
     m_collector = MentionCollector(sentence)
     print("=====================mention===================")
     for m in m_collector.mentions:

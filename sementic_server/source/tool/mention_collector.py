@@ -1,6 +1,13 @@
+"""
+@description: 对所有mention进行集中处理
+@author: Xu Zhongkai
+@email: 1399350807@qq.com
+@time: 2019-12-26
+@version: 0.0.1
+"""
+
 from sementic_server.source.tool.global_object import semantic, account, vp_matcher, item_matcher, dep_analyzer
 from sementic_server.source.tool.logger import logger
-from itertools import combinations
 
 
 class Mention(object):

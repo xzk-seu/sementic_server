@@ -1,3 +1,11 @@
+"""
+@description: 全局变量
+@author: Xu Zhongkai
+@email: 1399350807@qq.com
+@time: 2019-12-26
+@version: 0.0.1
+"""
+
 import json
 import os
 from os.path import join, exists

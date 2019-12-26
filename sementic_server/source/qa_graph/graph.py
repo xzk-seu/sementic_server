@@ -10,9 +10,9 @@ import json
 
 import networkx as nx
 
-from sementic_server.source.tool.logger import logger
 from sementic_server.source.qa_graph.ent2node import get_node_type
 from sementic_server.source.tool.global_value import RELATION_DATA
+from sementic_server.source.tool.logger import logger
 
 
 class Graph(nx.MultiDiGraph):
@@ -159,7 +159,7 @@ class Graph(nx.MultiDiGraph):
         :param node:
         :return:
         """
-        s = list(self.successors(node))+list(self.predecessors(node))
+        s = list(self.successors(node)) + list(self.predecessors(node))
         s = set(s)
         s = list(s)
         return s

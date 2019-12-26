@@ -1,3 +1,12 @@
+"""
+@description: 帮助
+@author: Xu Zhongkai
+@email: 1399350807@qq.com
+@time: 2019-12-26
+@version: 0.0.1
+"""
+
+
 def build_vocab(vo_dict: dict):
     """
         将原始json转换为词典

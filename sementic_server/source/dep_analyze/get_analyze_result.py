@@ -1,10 +1,18 @@
+"""
+@description: 获取依存分析结果
+@author: Xu Zhongkai
+@email: 1399350807@qq.com
+@time: 2019-12-26
+@version: 0.0.1
+"""
+
 import json
+from copy import deepcopy
 
 import requests
 
 from sementic_server.source.tool.global_value import DEP_URL
 from sementic_server.source.tool.logger import logger
-from copy import deepcopy
 
 
 def scope_cal(tokens):
