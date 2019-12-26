@@ -108,7 +108,9 @@ class Graph(nx.MultiDiGraph):
         node_type_dict = dict()
         for n in self.nodes:
             if self.nodes[n]['label'] == 'concept':
-                node_type = self.nodes[n]['type']
+                node_type = self.nodes[n].get('type')
+                if not node_type:
+                    continue
                 if node_type not in node_type_dict.keys():
                     node_type_dict[node_type] = list()
                 node_type_dict[node_type].append(n)

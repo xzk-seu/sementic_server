@@ -1,24 +1,24 @@
 PersonToAddr:
-  domain: Person
-  range: Addr
+  domain: person
+  range: addr
   value: 人与地址
 PersonToCompany:
-  domain: Person
-  range: Company
+  domain: person
+  range: company
   value: 人与公司
 PersonToDouYin:
-  domain: Person
-  range: DouYin
+  domain: person
+  range: douyin
   value: 人与抖音
 PersonToPerson:
-  domain: Person
-  range: Person
+  domain: person
+  range: person
   value: 人与人
 PhasQQ:
-  domain: Person
-  range: QQ
+  domain: person
+  range: qq
   value: 拥有QQ
 PhasWeChat:
-  domain: Person
-  range: WeChat
+  domain: person
+  range: wechat
   value: 拥有微信

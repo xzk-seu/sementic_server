@@ -8,10 +8,9 @@
 @version: 0.1.1
 """
 import re
-from pprint import pprint
-
 import yaml
 
+from pprint import pprint
 from sementic_server.source.ner_task.entity_code import EntityCode
 from sementic_server.source.ner_task.system_info import SystemInfo
 
@@ -180,7 +179,7 @@ def is_mac(candidate):
         return False
 
 
-class Account(object):
+class Account:
     """
     账户识别类
     """
@@ -226,15 +225,14 @@ class Account(object):
                 max_label = label
         return max_label
 
-    @staticmethod
-    def is_id_card(candidate):
+    def is_id_card(self, candidate):
         """
         判断candidate是否为合法的身份证号码，包含15位和18位身份证号码两种情况
         :param candidate:
         :return:
         """
-        pattern_id = r"^(([1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[" \
-                     r"0-9Xx])|([1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}))$"
+        pattern_id = r"^(([1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx])|([" \
+                     r"1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}))$"
         result = re.match(pattern_id, candidate)
         if result is not None:
             return is_legal_id_card(candidate)
@@ -267,7 +265,7 @@ class Account(object):
         pattern_veh = re.compile(
             "([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|(DF[0-9]{4})))|"
             "([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}"
-            "[A-HJ-NP-Z0-9挂学警港澳]{1})")
+            "[A-HJ-NP-Z0-9挂学警港澳]{1})",re.IGNORECASE)
         vehicles = []
         for match in re.finditer(pattern_veh, raw_string):
             begin = match.start()
@@ -278,18 +276,16 @@ class Account(object):
 
             if begin != -1:
                 plate_num = raw_string[begin:end]
-                label = self.get_candidate_label(raw_string, plate_num)
-                if label is None:
-                    vehicles.append({"value": plate_num, "type": "VEHCARD_VALUE", "begin": begin, "end": end,
-                                     "code": self.entity_code['VEHCARD_VALUE']})
+                vehicles.append({"value": plate_num, "type": "vehcard_value", "begin": begin, "end": end,
+                                 "code": self.entity_code['vehcard_value']})
 
         return vehicles
 
     def get_candidate_label(self, raw_input, account):
         """
         判断账户是否有对应的账户标识符，如果有则返回
-        :param raw_input: 原始字符串
-        :param account: 账号的值
+        :param raw_input:
+        :param account:
         :param qq_group:
         :return:
         """
@@ -297,11 +293,8 @@ class Account(object):
         if index != -1:
             label = self.get_closest_account_label(raw_input[:index])
             if label:
-                if label == 'QQ' or label == 'QQ_GROUP':
-                    if account.isdigit():
-                        return self.account_label[label]
-                else:
-                    return self.account_label[label]
+                return self.account_label[label]
+            return None
         return None
 
     def get_account_labels_info(self, raw_input):
@@ -331,8 +324,8 @@ class Account(object):
             result = raw_input[begin: end]
 
             if is_mac(result):
-                label_name = 'MAC_VALUE'
-                sentence = sentence.replace(result, 'MAC_VALUE')
+                label_name = 'mac_value'
+                sentence = sentence.replace(result, 'mac_value')
             elif is_email(result):
                 label = self.get_candidate_label(raw_input, result)
                 if label:
@@ -346,12 +339,12 @@ class Account(object):
                 sentence = sentence.replace(result, self.account_label['ID'])
             elif is_wechat_candidate(result):
                 label = self.get_candidate_label(raw_input, result)
-                if self.is_wechat_wxid(raw_input, result):
-                    label_name = self.account_label['WECHAT']
-                    sentence = sentence.replace(result, self.account_label['WECHAT'])
-                elif label:
+                if label:
                     label_name = label
                     sentence = sentence.replace(result, label)
+                elif self.is_wechat_wxid(raw_input, result):
+                    label_name = self.account_label['WECHAT']
+                    sentence = sentence.replace(result, self.account_label['WECHAT'])
                 else:
                     label_name = self.account_label['UNLABEL']
                     sentence = sentence.replace(result, self.account_label['UNLABEL'])
@@ -387,10 +380,6 @@ class Account(object):
 
 
 def test():
-    """
-    测试用例
-    :return:
-    """
     t1 = "15295668658住在哪里？34.54,2656353125"
     t2 = "xiaocui-kindle@163.com住在哪里？"
     t3 = "手机号是15295668650的人住在哪里？"
@@ -419,14 +408,25 @@ def test():
 
 
 def test_while():
-    """
-    单句测试账户识别模块
-    :return:
-    """
     account = Account()
     while True:
         sentence = input("input:")
         pprint(account.get_account_labels_info(sentence))
+
+
+def test_vehicle_num():
+    account = Account()
+    while True:
+        sentence = input("input:")
+        result = account.match_vehicle_num(sentence)
+        pprint(result)
+
+
+def test_mac():
+    while True:
+        sentence = input("input:")
+        result = is_mac(sentence)
+        pprint(result)
 
 
 if __name__ == '__main__':

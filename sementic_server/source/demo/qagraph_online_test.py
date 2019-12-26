@@ -18,6 +18,7 @@ from sementic_server.source.tool.mention_collector import MentionCollector
 在东南大学上学的刘欢的舅舅
 汪鹏老师的同学
 微信群10319046645有哪些成员
+QQ群10319046645有哪些成员
 张三的好友
 # 根据称谓区分关系和称谓
 在东南大学上学的徐同学

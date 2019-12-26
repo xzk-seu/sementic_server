@@ -5,20 +5,20 @@
 @time: 2019-02-27
 @version: 0.0.1
 """
+import jieba
 import logging
 
-import jieba
-
 from sementic_server.source.ner_task.entity_code import EntityCode
-from sementic_server.source.ner_task.model_tf_serving import ModelServing
 from sementic_server.source.ner_task.system_info import SystemInfo
+from sementic_server.source.ner_task.model_tf_serving import ModelServing
+from sementic_server.source.ner_task.account import Account
 
 logger = logging.getLogger("server_log")
 
 
 class SemanticSearch(object):
     """
-    通过调用 sentence_ner_entities 函数实现对：姓、名、称谓、组织结构名、地名和日期 的识别
+    通过调用 sentence_ner_entities 函数实现对：人名、组织结构名、地名和日期 的识别
     """
 
     def __init__(self):
@@ -26,19 +26,18 @@ class SemanticSearch(object):
         self.system_info = SystemInfo()
 
         self.client = ModelServing(self.system_info.MODE_NER)
-
+        self.account = Account()
         self.config = self.system_info.get_config()
-
         self.entity_code = EntityCode()
         self.ner_entities = self.entity_code.get_ner_entities()
         self.code = self.entity_code.get_entity_code()
-        self.entity_map_dic = {"ORG": "CPNY_NAME", "FNAME": "FIRSTNAME", "LNAME": "LASTNAME", "CW": "CHENWEI",
-                               "DATE": "DATE", "LOC": "ADDR_VALUE"}
-
+        #self.entity_map_dic = {"ORG": "CPNY_NAME", "PER": "NAME", "DATE": "DATE", "LOC": "ADDR_VALUE"}
+        self.entity_map_dic = {"ORG": "cpny_name", "FNAME": "firstname","LNAME":"lastname","CW":"chenwei","DATE":"date", "LOC": "addr_value"}
         self.labels_list = []
         self.labels_list_split = []
         self.__init_specific_label_combine()
         self.__init_jieba()
+    
 
     def __init_specific_label_combine(self):
         """
@@ -137,24 +136,41 @@ class SemanticSearch(object):
         :param pred_label_result: 对该句子预测的标签
         :return: 返回识别的实体
         """
-        word = None
-        entities = []
+        print(sentence)
+        print(pred_label_result)
+        word = ""
         label = ""
-        w_begin = 0
-        for i, temp_label in enumerate(pred_label_result):
-            if temp_label[0] == 'B':
-                if word:
-                    add_entity(entities, word, label, w_begin)
-                w_begin = i
-                label = self.entity_map_dic[temp_label[2:]]
-                word = sentence[i]
-            elif temp_label[0] == 'I':
-                word += sentence[i]
-            elif temp_label == 'O' and word:
-                add_entity(entities, word, label, w_begin)
-                word = None
-        if word:
-            add_entity(entities, word, label, w_begin)
+        pre_label = pred_label_result[0]
+        entities = []
+        for i in range(len(sentence)):
+                temp_label = pred_label_result[i]
+                if temp_label[0] == 'B':
+                        if word != "":
+                                if "##" in word:
+                                        word = word.replace('##', '')
+                                if pre_label is not label:
+                                        entities.append([word, label1])
+                                pre_label=label
+                                word = ""
+                        label1 = self.entity_map_dic[temp_label[2:]]
+                        label = temp_label[2:]
+                        word += sentence[i]
+                elif temp_label[0] == 'I' and word != "":
+                        word += sentence[i]
+                elif temp_label == 'O' and word != "":
+                        if "##" in word:
+                                word = word.replace('##', '')
+                        if pre_label is not label:
+                                entities.append([word, label1])
+                        pre_label=label
+                        word = ""
+                        label = ""
+        if word!="":
+            if "##" in word:
+                word=word.replace('##','')
+            if pre_label is not label:
+                entities.append([word, label1])
+        print(entities)
         return entities
 
     def get_ner_result(self, query):
@@ -163,20 +179,58 @@ class SemanticSearch(object):
         :param query: 问句
         :return:
         """
-        sentence, pred_label_result = self.client.send_grpc_request_ner(query)
+        account_result = self.account.get_account_labels_info(query)
+        neagtive_rel=['同伙','同案','同学','初中同学','小学同学','高中同学','大学同学','中学同学','中学','博士生','研究生','大学','老乡','幼儿园同学','研究生同学','博士生同学','管理员','管理','员工','同案人员','同事','大学导师','同监人','职员']
+        sentence, pred_label_result = self.client.send_grpc_request_ner(query.lower())
         if pred_label_result is None:
             logger.error("句子: {0}\t实体识别结果为空".format(query))
             return None
-        if len(sentence) != len(pred_label_result):
+        if len(sentence)!=len(pred_label_result):
             return None
-        entities = self.__get_entities(query, pred_label_result)
+        entities = self.__get_entities(sentence, pred_label_result)
 
+        if len(entities) != 0:
+            self.__combine_com_add(entities)
+        if 'accounts' in account_result:
+            accounts = account_result['accounts']
+        logger.info(accounts)
         entity = []
-        for word, label, begin in entities:
+        prefix_len = 0
+        sen=query.lower()
+        #logger.info(sen)
+        end=0
+        for word, label in entities:
+            sen = query.lower()[end:]
+            begin = sen.find(word) + prefix_len
+            end=begin+len(word)
+            #logger.info(sen)
+            #logger.info(prefix_len)
+            prefix_len = end
             if begin != -1 and word.isdigit() is False:
-                entity.append(
-                    {"type": label, "value": word, "code": self.code[label], "begin": begin,
-                     "end": begin + len(word) - 1 if begin != -1 else -1})
+                if '[UNK]' in word:
+                    break
+                if word == 'im' and label == 'firstname':
+                    break
+                if word == 'si' and label == 'lastname':
+                    break
+                if word == '群' and label == 'firstname':
+                    break
+                if label=='chenwei' and word in neagtive_rel:
+                    break
+                if label == 'firstname' and len(word) > 2:
+                    label = 'cpny_name'
+                flag = 0
+                for account in accounts:
+                     account_begin = account['begin']
+                     account_end = account['end']
+                     if begin >= account_begin and end <= account_end:
+                         flag = 1
+                         break
+                #logger.info(begin)
+                #logger.info(end)
+                #logger.info(query[begin:end])
+                if flag !=1:
+                    entity.append({"type": label, "value": query[begin:end], "code": self.code[label], "begin": begin,"end": end if begin != -1 else -1})
         return entity, entities
 
     def sentence_ner_entities(self, result_intent):
@@ -190,21 +244,15 @@ class SemanticSearch(object):
         sentence = result_intent["query"]
 
         entity, entities = self.get_ner_result(sentence)
-
+        logger.info(entity)
         result_intent["entity"] = entity
-        """
-        # 如果一个词被标识为命名实体，而该词又被检测为关系，那么从关系中将该词去除
-        for index, rel in enumerate(result_intent["relation"]):
-            for word, _ in entities:
-                if word.find(rel["value"]) != -1:
-                    result_intent["relation"].pop(index)
-        
-        """
+
         # 如果识别的实体已经被识别为账户，那么其为账户的可能性更大，从实体列表里面去除该实体
         for index, entity in enumerate(result_intent["entity"]):
             for account in result_intent["accounts"]:
                 if account["value"].find(entity["value"]) != -1:
-                    result_intent["entity"].pop(index)
+                    temp = result_intent["entity"].pop(index)
+                    print(temp)
 
         # 提取出账户识别模块识别的所有 UNLABEL 标签
         unlabels = []
@@ -216,9 +264,3 @@ class SemanticSearch(object):
         else:
             unlabel_result = {"sentence": sentence, "unlabels": unlabels, "error": "账户类型不明确"}
         return result_intent, unlabel_result
-
-
-def add_entity(entities, word, label, w_begin):
-    if "##" in word:
-        word = word.replace('##', '')
-    entities.append([word, label, w_begin])

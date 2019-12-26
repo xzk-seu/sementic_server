@@ -81,6 +81,9 @@ class MentionGraph(Graph):
         if temp_type in RELATION_DATA.keys():
             self.nodes['temp_0']['type'] = RELATION_DATA[temp_type]['domain']
             self.nodes['temp_1']['type'] = RELATION_DATA[temp_type]['range']
+        elif temp_type == "Ambiguous":
+            self.nodes['temp_0']['type'] = None
+            self.nodes['temp_1']['type'] = None
         else:
             self.nodes['temp_0']['type'] = "UNKNOWN"
             self.nodes['temp_1']['type'] = "UNKNOWN"

@@ -32,8 +32,11 @@ class MentionCollector(object):
         account_info = account.get_account_labels_info(sentence)
         intent = item_matcher.match(sentence, accounts_info=account_info)
         result, _ = semantic.sentence_ner_entities(intent)
+        self.relation = list()
+        self.value_props = list()
         self.entity = result.get('entity')
         if len(self.entity) > 1:
+            self.scope_correction()
             self.entity_check()
         self.entity.extend(result.get('accounts'))
         self.relation = result.get('relation')
@@ -42,7 +45,7 @@ class MentionCollector(object):
         self.relation_filter()
 
         # 判断一个mention是实体还是关系
-        self.relation_or_entity()
+        # self.relation_or_entity()
         self.set_mentions(self.entity, 'entity')
         self.set_mentions(self.relation, 'relation')
         self.set_mentions(self.value_props, 'value_props')
@@ -61,7 +64,7 @@ class MentionCollector(object):
             self.relation = [x for x in self.relation if x['end'] != e['end'] or x['begin'] == e['begin']]
         for r in self.relation:
             self.entity = [x for x in self.entity if x['end'] != r['end'] or x['begin'] != r['begin']
-                           or x['type'] != 'CHENWEI']
+                           or x['type'] != 'chenwei']
 
     def scope_correction(self):
         """
@@ -86,7 +89,7 @@ class MentionCollector(object):
         姓+名+称谓
         :return:
         """
-        person_types = ['FIRSTNAME', 'LASTNAME', 'CHENWEI', 'PERSON']
+        person_types = ['firstname', 'lastname', 'chenwei', 'person']
         self.entity = sorted(self.entity, key=lambda x: x['begin'])
         new_entity = list()
         e1 = self.entity[0]
@@ -139,9 +142,12 @@ class MentionCollector(object):
                         'VEHCARD_VALUE': ['PhasVehicleCard'],
                         'IDCARD_VALUE': ['PhasIdcard'],
                         'WX_GROUP_NUM': ['PhasWeChat']}
+        new_account_dict = dict()
+        for k, v in account_dict.items():
+            new_account_dict[k.lower()] = v
         for e in self.entity:
-            if e['type'] in account_dict.keys():
-                for rel_name in account_dict[e['type']]:
+            if e['type'] in new_account_dict.keys():
+                for rel_name in new_account_dict[e['type']]:
                     new_relation = [x for x in self.relation if x['type'] != rel_name]
                     self.relation = new_relation
 
@@ -164,7 +170,7 @@ def merge_entity(e1, e2):
     合并一组实体
     """
     r_entity = dict()
-    r_entity['type'] = 'PERSON'
+    r_entity['type'] = 'person'
     r_entity['value'] = e1['value'] + e2['value']
     r_entity['code'] = e1['code']
     r_entity['begin'] = e1['begin']

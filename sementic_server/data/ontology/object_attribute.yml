@@ -1,250 +1,250 @@
 Appear:
   belong: true
-  domain: Person
-  range: Addr
+  domain: person
+  range: addr
 AuthorizedBy:
   belong: false
-  domain: Company
-  range: Company
+  domain: company
+  range: company
 Call:
   belong: false
-  domain: MobileNum
-  range: MobileNum
+  domain: mobilenum
+  range: mobilenum
 ChasAddr:
   belong: true
-  domain: Company
-  range: Addr
+  domain: company
+  range: addr
 ChasQQ:
   belong: true
-  domain: Company
-  range: QQ
+  domain: company
+  range: qq
 Colleague:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 CreateQQGroup:
   belong: false
-  domain: QQ
-  range: QQGroup
+  domain: qq
+  range: qqgroup
 CreateWeChatGroup:
   belong: false
-  domain: WeChat
-  range: WeChatGroup
+  domain: wechat
+  range: wechatgroup
 CreatorOfQQGroup:
   belong: false
-  domain: QQGroup
-  range: QQ
+  domain: qqgroup
+  range: qq
 CreatorOfWeChatGroup:
   belong: false
-  domain: WeChatGroup
-  range: WeChat
+  domain: wechatgroup
+  range: wechat
 DouYin_FansOf:
   belong: false
-  domain: DouYin
-  range: DouYin
+  domain: douyin
+  range: douyin
 Employ:
   belong: false
-  domain: Company
-  range: Person
+  domain: company
+  range: person
 Friend:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 Kindred:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 LegalPerson:
   belong: false
-  domain: Company
-  range: Person
+  domain: company
+  range: person
 Manager:
   belong: false
-  domain: Company
-  range: Person
+  domain: company
+  range: person
 MemberOfQQGroup:
   belong: false
-  domain: QQGroup
-  range: QQ
+  domain: qqgroup
+  range: qq
 MemberOfWeChatGroup:
   belong: false
-  domain: WeChat
-  range: WeChatGroup
+  domain: wechat
+  range: wechatgroup
 MobileNumLoginWeChat:
   belong: false
-  domain: MobileNum
-  range: WeChat
+  domain: mobilenum
+  range: wechat
 PersonToAddr:
   belong: true
-  domain: Person
-  range: Addr
+  domain: person
+  range: addr
 PersonToCompany:
   belong: false
-  domain: Person
-  range: Company
+  domain: person
+  range: company
 PersonToDouYin:
   belong: true
-  domain: Person
-  range: DouYin
+  domain: person
+  range: douyin
 PersonToPerson:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 PhasAddr:
   belong: true
-  domain: Person
-  range: Addr
+  domain: person
+  range: addr
 PhasAlipay:
   belong: true
-  domain: Person
-  range: Alipay
+  domain: person
+  range: alipay
 PhasBankCard:
   belong: true
-  domain: Person
-  range: BankCard
+  domain: person
+  range: bankcard
 PhasBirthPlace:
   belong: true
-  domain: Person
-  range: Addr
+  domain: person
+  range: addr
 PhasDouYin:
   belong: true
-  domain: Person
-  range: DouYin
+  domain: person
+  range: douyin
 PhasEmail:
   belong: true
-  domain: Person
-  range: Email
+  domain: person
+  range: email
 PhasFixedPhone:
   belong: true
-  domain: Person
-  range: FixedPhone
+  domain: person
+  range: fixedphone
 PhasIDCard_DL:
   belong: true
-  domain: Person
-  range: IDCard_DL
+  domain: person
+  range: idcard_dl
 PhasIDCard_TW:
   belong: true
-  domain: Person
-  range: IDCard_TW
+  domain: person
+  range: idcard_tw
 PhasIMEI:
   belong: true
-  domain: Person
-  range: IMEI
+  domain: person
+  range: imei
 PhasIMSI:
   belong: true
-  domain: Person
-  range: IMSI
+  domain: person
+  range: imsi
 PhasIdcard:
   belong: true
-  domain: Person
-  range: Idcard
+  domain: person
+  range: idcard
 PhasJD:
   belong: true
-  domain: Person
-  range: JD
+  domain: person
+  range: jd
 PhasMAC:
   belong: true
-  domain: Person
-  range: MAC
+  domain: person
+  range: mac
 PhasMicroBlog:
   belong: true
-  domain: Person
-  range: MicroBlog
+  domain: person
+  range: microblog
 PhasMobileNum:
   belong: true
-  domain: Person
-  range: MobileNum
+  domain: person
+  range: mobilenum
 PhasOrgPlace:
   belong: true
-  domain: Person
-  range: Addr
+  domain: person
+  range: addr
 PhasPlateNum:
   belong: true
-  domain: Person
-  range: PlateNum
+  domain: person
+  range: platenum
 PhasQQ:
   belong: true
-  domain: Person
-  range: QQ
+  domain: person
+  range: qq
 PhasSSC:
   belong: true
-  domain: Person
-  range: SSC
+  domain: person
+  range: ssc
 PhasTaoBao:
   belong: true
-  domain: Person
-  range: TaoBao
+  domain: person
+  range: taobao
 PhasVehicle:
   belong: true
-  domain: Person
-  range: Vehicle
+  domain: person
+  range: vehicle
 PhasWeChat:
   belong: true
-  domain: Person
-  range: WeChat
+  domain: person
+  range: wechat
 QQFriend:
   belong: false
-  domain: QQ
-  range: QQ
+  domain: qq
+  range: qq
+QQGroupMember:
+  domain: qqgroup
+  range: qq
 RegisterPlace:
   belong: false
-  domain: Company
-  range: Company
+  domain: company
+  range: company
 Remark:
   belong: false
-  domain: MobileNum
-  range: MobileNum
+  domain: mobilenum
+  range: mobilenum
 Reside:
   belong: true
-  domain: Person
-  range: Addr
+  domain: person
+  range: addr
 SameCase:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 SameInternetBar:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 SamePrison:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 SameRoom:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 SameTown:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 SameTrip:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 SchoolMate:
   belong: false
-  domain: Person
-  range: Person
+  domain: person
+  range: person
 SendMessageTo:
   belong: false
-  domain: MobileNum
-  range: MobileNum
+  domain: mobilenum
+  range: mobilenum
 WeChatFriend:
   belong: false
-  domain: WeChat
-  range: WeChat
+  domain: wechat
+  range: wechat
+WeChatGroupMember:
+  domain: wechatgroup
+  range: wechat
 WorkAt:
   belong: true
-  domain: Person
-  range: Addr
+  domain: person
+  range: addr
 WorkFor:
   belong: false
-  domain: Person
-  range: Company
-WeChatGroupMember:
-  domain: WeChatGroup
-  range: WeChat
-QQGroupMember:
-  domain: QQGroup
-  range: QQ
+  domain: person
+  range: company

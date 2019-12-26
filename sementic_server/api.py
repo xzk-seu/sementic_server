@@ -17,8 +17,6 @@ from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
 from sementic_server.source.ner_task.utils import convert_data_format
 from sementic_server.source.intent_extraction.item_matcher import ItemMatcher
 from sementic_server.source.qa_graph.query_parser import QueryParser
-from sementic_server.source.dependency_parser.dependency_parser import DependencyParser
-from sementic_server.source.recommend.recommend_server import RecommendServer
 from sementic_server.source.query_interface.query_interface import QueryInterface
 from sementic_server.source.tool.global_object import dep_analyzer
 from sementic_server.source.tool.mention_collector import MentionCollector
@@ -27,8 +25,6 @@ from sementic_server.source.tool.mention_collector import MentionCollector
 account_model = Account()
 semantic = SemanticSearch()
 item_matcher = ItemMatcher(new_actree=True)
-dependency_parser = DependencyParser()
-recommend_server = RecommendServer()
 
 logger = logging.getLogger("server_log")
 
@@ -165,19 +161,6 @@ def get_result(request):
                             json_dumps_params={'ensure_ascii': False})
 
     start_time = timeit.default_timer()
-
-    accounts_info = account_recognition(sentence)
-
-    result_intent = error_correction_model(sentence, accounts_info=accounts_info)
-
-    result, unlabel_result = ner_model(result_intent)
-
-    if len(result.get("entity") + result.get("accounts")) == 0:
-        return JsonResponse({"query": sentence, "error": "实体识别模块返回空值"},
-                            json_dumps_params={'ensure_ascii': False})
-
-    if unlabel_result:
-        return JsonResponse(unlabel_result, json_dumps_params={'ensure_ascii': False})
 
     # 动态问答图
     query_graph_result, error_info = query_graph_model(sentence)

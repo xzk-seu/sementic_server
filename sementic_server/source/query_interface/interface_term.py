@@ -14,7 +14,7 @@ from sementic_server.source.qa_graph.graph import Graph
 class Node(object):
     def __init__(self, node_id, node_data: dict):
         self.node_id = node_id
-        self.node_type = node_data.get('type')
+        self.node_type = node_data.get('type').lower()
         self.node_property = dict()
         content = node_data.get('content')
 
@@ -22,14 +22,14 @@ class Node(object):
             return
         detail = content.get('detail')
         if not detail or len(detail) == 0:
-            p_type = content.get('type')
+            p_type = content.get('type').lower()
             p_value = content.get('value')
             v_type = "string"
             if p_type:
                 self.node_property[p_type] = dict(type=v_type, value=p_value)
             return
         for term in detail:
-            p_type = term['type']
+            p_type = term['type'].lower()
             p_value = term['value']
             v_type = "string"
             self.node_property[p_type] = dict(type=v_type, value=p_value)
@@ -64,7 +64,7 @@ class Target(object):
         value_props = self.graph.nodes[self.target_node].get("value_props")
         if value_props:
             self.target_type = 'node_property'
-            self.target_property = value_props['属性名称']
+            self.target_property = value_props['属性名称'].lower()
 
     def init_target_steps(self):
         self.get_steps(self.target_node, self.links)
