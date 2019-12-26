@@ -17,9 +17,11 @@ from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
 from sementic_server.source.ner_task.utils import convert_data_format
 from sementic_server.source.intent_extraction.item_matcher import ItemMatcher
 from sementic_server.source.qa_graph.query_parser import QueryParser
-from sementic_server.source.query_interface.query_interface import QueryInterface
 from sementic_server.source.dependency_parser.dependency_parser import DependencyParser
 from sementic_server.source.recommend.recommend_server import RecommendServer
+from sementic_server.source.query_interface.query_interface import QueryInterface
+from sementic_server.source.tool.global_object import dep_analyzer
+from sementic_server.source.tool.mention_collector import MentionCollector
 
 # 在这里定义在整个程序都会用到的类的实例
 account_model = Account()
@@ -95,7 +97,7 @@ def dependency_parser_model(result, sentence):
     return data, None
 
 
-def query_graph_model(data, dependency_graph, sentence):
+def query_graph_model(sentence):
     """
     查询图模块
     :param data:
@@ -106,12 +108,18 @@ def query_graph_model(data, dependency_graph, sentence):
     logger.info("Query Graph model...")
     t_another = timeit.default_timer()
     # 问答图模块
-    query_graph = None
     error_info = None
     qg = None
     try:
-        qg = QueryParser(data, dependency_graph)
-        query_graph = qg.query_graph.get_data()
+        m_collector = MentionCollector(sentence)
+        logger.info("=====================mention===================")
+        for m in m_collector.mentions:
+            logger.info(str(m))
+        dep_info = dep_analyzer.get_dep_info(sentence)
+        logger.info("======================dep======================")
+        for d in dep_info.get_att_deps():
+            logger.info(str(d))
+        qg = QueryParser(m_collector, dep_info)
         error_info = qg.error_info
     except Exception as e:
         logger.info('动态问答图构建失败！')
@@ -119,13 +127,13 @@ def query_graph_model(data, dependency_graph, sentence):
     query_interface = None
     try:
         qi = QueryInterface(qg.query_graph, sentence)
-        query_interface = qi.get_query_data()
+        query_interface = qi.get_dict()
     except Exception as e:
         logger.info('查询接口转换失败！')
         logger.info(e)
-    query_graph_result = {'query_graph': query_graph, 'query_interface': query_interface}
+
     logger.info("Query Graph model done. Time consume: {0}".format(timeit.default_timer() - t_another))
-    return query_graph_result, error_info
+    return query_interface, error_info
 
 
 @csrf_exempt
@@ -171,12 +179,10 @@ def get_result(request):
     if unlabel_result:
         return JsonResponse(unlabel_result, json_dumps_params={'ensure_ascii': False})
 
-    data, dependency_graph = dependency_parser_model(result, sentence)
-
     # 动态问答图
-    query_graph_result, error_info = query_graph_model(data, None, sentence)
+    query_graph_result, error_info = query_graph_model(sentence)
     if error_info:
-        return JsonResponse({"query": sentence, "error": error_info}, json_dumps_params={'ensure_ascii': False})
+        return JsonResponse({"query": sentence, "status": error_info}, json_dumps_params={'ensure_ascii': False})
 
     end_time = timeit.default_timer()
 
