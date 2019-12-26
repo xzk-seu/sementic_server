@@ -84,6 +84,18 @@ class DepGraph(Graph):
             self.nodes[t2]['label'] = 'concept'
             self.nodes[t2]['value'] = self.mentions[t2].value
             self.nodes[t2]['content'] = self.mentions[t2].content
+        elif m1.mention_type == 'value_props' and m2.mention_type == 'entity':
+            self.add_node(t2)
+            self.nodes[t2]['label'] = 'concept'
+            self.nodes[t2]['value'] = self.mentions[t2].value
+            self.nodes[t2]['content'] = self.mentions[t2].content
+            self.nodes[t2]['value_props'] = self.mentions[t1].content
+        elif m1.mention_type == 'entity' and m2.mention_type == 'value_props':
+            self.add_node(t1)
+            self.nodes[t1]['label'] = 'concept'
+            self.nodes[t1]['value'] = self.mentions[t1].value
+            self.nodes[t1]['content'] = self.mentions[t1].content
+            self.nodes[t1]['value_props'] = self.mentions[t2].content
 
 
 if __name__ == '__main__':

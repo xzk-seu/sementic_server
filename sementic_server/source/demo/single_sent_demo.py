@@ -32,8 +32,15 @@ def main():
     """
     sentence = "烽火科技的行业"
     m_collector = MentionCollector(sentence)
+    print("=====================mention===================")
+    for m in m_collector.mentions:
+        print(m)
 
     dep_info = dep_analyzer.get_dep_info(sentence)
+    print("======================dep======================")
+    for d in dep_info.get_att_deps():
+        print(d)
+
     qg = QueryParser(m_collector, dep_info)
     error_info = qg.error_info
     if error_info:

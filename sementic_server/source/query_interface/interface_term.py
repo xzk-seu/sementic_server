@@ -1,3 +1,11 @@
+"""
+@description: 查询接口字段生成
+@author: Xu Zhongkai
+@email: 1399350807@qq.com
+@time: 2019-11-16
+@version: 0.0.1
+"""
+
 from copy import deepcopy
 
 from sementic_server.source.qa_graph.graph import Graph
@@ -39,12 +47,24 @@ class Target(object):
     def __init__(self, intent_node_id: int, intent_node_ids: list, links: list, graph: Graph):
         self.target_type = "node"
         self.target_node = intent_node_id
+        self.target_property = None
         self.intent_node_ids = intent_node_ids
         self.already_nodes = deepcopy(intent_node_ids)
         self.target_steps = list()
         self.graph = graph
         self.links = links
+        self.property_target()
         self.init_target_steps()
+
+    def property_target(self):
+        """
+        对查值属性的目标进行处理
+        :return:
+        """
+        value_props = self.graph.nodes[self.target_node].get("value_props")
+        if value_props:
+            self.target_type = 'node_property'
+            self.target_property = value_props['属性名称']
 
     def init_target_steps(self):
         self.get_steps(self.target_node, self.links)
@@ -55,6 +75,8 @@ class Target(object):
         temp['target_type'] = self.target_type
         temp['target_node'] = self.target_node
         temp['target_steps'] = self.target_steps
+        if self.target_property:
+            temp['target_property'] = self.target_property
         return temp
 
     def get_steps(self, intent_node_id: int, links: list):

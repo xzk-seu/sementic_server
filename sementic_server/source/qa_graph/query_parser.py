@@ -79,6 +79,9 @@ class QueryParser(object):
             if not self.query_graph.nodes[n].get('value'):
                 self.add_intention_on_node(n)
                 has_intent = True
+            if self.query_graph.nodes[n].get('value_props'):
+                self.add_intention_on_node(n)
+                has_intent = True
         if has_intent:
             return
 
@@ -90,10 +93,10 @@ class QueryParser(object):
         for node in intention_candidates:
             criterion_dict[node] = self.query_graph.get_out_index(node)
 
-        m = min(criterion_dict.values())
+        m_v = min(criterion_dict.values())
         # 考虑到多个节点上都有最值
-        intention_nodes = [k for k, v in criterion_dict.items() if v == m]
-        logger.info('nodes: %s have degree: %d' % (str(intention_nodes), m))
+        intention_nodes = [k for k, v in criterion_dict.items() if v == m_v]
+        logger.info('nodes: %s have degree: %d' % (str(intention_nodes), m_v))
 
         logger.info('final intention node is %d' % intention_nodes[0])
         self.add_intention_on_node(intention_nodes[0])

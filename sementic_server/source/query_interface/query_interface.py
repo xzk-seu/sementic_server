@@ -36,7 +36,6 @@ class QueryInterface(object):
         self.init_targets()
 
     def init_targets(self):
-        #  TODO 完成这个函数
         intent_node_ids = [x for x in self.graph.nodes if self.graph.nodes[x].get('intent')]
         for iid in intent_node_ids:
             target = Target(iid, intent_node_ids, self.links, self.graph)
