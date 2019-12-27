@@ -11,7 +11,7 @@ import itertools
 import networkx as nx
 
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union
-from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE
+from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE, RELATION_CODE
 from sementic_server.source.tool.logger import logger
 
 
@@ -87,6 +87,13 @@ class QueryGraph(Graph):
                 self.add_edge(n2, n1, key, type=key, value=edge['value'])
                 flag = True
                 return flag
+        # # 如果添加不上默认边，向图中加入一个person节点，再试图添加
+        # if not flag:
+        #     self.add_node('temp_person', type="person", label='concept')
+        #     f1 = self.add_default_edge_between_nodes("temp_person", n1)
+        #     f2 = self.add_default_edge_between_nodes("temp_person", n2)
+        #     if f1 and f2:
+        #         flag = True
         return flag
 
     def add_default_edge_between_components(self, components_set, c1, c2):
@@ -156,6 +163,7 @@ class QueryGraph(Graph):
             if k == 'Ambiguous':
                 rel_data = self.ambiguity_resolution(n1, n2)
                 d_type = rel_data['type']
+                rel_data['code'] = RELATION_CODE[d_type]
                 self.add_edge(n1, n2, d_type, **rel_data)
                 self.remove_edge(n1, n2, k)
 
@@ -165,7 +173,7 @@ class QueryGraph(Graph):
         :return:
         """
         rel_data = self.get_edge_data(n1, n2, 'Ambiguous')
-        reverse_dict = {'好友': ['QQFriend', 'Friend'],
+        reverse_dict = {'好友': ['QQFriend', 'Partner'],
                         "成员": ['WeChatGroupMember', 'QQGroupMember'],
                         "群成员": ['WeChatGroupMember', 'QQGroupMember']}
         ambiguity_list = reverse_dict[rel_data['value']]

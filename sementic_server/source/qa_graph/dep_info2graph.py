@@ -11,9 +11,10 @@ import networkx as nx
 
 from sementic_server.source.dep_analyze.dep_map import DepMap
 from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
-from sementic_server.source.qa_graph.graph import Graph
+from sementic_server.source.qa_graph.graph import Graph, get_node_type
 from sementic_server.source.tool.global_object import dep_analyzer
 from sementic_server.source.tool.mention_collector import MentionCollector
+from sementic_server.source.tool.global_value import RELATION_DATA, ACCOUNT_LIST
 
 
 class DepGraph(Graph):
@@ -29,8 +30,34 @@ class DepGraph(Graph):
         for t_pair in self.token_pairs:
             self.pair_process(t_pair)
         self.remove_inner_node()
+        self.check_person_account()
         self.type_correct()
         self.add_head_target()
+
+    def check_person_account(self):
+        """
+        检查边的类型是否符合本体规定，若不符合
+        若该节点为账号，相邻的边和人相关，将该节点换为人
+        :return:
+        """
+        wait_to_add_edges = list()
+        for n1, n2, k in self.edges:
+            if k not in RELATION_DATA.keys():
+                continue
+            dom = RELATION_DATA[k]['domain']
+            ran = RELATION_DATA[k]['range']
+            if dom != "person" or ran != "person":
+                continue
+            content = self.nodes[n1].get("content")
+            n1_type = content.get("type")
+            if n1_type and n1_type in ACCOUNT_LIST:
+                self.nodes[n1]['type'] = "person"
+                # self.add_node("temp_account_%d" % count, type=n1_type, content=content)
+                wait_to_add_edges.append((n1, 0-n1, n1_type, content))
+        for n1, n2, n1_type, content in wait_to_add_edges:
+            n1_type = get_node_type(n1_type)
+            self.add_node(n2, type=n1_type, content=content)
+            self.add_edge(n1, n2, "unknown_relation")
 
     def add_head_target(self):
         for tid in self.head_intent_ids:

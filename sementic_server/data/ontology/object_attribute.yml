@@ -50,7 +50,7 @@ Friend:
   belong: false
   domain: person
   range: person
-Kindred:
+Relative:
   belong: false
   domain: person
   range: person
@@ -225,7 +225,7 @@ SameTrip:
   belong: false
   domain: person
   range: person
-SchoolMate:
+Schoolmate:
   belong: false
   domain: person
   range: person
@@ -244,7 +244,23 @@ WorkAt:
   belong: true
   domain: person
   range: addr
-WorkFor:
+WorkForCo:
   belong: false
   domain: person
   range: company
+BrotherOrSister:
+  belong: false
+  domain: person
+  range: person
+CousinFromMotherSide:
+  belong: false
+  domain: person
+  range: person
+ChildToMotherSibling:
+  belong: false
+  domain: person
+  range: person
+Partner:
+  belong: false
+  domain: person
+  range: person

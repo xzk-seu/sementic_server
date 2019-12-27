@@ -1,15 +1,6 @@
-AddrWithCo: []
-AddrWithP: []
-AlipayHolder: []
-AlipayLoginWithEmail: []
-AlipayLoginWithMobileNum: []
 Ambiguous:
 - 好友
 - 成员
-- 拥有
-- 群主
-- 持有
-- 拥有
 Appear:
 - 出没
 - 滞留
@@ -17,7 +8,6 @@ Appear:
 - 逗留
 - 出现
 - 驻留
-AuthorizeCo: []
 AuthorizedBy:
 - 登记机关
 - 登记单位
@@ -25,14 +15,6 @@ AuthorizedBy:
 - 登记部门
 - 注册机构
 - 登记处
-BankCardHolder: []
-BrotherOrSister:
-- 二堂哥
-- 嫂嫂
-- 哥哥
-- 姐姐
-- 弟弟
-- 妹妹
 Call:
 - 致电
 - 通电话
@@ -40,27 +22,14 @@ Call:
 - 打电话
 - 通话
 - 电话联系
-CalledBy: []
-ChildToFatherSibling: []
-ChildToMotherSibling:
-- 舅舅
-ChildToParent: []
-CoHasAddr:
+ChasAddr:
 - 公司地址
 - 所在地
 - 地方
 - 地址
-CoHasEmail: []
-CoHasEmployee: []
-CoHasFixedPhone: []
-CoHasLegalPerson: []
-CoHasMicroBlog: []
-CoHasMobileNum: []
-CoHasPlate: []
-CoHasPresident: []
-CoHasQQ: []
-CoHasVehicle: []
-CoHasWeChat: []
+ChasQQ:
+- 拥有
+- 拥有QQ号
 Colleague:
 - 同仁
 - 共事
@@ -68,12 +37,6 @@ Colleague:
 - 工友
 - 同僚
 - 一起工作
-CousinFromFatherSide: []
-CousinFromMotherSide:
-- 表妹
-- 表哥
-- 表姐
-- 表弟
 CreateQQGroup:
 - 创建群
 - 建群
@@ -89,97 +52,25 @@ CreateQQGroup:
 - 创办群
 CreateWeChatGroup:
 - 创建的微信群
-DouYinFollow: []
-DouYinFollower:
+CreatorOfQQGroup:
+- 群主
+CreatorOfWeChatGroup:
+- 群主
+DouYin_FansOf:
 - 互粉
 - 粉丝
 - 关注
-DouYinHolder: []
-DouYinLoginWithMobileNum: []
-EmailHolder: []
-EmailOfAlipayLogin: []
-EmailOfJDLogin: []
-EmailOfTaoBaoLogin: []
-EmailWithCo: []
-FatherSiblingToChild: []
-FixedPhoneHolder: []
-FixedPhoneWithCo: []
-GetMessageFrom: []
-HusbandToWife: []
-IDCardDLHolder: []
-IDCardTWHolder: []
-IMEIHolder: []
-IMEIWithIMSI: []
-IMEIWithMAC: []
-IMSIBindMobileNum: []
-IMSIHolder: []
-IMSIWithIMEI: []
-JDHolder: []
-JDLoginWithEmail: []
-JDLoginWithMobileNum: []
-JoinQQGroup:
-- 加盟
-- 入伙
-- 进群
-- 群成员
-- 加群
-- 加入
-- 群成员
-JoinWeChatGroup:
-- 加入的微信群
-LegalPersonOfCo: []
-MACHolder: []
-MACWithIMEI: []
-ManagerOfQQGroup: []
-ManagerOfWeChatGroup: []
-MicroBlogFollow: []
-MicroBlogFollower: []
-MicroBlogHolder: []
-MicroBlogLoginWithMobileNum: []
-MicroBlogWithCo: []
-MobileNumHolder: []
-MobileNumOfAlipayLogin:
-- 报到
-- 登陆
-- 录入
-- 签到
-- 记名
-- 登录
-MobileNumOfDouYinLogin: []
-MobileNumOfJDLogin: []
-MobileNumOfMicroBlogLogin: []
-MobileNumOfQQLogin: []
-MobileNumOfTaoBaoLogin: []
-MobileNumOfWeChatLogin: []
-MobileNumWithCo: []
-MobileNumWithIMSI: []
-MotherSiblingToChild: []
-PAppeared: []
-PHasAddr: []
-PHasAlipay: []
-PHasBankCard: []
-PHasDouYin: []
-PHasEmail: []
-PHasFixedPhone: []
-PHasIDCardDL: []
-PHasIDCardTW: []
-PHasIMEI: []
-PHasIMSI: []
-PHasJD: []
-PHasMAC: []
-PHasMicroBlog: []
-PHasMobileNum: []
-PHasPlate: []
-PHasQQ:
-- 拥有QQ号
-PHasSSC: []
-PHasTaoBao: []
-PHasVehicle: []
-PHasWeChat: []
-ParentToChild: []
-Partner:
-- 同伙
-- 同伙人
+EmailLoginAlipay:
+- null
+EmailLoginJD:
+- null
+EmailLoginTaoBao:
+- null
+Employ:
+- 雇佣
+- 雇用
+- 员工
+Friend:
 - 朋友
 - 挚友
 - 至友
@@ -188,25 +79,7 @@ Partner:
 - 故交
 - 故旧
 - 密友
-PlateHolder: []
-PlateWithCo: []
-PlateWithVehicle: []
-PresidentOfCo: []
-QQFriend:
-- QQ好友
-- qq好友
-QQGroupCreator: []
-QQGroupManager: []
-QQGroupMember: []
-QQHolder: []
-QQLoginWithMobileNum: []
-QQWithCo: []
-QRemarkedByT: []
-RegisterPlace:
-- 注册地址
-- 注册地
-RegisterPlaceWithCo: []
-Relative:
+Kindred:
 - 养父
 - 养母
 - 孙子
@@ -256,6 +129,7 @@ Relative:
 - 二女儿
 - 老姑
 - 三堂哥
+- 舅舅
 - 娘子
 - 三堂姐
 - 大伯
@@ -313,6 +187,8 @@ Relative:
 - 小侄女
 - 曾祖母
 - 家眷
+- 表妹
+- 老婆
 - 亲戚
 - 老伯
 - 老姐
@@ -460,6 +336,9 @@ Relative:
 - 幺姨
 - 二伯
 - 堂叔
+- 二堂哥
+- 嫂嫂
+- 哥哥
 - 生母
 - 手足
 - 奶奶
@@ -506,10 +385,109 @@ Relative:
 - 父兄
 - 表嫂
 - 哥
-Reside:
+LegalPerson:
+- 法人
+- 公司的法定代表人
+- 法定代表人
+- 企业的法定代表人
+- 法定代表
+- 公司法定代表人
+- 法人代表
+- 企业法人
+- 企业法定代表人
+- 公司法人
+- 公司法人代表
+Manager:
+- 理事
+- 总经理
+- 副总
+- CEO
+- 执行主席
+MemberOfQQGroup:
+- 加盟
+- 入伙
+- 进群
+- 群成员
+- 加群
+- 加入
+MemberOfWeChatGroup:
+- 群成员
+- 加入的微信群
+MicroBlog_FansOf:
+- null
+MobileNumLoginAlipay:
+- null
+MobileNumLoginDouYin:
+- null
+MobileNumLoginJD:
+- null
+MobileNumLoginMicroBlog:
+- null
+MobileNumLoginQQ:
+- null
+MobileNumLoginTaoBao:
+- null
+MobileNumLoginWeChat:
+- 报到
+- 登陆
+- 录入
+- 签到
+- 记名
+- 登录
+Partner:
+- 同伙
+- 同伙人
+PhasAddr:
 - 家庭住址
 - 家庭地址
 - 住址
+PhasAlipay:
+- 支付宝
+PhasBirthPlace:
+- 出生地
+- 出生于
+PhasDouYin:
+- 抖音
+PhasEmail:
+- 邮箱
+- 邮箱地址
+PhasJD:
+- 京东
+PhasMicroBlog:
+- 微博
+PhasMobileNum:
+- 手机号
+PhasOrgPlace:
+- 籍贯
+- 原籍
+- 祖居地
+- 老家的地址
+PhasQQ:
+- 持有
+- 拥有
+- 拥有QQ号
+- QQ号
+- qq号
+- QQ账号
+PhasTaoBao:
+- 淘宝
+PhasVehicle:
+- 汽车
+PhasVehicleCard:
+- 车牌号
+- 车牌
+PhasWeChat:
+- 微信
+QQFriend:
+- QQ好友
+- qq好友
+RegisterPlace:
+- 注册地址
+- 注册地
+Remark:
+- 备注
+- 通讯录
+Reside:
 - 居住
 - 住进
 - 住在
@@ -522,14 +500,6 @@ Reside:
 - 投宿
 - 租房住在
 - 租房居住
-- 出生地
-- 出生于
-- 籍贯
-- 原籍
-- 祖居地
-- 老家的地址
-Resident: []
-SSCHolder: []
 SameCase:
 - 同案人
 - 同案
@@ -568,7 +538,7 @@ SameTrip:
 - 同路
 - 同车
 - 一起去
-Schoolmate:
+SchoolMate:
 - 同门
 - 老师
 - 幼儿园老师
@@ -613,49 +583,15 @@ SendMessageTo:
 - 发短息
 - 发消息
 - 发信息
-TRemarkQ: []
-TRemarkT: []
-TRemarkedByT: []
-TaoBaoHolder: []
-TaoBaoLoginWithEmail: []
-TaoBaoLoginWithMobileNum: []
-VehicleHolder: []
-VehicleWithCo: []
-VehicleWithPlate: []
 WeChatFriend:
 - 微信好友
-WeChatGroupCreator: []
-WeChatGroupManager: []
-WeChatGroupMember: []
-WeChatHolder: []
-WeChatLoginWithMobileNum: []
-WeChatWithCo:
-- 法人
-- 公司的法定代表人
-- 法定代表人
-- 企业的法定代表人
-- 法定代表
-- 公司法定代表人
-- 法人代表
-- 企业法人
-- 企业法定代表人
-- 公司法人
-- 公司法人代表
-- 理事
-- 总经理
-- 副总
-- CEO
-- 执行主席
-WifeToHusband:
-- 丈夫
-- 老公
+WeChatJoinWeChatGroup:
+- null
 WorkAt:
 - 工作地址
+WorkFor:
+- 哪里工作
 - 工作
-- 工作单位
-WorkForCo:
 - 上班
-- 雇佣
-- 雇用
-- 员工
-Worker: []
+- 工作单位
+- 的公司

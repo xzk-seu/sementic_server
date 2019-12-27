@@ -42,6 +42,8 @@ class Graph(nx.MultiDiGraph):
     def is_none_node(self, node):
         if self.nodes[node]['label'] != 'concept':
             return False
+        if self.nodes[node].get("content"):
+            return False
         neighbors = self.neighbors(node)
         for n in neighbors:
             # 目前判断条件为出边没有字面值，认为是空节点
@@ -214,17 +216,7 @@ class Graph(nx.MultiDiGraph):
                 data = self.get_edge_data(e[0], e[1])
             logger.info('{0}\t{1}'.format(e, data))
 
-    def type_correct(self):
-        """
-        对节点和边的类型进行映射
-        :return:
-        """
-        for n in self.nodes:
-            temp_content = self.nodes[n].get('content')
-            if not temp_content:
-                continue
-            temp_type = temp_content['type']
-            self.nodes[n]['type'] = get_node_type(temp_type)
+    def edge_type_correct(self):
         reverse_edge_list = list()
         for n1, n2, k in self.edges:
             self.nodes[n1]['label'] = 'concept'
@@ -242,12 +234,27 @@ class Graph(nx.MultiDiGraph):
             if n1_type == dom or n2_type == ran:
                 self.nodes[n1]['type'] = dom
                 self.nodes[n2]['type'] = ran
-            else:
+            elif n1_type == ran or n2_type == dom:
                 reverse_edge_list.append((n1, n2, k))
         for n1, n2, k in reverse_edge_list:
             data = self.get_edge_data(n1, n2, k)
             self.add_edge(n2, n1, k, **data)
             self.remove_edge(n1, n2, k)
+
+    def type_correct(self):
+        """
+        对节点和边的类型进行映射
+        :return:
+        """
+        for n in self.nodes:
+            if self.nodes[n].get('type'):
+                continue
+            temp_content = self.nodes[n].get('content')
+            if not temp_content:
+                continue
+            temp_type = temp_content['type']
+            self.nodes[n]['type'] = get_node_type(temp_type)
+        self.edge_type_correct()
 
 
 def my_disjoint_union_all(graphs):

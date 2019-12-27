@@ -1,8 +1,8 @@
-PersonToAddr:
+Reside:
   domain: person
   range: addr
   value: 人与地址
-PersonToCompany:
+WorkForCo:
   domain: person
   range: company
   value: 人与公司
@@ -26,3 +26,7 @@ PHasMobileNum:
   domain: person
   range: mobilenum
   value: 拥有手机
+AddrWithP:
+  domain: addr
+  range: person
+  value: 人与地址
