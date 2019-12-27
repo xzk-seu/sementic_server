@@ -45,7 +45,7 @@ class MentionCollector(object):
         self.relation_filter()
 
         # 判断一个mention是实体还是关系
-        # self.relation_or_entity()
+        self.relation_or_entity()
         self.set_mentions(self.entity, 'entity')
         self.set_mentions(self.relation, 'relation')
         self.set_mentions(self.value_props, 'value_props')

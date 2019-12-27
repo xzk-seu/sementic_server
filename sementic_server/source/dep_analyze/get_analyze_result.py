@@ -53,7 +53,7 @@ class DepInfo(object):
         for co in co_data:
             idx = co['idx']
             idx2 = co['idx2']
-            att_data = [x for x in self.source_data if x['idx2'] == idx2 and x['tag'] == 'ATT']
+            att_data = [x for x in self.source_data if x['idx2'] == idx2]
             for a in att_data:
                 temp = deepcopy(a)
                 temp['idx2'] = idx

@@ -13,8 +13,10 @@ from sementic_server.source.qa_graph.graph import Graph
 
 class Node(object):
     def __init__(self, node_id, node_data: dict):
-        self.node_id = node_id
-        self.node_type = node_data.get('type').lower()
+        self.node_id = int(node_id)
+        self.node_type = node_data.get('type')
+        if isinstance(self.node_type, str):
+            self.node_type = self.node_type.lower()
         self.node_property = dict()
         content = node_data.get('content')
 
@@ -44,7 +46,8 @@ class Target(object):
         target_steps
     """
 
-    def __init__(self, intent_node_id: int, intent_node_ids: list, links: list, graph: Graph):
+    def __init__(self, target_id, intent_node_id: int, intent_node_ids: list, links: list, graph: Graph):
+        self.target_id = target_id
         self.target_type = "node"
         self.target_node = intent_node_id
         self.target_property = None
@@ -72,6 +75,7 @@ class Target(object):
 
     def get_dict(self):
         temp = dict()
+        temp['target_id'] = self.target_id
         temp['target_type'] = self.target_type
         temp['target_node'] = self.target_node
         temp['target_steps'] = self.target_steps

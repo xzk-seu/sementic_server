@@ -37,8 +37,9 @@ class QueryInterface(object):
 
     def init_targets(self):
         intent_node_ids = [x for x in self.graph.nodes if self.graph.nodes[x].get('intent')]
-        for iid in intent_node_ids:
-            target = Target(iid, intent_node_ids, self.links, self.graph)
+        for tid, iid in enumerate(intent_node_ids):
+            target = Target(target_id=tid, intent_node_id=iid, intent_node_ids=intent_node_ids,
+                            links=self.links, graph=self.graph)
             self.targets.append(target.get_dict())
 
     def init_links(self):

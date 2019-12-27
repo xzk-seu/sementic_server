@@ -44,18 +44,50 @@ class DepMap(object):
     """
 
     def __init__(self, mention_collector: MentionCollector, dep_info: DepInfo):
-        mentions = mention_collector.get_mentions()
-        att_links = dep_info.get_att_deps()
+        self.mentions = mention_collector.get_mentions()
+        self.att_links = dep_info.get_att_deps()
+        self.dep_info = dep_info
         self.token_pairs = list()
-        for att_link in att_links:
+        self.head_intentions = list()
+        self.init_token_pairs()
+        self.init_head_intentions()
+
+    def init_head_intentions(self):
+        """
+        从依存分析的头节点推断意图
+        考虑到coo依存会将相关依存关系复制一遍，所以考虑问句有多个头实体
+        在get_analyze_result.py co_deps_process(self)中
+        若头节点对应实体，则认为该实体为查询意图
+        :return:
+        """
+        heads = [x for x in self.dep_info.source_data if x['tag'] == "HED"]
+        heads_ids = [x['idx'] for x in heads]
+        heads_token = [Token(x) for x in heads]
+        temp_flag = self.check_target(heads_token)
+        # 若根结点没有匹配到mention，选择根结点的下层节点匹配
+        if not temp_flag:
+            temp_tokens = [Token(x) for x in self.dep_info.source_data if x['idx2'] in heads_ids]
+            self.check_target(temp_tokens)
+
+    def check_target(self, token_list: list):
+        flag = False
+        for token in token_list:
+            token.match_mention(self.mentions)
+            if token.mention_type == "entity":
+                flag = True
+                self.head_intentions.append(token.mention_id)
+        return flag
+
+    def init_token_pairs(self):
+        for att_link in self.att_links:
             source = att_link['source']
             token_s = Token(source)
-            if not token_s.match_mention(mentions):
+            if not token_s.match_mention(self.mentions):
                 continue
             source = att_link['att']
             token_a = Token(source)
-            token_a.match_mention(mentions)
-            if not token_a.match_mention(mentions):
+            token_a.match_mention(self.mentions)
+            if not token_a.match_mention(self.mentions):
                 continue
             if token_a.mention_id == token_s.mention_id:
                 continue

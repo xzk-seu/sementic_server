@@ -22,14 +22,20 @@ class DepGraph(Graph):
 
         self.mentions = mention_collector.get_mentions()
         self.dep_info = dep_info
-        self.att_info = dep_info.get_att_deps()
         self.dep_map = DepMap(mention_collector, dep_info)
         self.token_pairs = self.dep_map.token_pairs
+        self.head_intent_ids = self.dep_map.head_intentions
         self.related_m_id_list = list()
         for t_pair in self.token_pairs:
             self.pair_process(t_pair)
         self.remove_inner_node()
         self.type_correct()
+        self.add_head_target()
+
+    def add_head_target(self):
+        for tid in self.head_intent_ids:
+            if tid in self.nodes:
+                self.nodes[tid]['intent'] = True
 
     def get_rest_mentions(self):
         m_id_list = [x.idx for x in self.mentions]
