@@ -148,12 +148,12 @@
   定义域: QQ
   属性名称: LST_DATE_FS
   属性描述: 最后发现时间
-25:
-  inner_id: 25
-  值域: int
-  定义域: MobileNumber
-  属性名称: MOB_NUM
-  属性描述: 手机号
+#25:
+#  inner_id: 25
+#  值域: int
+#  定义域: MobileNumber
+#  属性名称: MOB_NUM
+#  属性描述: 手机号
 26:
   inner_id: 26
   值域: string

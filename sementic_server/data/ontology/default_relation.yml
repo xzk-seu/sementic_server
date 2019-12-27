@@ -22,3 +22,7 @@ PhasWeChat:
   domain: person
   range: wechat
   value: 拥有微信
+PHasMobileNum:
+  domain: person
+  range: mobilenum
+  value: 拥有手机

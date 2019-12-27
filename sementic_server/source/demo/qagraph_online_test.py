@@ -24,6 +24,7 @@ QQ群10319046645有哪些成员
 在东南大学上学的徐同学
 在东南大学上学的徐忠锴的同学
 
+手机号为1517658493的朋友
 """
 
 if __name__ == '__main__':
@@ -36,7 +37,7 @@ if __name__ == '__main__':
         qg = QueryParser(m_collector, dep_info)
         error_info = qg.error_info
         if error_info:
-            print(error_info)
+            print("error_info:", error_info)
         qg.query_graph.show()
 
         qi = QueryInterface(qg.query_graph, sentence)

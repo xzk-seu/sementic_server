@@ -11,7 +11,7 @@ import json
 import networkx as nx
 
 from sementic_server.source.qa_graph.ent2node import get_node_type
-from sementic_server.source.tool.global_value import RELATION_DATA
+from sementic_server.source.tool.global_value import RELATION_DATA, ACCOUNT_OBJ_LIST
 from sementic_server.source.tool.logger import logger
 
 
@@ -47,10 +47,7 @@ class Graph(nx.MultiDiGraph):
             # 目前判断条件为出边没有字面值，认为是空节点
             # 没有字面值，且没有账号和地址
             # 考虑拓扑排序的终点
-            account_list = ['QQ', 'MobileNum', 'FixedPhone', 'Idcard', 'Email', 'WeChat', 'QQGroup',
-                            'WeChatGroup', 'Alipay', 'DouYin', 'JD', 'TaoBao', 'MicroBlog', 'UNLABEL',
-                            'VehicleCard', 'IMEI', 'MAC', 'Addr']
-            if self.nodes[n]['label'] == 'literal' or self.nodes[n]['type'] in account_list:
+            if self.nodes[n]['label'] == 'literal' or self.nodes[n]['type'] in ACCOUNT_OBJ_LIST:
                 return False
         return True
 

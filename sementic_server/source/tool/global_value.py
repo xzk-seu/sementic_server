@@ -79,3 +79,9 @@ init_relation_keyword()
 ACCOUNT_LIST = ['QQ_NUM', 'MOB_NUM', 'PHONE_NUM', 'IDCARD_VALUE', 'EMAIL_VALUE', 'WECHAT_VALUE', 'QQ_GROUP_NUM',
                 'WX_GROUP_NUM', 'ALIPAY_VALUE', 'DOUYIN_VALUE', 'JD_VALUE', 'TAOBAO_VALUE', 'MICROBLOG_VALUE',
                 'UNLABEL', 'VEHCARD_VALUE', 'IMEI_VALUE', 'MAC_VALUE']
+ACCOUNT_LIST = [x.lower() for x in ACCOUNT_LIST]
+
+ACCOUNT_OBJ_LIST = ['QQ', 'MobileNum', 'FixedPhone', 'Idcard', 'Email', 'WeChat', 'QQGroup',
+                    'WeChatGroup', 'Alipay', 'DouYin', 'JD', 'TaoBao', 'MicroBlog', 'UNLABEL',
+                    'VehicleCard', 'IMEI', 'MAC', 'Addr']
+ACCOUNT_OBJ_LIST = [x.lower() for x in ACCOUNT_OBJ_LIST]
