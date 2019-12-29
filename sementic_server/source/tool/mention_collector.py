@@ -11,6 +11,9 @@ from sementic_server.source.tool.logger import logger
 
 
 class Mention(object):
+    """
+    三类mention的抽象结构：实体、关系、值属性
+    """
     def __init__(self, m_dict):
         self.idx = m_dict['id']
         self.mention_type = m_dict['type']
@@ -185,6 +188,10 @@ def merge_entity(e1, e2):
 
 
 def main():
+    """
+    程序入口
+    :return:
+    """
     sentence = "东南大学汪鹏老师的学生张三"
     m_collector = MentionCollector(sentence)
 

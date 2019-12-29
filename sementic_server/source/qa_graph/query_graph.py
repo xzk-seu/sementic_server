@@ -16,6 +16,9 @@ from sementic_server.source.tool.logger import logger
 
 
 class QueryGraph(Graph):
+    """
+    动态知识图谱构造核心模块
+    """
     def __init__(self, dep_graph: Graph, rest_mention_graph: Graph):
         temp_graph = my_disjoint_union(dep_graph, rest_mention_graph)
         nx.MultiDiGraph.__init__(self, temp_graph)

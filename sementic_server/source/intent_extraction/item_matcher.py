@@ -39,8 +39,6 @@ class ItemMatcher(object):
         self.aho_correction = None  # 纠错AC
 
         si = SystemInfo()
-        # self.correct_logger = get_logger("Correction", si.log_path_corr)
-        # self.behavior_logger = get_logger("ItemMatcher", si.log_path_behavior)
 
         # 获得根目录的地址
         dir_data = join(si.base_path, "data")

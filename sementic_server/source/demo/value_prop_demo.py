@@ -15,7 +15,7 @@ from sementic_server.source.qa_graph.query_parser import QueryParser
 from sementic_server.source.tool.v_prop_matcher import VpMatcher
 
 
-def main():
+if __name__ == '__main__':
     semantic = SemanticSearch()
     item_matcher = ItemMatcher(True)
     account = Account()
@@ -24,7 +24,7 @@ def main():
     # sentence = input("please input:")
 
     # sentence = "烽火科技的网站是多少？"
-        """
+    """
     sentence = "南京市在烽火科技工作的张三的国籍？"
 
     account_info = account.get_account_labels_info(sentence)
@@ -44,20 +44,3 @@ def main():
     print(entity)
     print(relation)
     print(data['value_props'])
-    """
-    # d = dict(rels=relation, v_props=data['value_props'])
-    """
-    with open('test.json', 'w') as fw:
-        import json
-        json.dump(entity, fw)
-
-    qg = QueryParser(data, None)
-
-    error_info = qg.error_info
-    if error_info:
-        print(error_info)
-    qg.query_graph.show()
-
-
-if __name__ == '__main__':
-    main()

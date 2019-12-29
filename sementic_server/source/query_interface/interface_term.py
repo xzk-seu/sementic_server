@@ -12,6 +12,9 @@ from sementic_server.source.qa_graph.graph import Graph
 
 
 class Node(object):
+    """
+    查询接口中的节点类
+    """
     def __init__(self, node_id, node_data: dict):
         self.node_id = int(node_id)
         self.node_type = node_data.get('type')

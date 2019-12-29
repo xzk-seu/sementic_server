@@ -18,6 +18,9 @@ from sementic_server.source.tool.global_value import RELATION_DATA, ACCOUNT_LIST
 
 
 class DepGraph(Graph):
+    """
+    根据依存信息构建图
+    """
     def __init__(self, mention_collector: MentionCollector, dep_info: DepInfo):
         nx.MultiDiGraph.__init__(self)
 

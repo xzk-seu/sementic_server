@@ -9,6 +9,11 @@ from sementic_server.source.tool.logger import logger
 
 
 def get_node_type(entity_type):
+    """
+    实体类型和节点类型进行映射
+    :param entity_type:
+    :return:
+    """
     account_list = ['QQ_NUM', 'MOB_NUM', 'PHONE_NUM', 'IDCARD_VALUE', 'EMAIL_VALUE', 'WECHAT_VALUE', 'QQ_GROUP_NUM',
                     'WX_GROUP_NUM', 'ALIPAY_VALUE', 'DOUYIN_VALUE', 'JD_VALUE', 'TAOBAO_VALUE', 'MICROBLOG_VALUE',
                     'UNLABEL', 'VEHCARD_VALUE', 'IMEI_VALUE', 'MAC_VALUE']

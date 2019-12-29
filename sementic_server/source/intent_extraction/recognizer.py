@@ -7,8 +7,7 @@
 """
 from functools import cmp_to_key
 
-from sementic_server.source.intent_extraction.actree import Aho
-from sementic_server.source.tool.system_info import SystemInfo
+from sementic_server.source.aho_matcher.actree import Aho
 
 
 def build_vocab(vo_dict: dict):
@@ -118,8 +117,6 @@ class Recognizer(object):
         利用词典建树
         :param vocab:
         """
-        si = SystemInfo()
-        # self.behavior_logger = get_logger("Recognizer", si.log_path_behavior)
         self.w2tp, self.c2id, self.id2c = build_vocab(vocab)
         self.actree = Aho()
         for vls in vocab.values():

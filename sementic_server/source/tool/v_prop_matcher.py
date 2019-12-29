@@ -13,6 +13,9 @@ from sementic_server.source.tool.global_value import ONTO_DIR, V_PROPERTY_LIST
 
 
 class VpMatcher(object):
+    """
+    值属性匹配器
+    """
     def __init__(self):
         dict_path = join(ONTO_DIR, 'v_property_mentions.yml')
         self.aho = build_aho(dict_path)  # load a dict from path
