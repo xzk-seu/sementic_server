@@ -55,10 +55,20 @@ def build_aho(path, f_type='yml'):
 
 
 def save_aho(aho, path):
+    """
+    保存aho文件
+    :param aho:
+    :param path:
+    :return:
+    """
     pickle.dump(aho, open(path, 'wb'))
 
 
 def match():
+    """
+    匹配示例
+    :return:
+    """
     dict_path = join(YML_DIR, 'relation.yml')
     aho_path = join(AHO_DIR, 'relation.pkl')
 
