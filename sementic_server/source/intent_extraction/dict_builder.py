@@ -15,7 +15,7 @@ from pypinyin import lazy_pinyin
 
 from sementic_server.source.intent_extraction.helper \
     import replace_items_in_sentence, power_set, replace_position_with_another_by_combination
-from sementic_server.source.intent_extraction.recognizer import cmp, cmp_to_key
+from sementic_server.source.aho_matcher.recognizer import cmp, cmp_to_key
 from sementic_server.source.tool.system_info import SystemInfo
 
 logger = logging.getLogger("server_log")

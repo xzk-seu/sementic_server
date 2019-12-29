@@ -18,7 +18,7 @@ from sementic_server.source.intent_extraction.dict_builder import build_wrong_ta
 from sementic_server.source.intent_extraction.helper \
     import replace_items_in_sentence, resolve_list_confilct, update_account_in_sentence
 from sementic_server.source.intent_extraction.logger import construt_log
-from sementic_server.source.intent_extraction.recognizer import Recognizer
+from sementic_server.source.aho_matcher.recognizer import Recognizer
 from sementic_server.source.tool.system_info import SystemInfo
 
 server_logger = logging.getLogger("server_log")
