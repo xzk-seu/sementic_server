@@ -108,23 +108,43 @@ def query_graph_model(sentence):
     error_info = None
     qg = None
     try:
+        start_time = timeit.default_timer()
+        logger.info("[sentence:%s][问答图整体模块][知识抽取阶段-start]\n" % sentence)
         m_collector = MentionCollector(sentence)
         logger.info("=====================mention===================")
         for m in m_collector.mentions:
             logger.info(str(m))
+        end_time = timeit.default_timer()
+        logger.info("[sentence:%s][问答图整体模块][知识抽取阶段-end][costTime:%dms]\n" %
+                    (sentence, end_time - start_time))
+        start_time = timeit.default_timer()
+        logger.info("[sentence:%s][问答图整体模块][依存分析获取阶段-start]\n" % sentence)
         dep_info = dep_analyzer.get_dep_info(sentence)
         logger.info("======================dep======================")
         for d in dep_info.get_att_deps():
             logger.info(str(d))
+        end_time = timeit.default_timer()
+        logger.info("[sentence:%s][问答图整体模块][依存分析获取阶段-end][costTime:%dms]\n" %
+                    (sentence, end_time - start_time))
+        start_time = timeit.default_timer()
+        logger.info("[sentence:%s][问答图整体模块][动态知识图谱构建阶段-start]\n" % sentence)
         qg = QueryParser(m_collector, dep_info)
         error_info = qg.error_info
+        end_time = timeit.default_timer()
+        logger.info("[sentence:%s][问答图整体模块][动态知识图谱构建阶段-end][costTime:%dms]\n" %
+                    (sentence, end_time - start_time))
     except Exception as e:
         logger.info('动态问答图构建失败！')
         logger.info(e)
     query_interface = None
     try:
+        start_time = timeit.default_timer()
+        logger.info("[sentence:%s][问答图整体模块][查询接口转化阶段-start]\n" % sentence)
         qi = QueryInterface(qg.query_graph, sentence)
         query_interface = qi.get_dict()
+        end_time = timeit.default_timer()
+        logger.info("[sentence:%s][问答图整体模块][查询接口转化阶段-end][costTime:%dms]\n" %
+                    (sentence, end_time - start_time))
     except Exception as e:
         logger.info('查询接口转换失败！')
         logger.info(e)
@@ -162,18 +182,31 @@ def get_result(request):
                             json_dumps_params={'ensure_ascii': False})
 
     start_time = timeit.default_timer()
-
+    logger.info("[sentence:%s][问答图整体模块][问答图整体模块-start]\n" % sentence)
     # 动态问答图
     query_graph_result, error_info = query_graph_model(sentence)
     if error_info:
-        return JsonResponse({"query": sentence, "status": error_info}, json_dumps_params={'ensure_ascii': False})
+        status_code = "400"
+        temp_q = dict(query=sentence)
+        response = dict(result=temp_q, status=status_code, msg=error_info)
+        return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
 
     end_time = timeit.default_timer()
+
+    """
+    [sentence:张三的老婆是谁][命名实体识别][账号识别-start]
+    [sentence:张三的老婆是谁][命名实体识别][账号识别-end][costTime:1000ms]
+    """
 
     logger.info("Full time consume: {0} S.\n".format(end_time - start_time))
     logger.info("Final reuslt...\n{0}".format(query_graph_result))
     # 返回JSON格式数据，将 result_ner 替换成需要返回的JSON数据
-    return JsonResponse(query_graph_result, json_dumps_params={'ensure_ascii': False})
+    status_code = "200"
+    msg = "模块成功返回结果"
+    response = dict(result=query_graph_result, status=status_code, msg=msg)
+    end_time = timeit.default_timer()
+    logger.info("[sentence:%s][问答图整体模块][问答图整体模块-end][costTime:%dms]\n" % (sentence, end_time - start_time))
+    return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
 
 
 @csrf_exempt
