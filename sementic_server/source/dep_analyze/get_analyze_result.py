@@ -30,6 +30,9 @@ def scope_cal(tokens):
 
 
 class DepInfo(object):
+    """
+    依存分析信息类
+    """
     def __init__(self, source_data: list):
         self.source_data = source_data
         self.non_data = False
@@ -76,6 +79,9 @@ class DepInfo(object):
 
 
 class DepAnalyzer(object):
+    """
+    获取依存分析结果
+    """
     def __init__(self):
         self.url = DEP_URL
 
@@ -107,6 +113,10 @@ class DepAnalyzer(object):
 
 
 def demo_1():
+    """
+    依存分析处理demo
+    :return:
+    """
     da = DepAnalyzer()
     r = da.get_result("在广东省揭阳市惠来县定居的刘健坤的哥哥和表妹")
     for i in r:
@@ -119,6 +129,10 @@ def demo_1():
 
 
 def main():
+    """
+    依存分析处理demo3
+    :return:
+    """
     da = DepAnalyzer()
     r = da.get_result("在广东省揭阳市惠来县定居的刘健坤的哥哥和表妹")
     di = DepInfo(r)
