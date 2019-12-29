@@ -15,10 +15,6 @@ class EntityCode(object):
 
     def __init__(self):
 
-        #self.account = ['QQ_NUM', 'MOB_NUM', 'PHONE_NUM', 'IDCARD_VALUE', 'EMAIL_VALUE', 'WECHAT_VALUE', 'QQ_GROUP_NUM',
-                        #'WX_GROUP_NUM', 'ALIPAY_VALU', 'DOUYIN_VALUE', 'JD_VALUE', 'TAOBAO_VALUE', 'MICROBLOG_VALUE',
-                        #'VEHCARD_VALUE', 'IMEI_VALUE', 'MAC_VALUE', 'UNLABEL']
-
         self.account = ['qq_num', 'mob_num', 'phone_num', 'idcard_value', 'email_value', 'wechat_value', 'qq_group_num',
                         'wx_group_num', 'alipay_valu', 'douyin_value', 'jd_value', 'taobao_value', 'microblog_value',
                         'vehcard_value', 'imei_value', 'mac_value', 'unlabel']
@@ -47,21 +43,7 @@ class EntityCode(object):
                               "JD": "jd_value",
                               'IMEI': 'imei_value',
                               "UNLABEL": "unlabel"}
-        #self.account_label = {"EMAIL": "EMAIL_VALUE",
-                              #"MPHONE": "MOB_NUM",
-                              #"PHONE": "PHONE_NUM",
-                              #"QQ": "QQ_NUM",
-                              #"QQ_GROUP": "QQ_GROUP_NUM",
-                              #"WX_GROUP": "WX_GROUP_NUM",
-                              #"WECHAT": "WECHAT_VALUE",
-                              #"ID": "IDCARD_VALUE",
-                              #"MBLOG": "MICROBLOG_VALUE",
-                              #"ALIPAY": "ALIPAY_VALU",
-                              #"DOUYIN": "DOUYIN_VALUE",
-                              #"TAOBAO": "TAOBAO_VALUE",
-                              #"JD": "JD_VALUE",
-                              #'IMEI': 'IMEI_VALUE',
-                              #"UNLABEL": "UNLABEL"}
+
         self.punctuation = [',', '，', '~', '!', '！', '。', '.', '?', '？']
 
     def get_account(self):

@@ -22,7 +22,5 @@ if __name__ == '__main__':
         result_ner = semantic.sentence_ner_entities(result)
         pprint(result_ner)
         entity = result.get('entity')
-        #relation = result.get('relation')
-        #intention = result.get('intent')
         data = dict(entity=entity)
         pprint(data)
