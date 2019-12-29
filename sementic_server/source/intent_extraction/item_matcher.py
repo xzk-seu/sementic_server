@@ -15,7 +15,7 @@ from time import time
 import yaml
 
 from sementic_server.source.intent_extraction.dict_builder import build_wrong_table
-from sementic_server.source.intent_extraction.helper \
+from sementic_server.source.aho_matcher.helper \
     import replace_items_in_sentence, resolve_list_confilct, update_account_in_sentence
 from sementic_server.source.intent_extraction.logger import construt_log
 from sementic_server.source.aho_matcher.recognizer import Recognizer
