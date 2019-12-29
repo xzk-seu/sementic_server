@@ -5,6 +5,10 @@ import sys
 
 
 def main():
+    """
+    程序入口
+    :return:
+    """
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sementic_server.settings')
     try:
         from django.core.management import execute_from_command_line

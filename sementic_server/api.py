@@ -108,31 +108,30 @@ def query_graph_model(sentence):
     error_info = None
     qg = None
     try:
-        start_time = timeit.default_timer()
+        start_time_1 = timeit.default_timer()
         logger.info("[sentence:%s][问答图整体模块][知识抽取阶段-start]\n" % sentence)
         m_collector = MentionCollector(sentence)
         logger.info("=====================mention===================")
         for m in m_collector.mentions:
             logger.info(str(m))
-        end_time = timeit.default_timer()
         logger.info("[sentence:%s][问答图整体模块][知识抽取阶段-end][costTime:%dms]\n" %
-                    (sentence, end_time - start_time))
-        start_time = timeit.default_timer()
+                    (sentence, timeit.default_timer() - start_time_1))
+
+        start_time_2 = timeit.default_timer()
         logger.info("[sentence:%s][问答图整体模块][依存分析获取阶段-start]\n" % sentence)
         dep_info = dep_analyzer.get_dep_info(sentence)
         logger.info("======================dep======================")
         for d in dep_info.get_att_deps():
             logger.info(str(d))
-        end_time = timeit.default_timer()
         logger.info("[sentence:%s][问答图整体模块][依存分析获取阶段-end][costTime:%dms]\n" %
-                    (sentence, end_time - start_time))
-        start_time = timeit.default_timer()
+                    (sentence, timeit.default_timer() - start_time_2))
+
+        start_time_3 = timeit.default_timer()
         logger.info("[sentence:%s][问答图整体模块][动态知识图谱构建阶段-start]\n" % sentence)
         qg = QueryParser(m_collector, dep_info)
         error_info = qg.error_info
-        end_time = timeit.default_timer()
         logger.info("[sentence:%s][问答图整体模块][动态知识图谱构建阶段-end][costTime:%dms]\n" %
-                    (sentence, end_time - start_time))
+                    (sentence, timeit.default_timer() - start_time_3))
     except Exception as e:
         logger.info('动态问答图构建失败！')
         logger.info(e)
