@@ -38,6 +38,10 @@ class Token(object):
 class DepMap(object):
     """
     将mention和依存分析中的att_links进行匹配
+    得到
+    self.token_pairs = list()
+    和
+    self.head_intentions = list()
     多个token对应一个mention：长实体被依存切分
     # 多个mention对应一个token：姓和名、称谓被切分（在mention_collector中已合并)
     update: 根据依存信息组织mention
