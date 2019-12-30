@@ -105,7 +105,9 @@ FatherSiblingToChild: []
 FixedPhoneHolder: []
 FixedPhoneWithCo: []
 GetMessageFrom: []
-HusbandToWife: []
+HusbandToWife:
+- 老婆
+- 妻子
 IDCardDLHolder: []
 IDCardTWHolder: []
 IMEIHolder: []
