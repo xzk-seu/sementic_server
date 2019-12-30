@@ -30,7 +30,7 @@ def main():
     意图不通过：
     微信帐户DonDdon担任什么群的群主
     """
-    sentence = "谁的支付宝账号是18851951427"
+    sentence = "电话为18020017775且抖音账户为125035044的是哪位？"
     m_collector = MentionCollector(sentence)
     print("=====================mention===================")
     for m in m_collector.mentions:
@@ -39,6 +39,8 @@ def main():
     dep_info = dep_analyzer.get_dep_info(sentence)
     print("======================dep======================")
     for d in dep_info.get_att_deps():
+        print(d)
+    for d in dep_info.get_heads():
         print(d)
 
     qg = QueryParser(m_collector, dep_info)

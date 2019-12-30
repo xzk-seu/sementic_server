@@ -90,7 +90,7 @@ PersonToPerson:
   belong: false
   domain: person
   range: person
-PhasAddr:
+PHasAddr:
   belong: true
   domain: person
   range: addr
@@ -98,75 +98,75 @@ PHasAlipay:
   belong: true
   domain: person
   range: alipay
-PhasBankCard:
+PHasBankCard:
   belong: true
   domain: person
   range: bankcard
-PhasBirthPlace:
+PHasBirthPlace:
   belong: true
   domain: person
   range: addr
-PhasDouYin:
+PHasDouYin:
   belong: true
   domain: person
   range: douyin
-PhasEmail:
+PHasEmail:
   belong: true
   domain: person
   range: email
-PhasFixedPhone:
+PHasFixedPhone:
   belong: true
   domain: person
   range: fixedphone
-PhasIDCard_DL:
+PHasIDCard_DL:
   belong: true
   domain: person
   range: idcard_dl
-PhasIDCard_TW:
+PHasIDCard_TW:
   belong: true
   domain: person
   range: idcard_tw
-PhasIMEI:
+PHasIMEI:
   belong: true
   domain: person
   range: imei
-PhasIMSI:
+PHasIMSI:
   belong: true
   domain: person
   range: imsi
-PhasIdcard:
+PHasIdcard:
   belong: true
   domain: person
   range: idcard
-PhasJD:
+PHasJD:
   belong: true
   domain: person
   range: jd
-PhasMAC:
+PHasMAC:
   belong: true
   domain: person
   range: mac
-PhasMicroBlog:
+PHasMicroBlog:
   belong: true
   domain: person
   range: microblog
-PhasMobileNum:
+PHasMobileNum:
   belong: true
   domain: person
   range: mobilenum
-PhasOrgPlace:
+PHasOrgPlace:
   belong: true
   domain: person
   range: addr
-PhasPlateNum:
+PHasPlateNum:
   belong: true
   domain: person
   range: platenum
-PhasQQ:
+PHasQQ:
   belong: true
   domain: person
   range: qq
-PhasSSC:
+PHasSSC:
   belong: true
   domain: person
   range: ssc
@@ -174,11 +174,11 @@ PhasTaoBao:
   belong: true
   domain: person
   range: taobao
-PhasVehicle:
+PHasVehicle:
   belong: true
   domain: person
   range: vehicle
-PhasWeChat:
+PHasWeChat:
   belong: true
   domain: person
   range: wechat

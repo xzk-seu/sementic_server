@@ -180,6 +180,9 @@ class QueryParser(object):
             logger.info('the graph has %d blank node: %s' % (len(none_nodes), str(none_nodes)))
             intention_candidates = [x for x in intention_candidates if x in none_nodes]
             logger.info('intention candidates is %s' % str(intention_candidates))
+        elif len(none_nodes) == 0:
+            intention_candidates = [x for x in intention_candidates if not self.query_graph.nodes[x].get("content")]
+            logger.info('intention candidates is %s' % str(intention_candidates))
         return intention_candidates
 
     def literal_intention(self):

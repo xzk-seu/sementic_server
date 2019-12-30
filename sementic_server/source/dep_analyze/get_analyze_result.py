@@ -69,6 +69,10 @@ class DepInfo(object):
                 temp_list.append(temp)
         self.source_data.extend(temp_list)
 
+    def get_heads(self):
+        temp = [x for x in self.source_data if x['tag'] == "HED"]
+        return temp
+
     def get_att_deps(self):
         deps_list = list()
         dep_result = self.source_data

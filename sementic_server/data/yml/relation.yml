@@ -161,9 +161,13 @@ PHasAddr: []
 PHasAlipay:
 - 支付宝账号
 PHasBankCard: []
-PHasDouYin: []
+PHasDouYin:
+- 抖音
+- 抖音账户
 PHasEmail: []
-PHasFixedPhone: []
+PHasFixedPhone:
+- 电话号码
+- 电话
 PHasIDCardDL: []
 PHasIDCardTW: []
 PHasIMEI: []
