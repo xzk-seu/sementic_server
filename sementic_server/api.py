@@ -164,20 +164,23 @@ def get_result(request):
 
     if request.method != 'POST':
         logger.error("仅支持post访问")
-        return JsonResponse({"result": {}, "msg": "仅支持post访问"}, json_dumps_params={'ensure_ascii': False})
+        response = dict(result=None, status="500", msg="仅支持post访问")
+        return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
 
     request_data = json.loads(request.body)
     sentence = request_data['sentence']
 
     if len(sentence) < SystemInfo.MIN_SENTENCE_LEN:
         logger.error("输入的句子长度太短")
-        return JsonResponse({"query": sentence, "status": SystemInfo.MIN_SENTENCE_LEN},
-                            json_dumps_params={'ensure_ascii': False})
+        temp_q = dict(query=sentence)
+        response = dict(result=temp_q, status="501", msg="输入的句子长度太短")
+        return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
 
     if len(sentence) > SystemInfo.MAX_SENTENCE_LEN:
         logger.error("输入的句子长度太长")
-        return JsonResponse({"query": sentence, "status": SystemInfo.MAX_SENTENCE_LEN},
-                            json_dumps_params={'ensure_ascii': False})
+        temp_q = dict(query=sentence)
+        response = dict(result=temp_q, status="502", msg="输入的句子长度太长")
+        return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
 
     start_time = timeit.default_timer()
     logger.info("[sentence:%s][问答图整体模块][问答图整体模块-start]\n" % sentence)
