@@ -264,3 +264,7 @@ Partner:
   belong: false
   domain: person
   range: person
+HusbandToWife:
+  belong: false
+  domain: person
+  range: person
