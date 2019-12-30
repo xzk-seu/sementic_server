@@ -172,17 +172,22 @@ PHasIDCardDL: []
 PHasIDCardTW: []
 PHasIMEI: []
 PHasIMSI: []
-PHasJD: []
+PHasJD:
+- 京东
 PHasMAC: []
-PHasMicroBlog: []
-PHasMobileNum: []
+PHasMicroBlog:
+- 微博
+PHasMobileNum:
+- 手机
 PHasPlate: []
 PHasQQ:
 - 拥有QQ号
 PHasSSC: []
-PHasTaoBao: []
+PHasTaoBao:
+- 淘宝账户
 PHasVehicle: []
-PHasWeChat: []
+PHasWeChat:
+- 微信
 ParentToChild: []
 Partner:
 - 同伙

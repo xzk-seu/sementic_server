@@ -170,7 +170,7 @@ PHasSSC:
   belong: true
   domain: person
   range: ssc
-PhasTaoBao:
+PHasTaoBao:
   belong: true
   domain: person
   range: taobao
