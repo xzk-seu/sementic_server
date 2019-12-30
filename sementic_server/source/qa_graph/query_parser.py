@@ -21,6 +21,14 @@ from sementic_server.source.tool.mention_collector import MentionCollector
 class QueryParser(object):
     """
     动态问答图语义解析模块
+    1、将依存信息映射为图
+        self.dep_graph = DepGraph(self.m_collector, self.dep_info)
+    2、将剩余的mention依照上一期的规则映射为图
+        self.rest_mention_graph = RestMentionGraph(dep_rest_mentions).get_mention_graph()
+    3、将上一步的两个图进行合并，构造联通的问答图
+        self.query_graph = QueryGraph(self.dep_graph, self.rest_mention_graph)
+    4、意图确定
+
     """
 
     def __init__(self, m_collector: MentionCollector, dep_info: DepInfo):

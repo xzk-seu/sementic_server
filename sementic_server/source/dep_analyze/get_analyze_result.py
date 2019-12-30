@@ -32,6 +32,12 @@ def scope_cal(tokens):
 class DepInfo(object):
     """
     依存分析信息类
+    通过self.source_data获取所有依存分析信息
+    通过self.get_att_deps(self)获取att关系
+
+    内部：
+    co_deps_process(self)对并列关系进行处理
+    刘健坤的哥哥和表妹
     """
     def __init__(self, source_data: list):
         self.source_data = source_data

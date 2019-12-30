@@ -26,8 +26,13 @@ class Mention(object):
 
 class MentionCollector(object):
     """
-    三类mention：实体、关系、值属性
-
+    三类mention集成：实体、关系、值属性
+    self.mentions以dict结构存储mention
+    self.get_mentions(self)获取Mention对象
+    self.scope_correction()对三类mention的下标进行统一计算
+    self.entity_check()检查当前实体是否与后续实体构成一个['firstname', 'lastname', 'chenwei', 'person']
+    self.relation_filter()对账号进行过滤，如果实体中出现QQ实体，则在关系中过滤ChasQQ关系
+    self.relation_or_entity(self):根据下标判断一个mention是实体还是关系
     """
 
     def __init__(self, sentence):

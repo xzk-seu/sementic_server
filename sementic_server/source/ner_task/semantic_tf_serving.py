@@ -127,6 +127,7 @@ class SemanticSearch(object):
                 template_sen = template_sen.replace(label, self.labels_list_split[i])
         return template_sen
 
+    @staticmethod
     def deal_B(self, word, pre_label, label, label1, temp_label, sentence, i, entities):
         """
         处理B开头的标签
@@ -152,6 +153,7 @@ class SemanticSearch(object):
         word += sentence[i]
         return pre_label, label, label1, entities, word
 
+    @staticmethod
     def deal_O(self, word, pre_label, entities, label1, label):
         """
         处理O开头的标签
@@ -168,7 +170,8 @@ class SemanticSearch(object):
             entities.append([word, label1])
         return entities
 
-    def deal_BIO(self, sentence, pred_label_result):
+    @staticmethod
+    def deal_BIO(self, sentence, pred_label_result,word,label,label1):
         """
         处理BIO开头的标签信息
         :param sentence:
@@ -177,6 +180,7 @@ class SemanticSearch(object):
         :return:
         """
         entities = []
+        pre_label = pred_label_result[0]
         for i in range(len(sentence)):
             temp_label = pred_label_result[i]
             if temp_label[0] == 'B':
@@ -189,7 +193,7 @@ class SemanticSearch(object):
                 pre_label = label
                 word = ""
                 label = ""
-        return entities, label1
+        return entities, label, label1, pre_label, word
 
     def __get_entities(self, sentence, pred_label_result):
         """
@@ -200,8 +204,9 @@ class SemanticSearch(object):
         """
         word = ""
         label = ""
+        label1= ""
         pre_label = pred_label_result[0]
-        entities, label1 = self.deal_BIO(self, sentence, pred_label_result)
+        entities, label, label1, pre_label, word = self.deal_BIO(self, sentence, pred_label_result,word,label,label1)
         if word != "":
             if "##" in word:
                 word = word.replace('##', '')
