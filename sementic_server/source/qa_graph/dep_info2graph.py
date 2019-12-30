@@ -13,7 +13,7 @@ from sementic_server.source.dep_analyze.dep_map import DepMap
 from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
 from sementic_server.source.qa_graph.graph import Graph, get_node_type
 from sementic_server.source.tool.global_object import dep_analyzer
-from sementic_server.source.tool.mention_collector import MentionCollector
+from sementic_server.source.tool.mention_collector import MentionCollector, Mention
 from sementic_server.source.tool.global_value import RELATION_DATA, ACCOUNT_LIST
 
 
@@ -91,6 +91,53 @@ class DepGraph(Graph):
                 self.remove_edges_from((e1, e2))
                 self.remove_node(e1[1])
 
+    def add_ent_rel_link(self, ent_mention: Mention, rel_mention: Mention, ent_first: bool):
+        """
+        对实体-关系这样的mention对进行图映射
+        :param ent_mention:
+        :param rel_mention:
+        :param ent_first:
+        :return:
+        """
+        ent_mention_id = ent_mention.idx
+        rel_mention_id = rel_mention.idx
+        k = rel_mention.small_type
+        ent_type_1 = ent_mention.small_type
+        dom = RELATION_DATA[k]['domain']
+        ran = RELATION_DATA[k]['range']
+
+        self.add_node(ent_mention_id)
+        self.nodes[ent_mention_id]['label'] = 'concept'
+        self.nodes[ent_mention_id]['type'] = ent_mention.small_type
+        self.nodes[ent_mention_id]['value'] = ent_mention.value
+        self.nodes[ent_mention_id]['content'] = ent_mention.content
+        self.add_node(rel_mention_id)
+        self.nodes[rel_mention_id]['label'] = 'concept'
+
+        if dom != ran:
+            if ent_type_1 == dom:
+                self.add_edge(ent_mention_id, rel_mention_id, k, **rel_mention.content)
+                self.nodes[rel_mention_id]['type'] = ran
+            elif ent_type_1 == ran:
+                self.add_edge(rel_mention_id, ent_mention_id, k, **rel_mention.content)
+                self.nodes[rel_mention_id]['type'] = dom
+            else:
+                self.remove_node(ent_mention_id)
+                self.remove_node(rel_mention_id)
+                return
+        else:
+            if ent_type_1 != dom:
+                self.remove_node(ent_mention_id)
+                self.remove_node(rel_mention_id)
+                return
+            if ent_first:
+                self.add_edge(ent_mention_id, rel_mention_id, k, **rel_mention.content)
+                self.nodes[rel_mention_id]['type'] = ran
+            else:
+                self.add_edge(rel_mention_id, ent_mention_id, k, **rel_mention.content)
+                self.nodes[rel_mention_id]['type'] = dom
+        return True
+
     def pair_process(self, t_pair):
         """
         将一对mention映射为图上的元素
@@ -103,9 +150,7 @@ class DepGraph(Graph):
         self.related_m_id_list.append(t2)
         m1 = self.mentions[t1]
         m2 = self.mentions[t2]
-        """
-        print(t1, m1.value, m1.mention_type, m1.small_type, t2, m2.value, m2.mention_type, m2.small_type)
-        """
+
         if m1.mention_type == 'entity' and m2.mention_type == 'entity':
             self.add_edge(t1, t2, 'unknown_relation')
             self.nodes[t1]['label'] = 'concept'
@@ -115,15 +160,16 @@ class DepGraph(Graph):
             self.nodes[t2]['value'] = self.mentions[t2].value
             self.nodes[t2]['content'] = self.mentions[t2].content
         elif m1.mention_type == 'entity' and m2.mention_type == 'relation':
-            self.add_edge(t1, t2, m2.small_type, **m2.content)
-            self.nodes[t1]['label'] = 'concept'
-            self.nodes[t1]['value'] = self.mentions[t1].value
-            self.nodes[t1]['content'] = self.mentions[t1].content
+            f = self.add_ent_rel_link(m1, m2, True)
+            if not f:
+                self.related_m_id_list.remove(t1)
+                self.related_m_id_list.remove(t2)
         elif m1.mention_type == 'relation' and m2.mention_type == 'entity':
-            self.add_edge(t1, t2, m1.small_type, **m1.content)
-            self.nodes[t2]['label'] = 'concept'
-            self.nodes[t2]['value'] = self.mentions[t2].value
-            self.nodes[t2]['content'] = self.mentions[t2].content
+            f = self.add_ent_rel_link(m2, m1, False)
+            if not f:
+                self.related_m_id_list.remove(t1)
+                self.related_m_id_list.remove(t2)
+
         elif m1.mention_type == 'value_props' and m2.mention_type == 'entity':
             self.add_node(t2)
             self.nodes[t2]['label'] = 'concept'
@@ -136,6 +182,9 @@ class DepGraph(Graph):
             self.nodes[t1]['value'] = self.mentions[t1].value
             self.nodes[t1]['content'] = self.mentions[t1].content
             self.nodes[t1]['value_props'] = self.mentions[t2].content
+        else:
+            self.related_m_id_list.remove(t1)
+            self.related_m_id_list.remove(t2)
 
 
 if __name__ == '__main__':

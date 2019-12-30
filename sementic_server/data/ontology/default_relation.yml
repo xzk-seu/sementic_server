@@ -14,11 +14,11 @@ PersonToPerson:
   domain: person
   range: person
   value: 人与人
-PhasQQ:
+PHasQQ:
   domain: person
   range: qq
   value: 拥有QQ
-PhasWeChat:
+PHasWeChat:
   domain: person
   range: wechat
   value: 拥有微信

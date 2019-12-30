@@ -30,7 +30,7 @@ def main():
     意图不通过：
     微信帐户DonDdon担任什么群的群主
     """
-    sentence = "淘宝账户为xiaowoniu且微博号是3456432的人是哪个？"
+    sentence = "qq为196787955微信号是xiaowoniu123邮箱地址是7895444633@qq.com的人是谁"
     m_collector = MentionCollector(sentence)
     print("=====================mention===================")
     for m in m_collector.mentions:

@@ -164,7 +164,8 @@ PHasBankCard: []
 PHasDouYin:
 - 抖音
 - 抖音账户
-PHasEmail: []
+PHasEmail:
+- 邮箱地址
 PHasFixedPhone:
 - 电话号码
 - 电话
@@ -182,6 +183,9 @@ PHasMobileNum:
 PHasPlate: []
 PHasQQ:
 - 拥有QQ号
+- QQ号为
+- QQ为
+- qq为
 PHasSSC: []
 PHasTaoBao:
 - 淘宝账户
