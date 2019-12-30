@@ -66,6 +66,12 @@ class DepGraph(Graph):
         for tid in self.head_intent_ids:
             if tid in self.nodes:
                 self.nodes[tid]['intent'] = True
+            else:
+                self.add_node(tid, intent=True)
+                self.nodes[tid]['label'] = 'concept'
+                self.nodes[tid]['value'] = self.mentions[tid].value
+                self.nodes[tid]['content'] = self.mentions[tid].content
+                self.related_m_id_list.append(tid)
 
     def get_rest_mentions(self):
         m_id_list = [x.idx for x in self.mentions]

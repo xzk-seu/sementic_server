@@ -30,7 +30,7 @@ def main():
     意图不通过：
     微信帐户DonDdon担任什么群的群主
     """
-    sentence = "住在西善桥北路89号的18526439876的在华为上班的同学是谁?"
+    sentence = "来自湖南省长沙市的张全蛋"
     m_collector = MentionCollector(sentence)
     print("=====================mention===================")
     for m in m_collector.mentions:

@@ -48,11 +48,13 @@ class DepMap(object):
     """
 
     def __init__(self, mention_collector: MentionCollector, dep_info: DepInfo):
-        self.mentions = mention_collector.get_mentions()
-        self.att_links = dep_info.get_att_deps()
-        self.dep_info = dep_info
         self.token_pairs = list()
         self.head_intentions = list()
+        self.mentions = mention_collector.get_mentions()
+        if dep_info.non_data:
+            return
+        self.att_links = dep_info.get_att_deps()
+        self.dep_info = dep_info
         self.init_token_pairs()
         self.init_head_intentions()
 

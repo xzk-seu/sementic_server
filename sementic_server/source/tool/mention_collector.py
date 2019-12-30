@@ -98,11 +98,13 @@ class MentionCollector(object):
         :return:
         """
         person_types = ['firstname', 'lastname', 'chenwei', 'person']
+        addr_types = ["addr", "addr_value"]
         self.entity = sorted(self.entity, key=lambda x: x['begin'])
         new_entity = list()
         e1 = self.entity[0]
         for e2 in self.entity[1:]:
-            if e2['type'] in person_types and e1['type'] in person_types:
+            if (e2['type'] in person_types and e1['type'] in person_types) or\
+                    (e2['type'] in addr_types and e1['type'] in addr_types):
                 if check_entity_continuous(e1, e2):
                     ent = merge_entity(e1, e2)
                     e1 = ent
@@ -178,7 +180,11 @@ def merge_entity(e1, e2):
     合并一组实体
     """
     r_entity = dict()
-    r_entity['type'] = 'person'
+    person_types = ['firstname', 'lastname', 'chenwei', 'person']
+    if e1['type'] in person_types:
+        r_entity['type'] = 'person'
+    else:
+        r_entity['type'] = e1['type']
     r_entity['value'] = e1['value'] + e2['value']
     r_entity['code'] = e1['code']
     r_entity['begin'] = e1['begin']

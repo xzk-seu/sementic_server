@@ -25,8 +25,9 @@ class Node(object):
 
         if not content:
             return
+
         detail = content.get('detail')
-        if not detail or len(detail) == 0:
+        if not detail or len(detail) == 0 or self.node_type != "person":
             p_type = content.get('type').lower()
             p_value = content.get('value')
             v_type = "string"
