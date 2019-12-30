@@ -180,7 +180,8 @@ PHasMicroBlog:
 - 微博
 PHasMobileNum:
 - 手机
-PHasPlate: []
+PHasPlate:
+- 车主
 PHasQQ:
 - 拥有QQ号
 - QQ号为
