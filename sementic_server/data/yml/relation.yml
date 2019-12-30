@@ -158,7 +158,8 @@ MobileNumWithIMSI: []
 MotherSiblingToChild: []
 PAppeared: []
 PHasAddr: []
-PHasAlipay: []
+PHasAlipay:
+- 支付宝账号
 PHasBankCard: []
 PHasDouYin: []
 PHasEmail: []

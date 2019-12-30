@@ -65,6 +65,22 @@ class QueryParser(object):
         logger.info('next is determine intention')
         self.determine_intention()
 
+    def intent_rule_0(self):
+        """
+        一条边上，一个节点又有内容又有意图而另一个没有，将意图给另一个
+        :return:
+        """
+        for n1, n2, k in self.query_graph.edges:
+            if self.query_graph.nodes[n1].get("intent") or self.query_graph.nodes[n2].get("intent"):
+                if self.query_graph.nodes[n1].get("intent") and self.query_graph.nodes[n2].get("intent"):
+                    continue
+                if self.query_graph.nodes[n1].get("intent") and self.query_graph.nodes[n1].get("content"):
+                    self.query_graph.nodes[n1]["intent"] = False
+                    self.query_graph.nodes[n2]["intent"] = True
+                elif self.query_graph.nodes[n2].get("intent") and self.query_graph.nodes[n2].get("content"):
+                    self.query_graph.nodes[n2]["intent"] = False
+                    self.query_graph.nodes[n1]["intent"] = True
+
     def determine_intention(self):
         """
         确定意图：
@@ -77,6 +93,7 @@ class QueryParser(object):
         5. 在候选节点集合中，按照候选意图节点的入度与出度之差，对候选节点进行排序，选出入度与出度之差最大的节点；
         :return:
         """
+        self.intent_rule_0()
         if self.literal_intention():
             return
 

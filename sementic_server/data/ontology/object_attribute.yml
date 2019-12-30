@@ -94,7 +94,7 @@ PhasAddr:
   belong: true
   domain: person
   range: addr
-PhasAlipay:
+PHasAlipay:
   belong: true
   domain: person
   range: alipay
