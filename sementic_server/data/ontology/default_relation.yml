@@ -30,3 +30,19 @@ AddrWithP:
   domain: addr
   range: person
   value: 人与地址
+TaoBaoHolder:
+  domain: taobao
+  range: person
+  value: 人与淘宝
+AlipayHolder:
+  domain: alipay
+  range: person
+  value: 人与支付宝
+DouYinHolder:
+  domain: douyin
+  range: person
+  value: 人与抖音
+EmailHolder:
+  domain: email
+  range: person
+  value: 人与邮箱

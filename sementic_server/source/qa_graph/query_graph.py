@@ -54,11 +54,22 @@ class QueryGraph(Graph):
             # 若不连通则在联通分量之间添加默认边
             flag = self.add_default_edge()
             if not flag:
+                flag = self.add_person()
+            if not flag:
                 logger.info('default edge missing!')
                 logger.info('graph is not connected!')
                 self.error_info = 'graph is not connected!'
                 # 未添加上说明缺少默认边
                 return
+
+    def add_person(self):
+        """
+        向图中加入一个人物节点，再添加默认边
+        :return:
+        """
+        self.add_node("temp_person", label="concept", type="person")
+        flag = self.add_default_edge()
+        return flag
 
     def add_default_edge(self):
         """

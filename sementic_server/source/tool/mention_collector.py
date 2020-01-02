@@ -31,7 +31,7 @@ class MentionCollector(object):
     self.get_mentions(self)获取Mention对象
     self.scope_correction()对三类mention的下标进行统一计算
     self.entity_check()检查当前实体是否与后续实体构成一个['firstname', 'lastname', 'chenwei', 'person']
-    self.relation_filter()对账号进行过滤，如果实体中出现QQ实体，则在关系中过滤ChasQQ关系
+    self.relation_filter()对账号进行过滤，如果实体中出现QQ实体，则在关系中过滤ChasQQ关系，放弃
     self.relation_or_entity(self):根据下标判断一个mention是实体还是关系
     """
 
@@ -50,7 +50,7 @@ class MentionCollector(object):
         self.relation = result.get('relation')
         self.value_props = vp_matcher.match(sentence)
         self.scope_correction()
-        self.relation_filter()
+        # self.relation_filter()
 
         # 判断一个mention是实体还是关系
         self.relation_or_entity()
@@ -158,7 +158,7 @@ class MentionCollector(object):
         for e in self.entity:
             if e['type'] in new_account_dict.keys():
                 for rel_name in new_account_dict[e['type']]:
-                    new_relation = [x for x in self.relation if x['type'] != rel_name]
+                    new_relation = [x for x in self.relation if x['type'].lower() != rel_name.lower()]
                     self.relation = new_relation
 
 
