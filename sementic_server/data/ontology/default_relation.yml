@@ -46,3 +46,11 @@ EmailHolder:
   domain: email
   range: person
   value: 人与邮箱
+PHasPlate:
+  domain: plate
+  range: person
+  value: 人与车牌
+PHasIDCardDL:
+  domain: idcard
+  range: person
+  value: 人与身份证

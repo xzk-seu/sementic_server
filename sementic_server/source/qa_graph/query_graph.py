@@ -101,13 +101,6 @@ class QueryGraph(Graph):
                 self.add_edge(n2, n1, key, type=key, value=edge['value'])
                 flag = True
                 return flag
-        # # 如果添加不上默认边，向图中加入一个person节点，再试图添加
-        # if not flag:
-        #     self.add_node('temp_person', type="person", label='concept')
-        #     f1 = self.add_default_edge_between_nodes("temp_person", n1)
-        #     f2 = self.add_default_edge_between_nodes("temp_person", n2)
-        #     if f1 and f2:
-        #         flag = True
         return flag
 
     def add_default_edge_between_components(self, components_set, c1, c2):
@@ -162,6 +155,9 @@ class QueryGraph(Graph):
                     # 若两个节点之间连通，则跳过，不存在则合并
                     test_graph = nx.to_undirected(self)
                     if nx.has_path(test_graph, pair[0], pair[1]):
+                        continue
+                    elif self.nodes[pair[0]].get("value") != self.nodes[pair[1]].get("value"):
+                        # 同类节点合并时，若都有value值且不相等，则跳过合并
                         continue
                     else:
                         mapping = {pair[0]: pair[1]}

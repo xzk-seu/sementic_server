@@ -30,7 +30,7 @@ def main():
     意图不通过：
     微信帐户DonDdon担任什么群的群主
     """
-    sentence = "在南京拓科达生物技术有限公司当管理员的15090655610是什么人6"
+    sentence = "车牌是京BKH789和京Ba234f且身份证为32062319940429861X是哪位？"
     m_collector = MentionCollector(sentence)
     print("=====================mention===================")
     for m in m_collector.mentions:

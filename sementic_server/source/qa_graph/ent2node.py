@@ -22,7 +22,7 @@ def get_node_type(entity_type):
 
     account_name_list = ['QQ', 'MobileNum', 'FixedPhone', 'Idcard', 'Email', 'WeChat', 'QQGroup',
                          'WeChatGroup', 'Alipay', 'DouYin', 'JD', 'TaoBao', 'MicroBlog', 'UNLABEL',
-                         'VehicleCard', 'IMEI', 'MAC']
+                         'Plate', 'IMEI', 'MAC']
     account_name_list = [x.lower() for x in account_name_list]
     if entity_type in account_list:
         index = account_list.index(entity_type)
