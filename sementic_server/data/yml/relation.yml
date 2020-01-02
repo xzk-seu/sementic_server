@@ -101,7 +101,8 @@ EmailOfAlipayLogin: []
 EmailOfJDLogin: []
 EmailOfTaoBaoLogin: []
 EmailWithCo: []
-FatherSiblingToChild: []
+FatherSiblingToChild:
+- 表叔
 FixedPhoneHolder: []
 FixedPhoneWithCo: []
 GetMessageFrom: []
@@ -668,6 +669,7 @@ WeChatWithCo: []
 WifeToHusband:
 - 丈夫
 - 老公
+- 老伴
 WorkAt:
 - 工作地址
 - 工作

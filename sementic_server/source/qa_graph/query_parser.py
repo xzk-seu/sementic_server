@@ -101,9 +101,12 @@ class QueryParser(object):
         for n in self.query_graph.nodes:
             if self.query_graph.nodes[n].get('intent'):
                 has_intent = True
-            if not self.query_graph.nodes[n].get('value') and self.query_graph.is_none_node(n):
-                self.add_intention_on_node(n)
-                has_intent = True
+            if not self.query_graph.nodes[n].get('value'):
+                if self.query_graph.is_none_node(n):
+                    self.add_intention_on_node(n)
+                    has_intent = True
+                elif self.query_graph.nodes[n].get("intent"):
+                    self.query_graph.nodes[n]['intent'] = False
             if self.query_graph.nodes[n].get('value_props'):
                 self.add_intention_on_node(n)
                 has_intent = True

@@ -44,7 +44,7 @@ class Graph(nx.MultiDiGraph):
             return False
         if self.nodes[node].get("content"):
             return False
-        neighbors = self.neighbors(node)
+        neighbors = list(self.predecessors(node))+list(self.successors(node))
         for n in neighbors:
             # 目前判断条件为出边没有字面值，认为是空节点
             # 没有字面值，且没有账号和地址

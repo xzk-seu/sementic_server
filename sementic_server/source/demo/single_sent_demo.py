@@ -30,7 +30,7 @@ def main():
     意图不通过：
     微信帐户DonDdon担任什么群的群主
     """
-    sentence = "京东账号是23434534的邹育江是那个人"
+    sentence = "320581199507074529的丈夫"
     m_collector = MentionCollector(sentence)
     print("=====================mention===================")
     for m in m_collector.mentions:

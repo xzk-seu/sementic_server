@@ -158,10 +158,10 @@ PHasOrgPlace:
   belong: true
   domain: person
   range: addr
-PHasPlateNum:
+PHasPlate:
   belong: true
   domain: person
-  range: platenum
+  range: plate
 PHasQQ:
   belong: true
   domain: person
@@ -272,3 +272,7 @@ LegalPersonOfCo:
   belong: false
   domain: person
   range: company
+WifeToHusband:
+  belong: false
+  domain: person
+  range: person
