@@ -137,7 +137,7 @@ def query_graph_model(sentence):
     except Exception as e:
         error_info = '动态问答图构建失败！'
         logger.info('动态问答图构建失败！')
-        logger.info(e)
+        logger.info(str(e))
     query_interface = dict()
     try:
         start_time = timeit.default_timer()
