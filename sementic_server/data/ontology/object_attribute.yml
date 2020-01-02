@@ -192,7 +192,7 @@ QQGroupMember:
 RegisterPlace:
   belong: false
   domain: company
-  range: company
+  range: addr
 Remark:
   belong: false
   domain: mobilenum
@@ -268,3 +268,7 @@ HusbandToWife:
   belong: false
   domain: person
   range: person
+LegalPersonOfCo:
+  belong: false
+  domain: person
+  range: company

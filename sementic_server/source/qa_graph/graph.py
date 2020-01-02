@@ -219,12 +219,12 @@ class Graph(nx.MultiDiGraph):
     def edge_type_correct(self):
         reverse_edge_list = list()
         for n1, n2, k in self.edges:
+            if k not in RELATION_DATA.keys():
+                continue
             self.nodes[n1]['label'] = 'concept'
             self.nodes[n2]['label'] = 'concept'
             n1_type = self.nodes[n1].get('type')
             n2_type = self.nodes[n2].get('type')
-            if k not in RELATION_DATA.keys():
-                continue
             dom = RELATION_DATA[k]['domain']
             ran = RELATION_DATA[k]['range']
             if not n1_type and not n2_type:

@@ -50,16 +50,11 @@ class MentionGraph(Graph):
 
     def init_vpro_graph(self):
         value_prop = self.mention.content
-        dom = value_prop['定义域']
-        node_name = dom + '0'
-        ran = value_prop['值域']
-        prop_name = value_prop['属性名称']
-        self.add_edge(node_name, 'p_name', prop_name, **value_prop)
-        self.nodes[node_name]['label'] = 'concept'
-        self.nodes[node_name]['type'] = dom
-        self.nodes['p_name']['label'] = 'literal'
-        self.nodes['p_name']['type'] = ran
-        self.nodes['p_name']['intent'] = True
+        dom = value_prop['定义域'].lower()
+        self.add_node('temp')
+        self.nodes['temp']['label'] = 'concept'
+        self.nodes['temp']['type'] = dom
+        self.nodes["temp"]['value_props'] = self.mention.content
 
     def init_ent_graph(self):
         entity = self.mention.content

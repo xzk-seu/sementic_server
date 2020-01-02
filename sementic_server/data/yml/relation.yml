@@ -129,7 +129,24 @@ JoinQQGroup:
 - 群成员
 JoinWeChatGroup:
 - 加入的微信群
-LegalPersonOfCo: []
+LegalPersonOfCo:
+- 法人
+- 法人
+- 公司的法定代表人
+- 法定代表人
+- 企业的法定代表人
+- 法定代表
+- 公司法定代表人
+- 法人代表
+- 企业法人
+- 企业法定代表人
+- 公司法人
+- 公司法人代表
+- 理事
+- 总经理
+- 副总
+- CEO
+- 执行主席
 MACHolder: []
 MACWithIMEI: []
 ManagerOfQQGroup: []
@@ -646,23 +663,7 @@ WeChatGroupManager: []
 WeChatGroupMember: []
 WeChatHolder: []
 WeChatLoginWithMobileNum: []
-WeChatWithCo:
-- 法人
-- 公司的法定代表人
-- 法定代表人
-- 企业的法定代表人
-- 法定代表
-- 公司法定代表人
-- 法人代表
-- 企业法人
-- 企业法定代表人
-- 公司法人
-- 公司法人代表
-- 理事
-- 总经理
-- 副总
-- CEO
-- 执行主席
+WeChatWithCo: []
 WifeToHusband:
 - 丈夫
 - 老公
