@@ -113,6 +113,9 @@ def query_graph_model(sentence):
         logger.info("=====================mention===================")
         for m in m_collector.mentions:
             logger.info(str(m))
+        if len(m_collector.entity) == 0:
+            error_info = 201
+            return None, error_info
         logger.info("[sentence:%s][问答图整体模块][知识抽取阶段-end][costTime:%dms]\n" %
                     (sentence, timeit.default_timer() - start_time_1))
 
@@ -163,8 +166,6 @@ def get_result(request):
     :return
     """
 
-    print(request.method)
-
     if request.method != 'POST':
         logger.error("仅支持post访问")
         response = dict(result=None, status="500", msg="仅支持post访问")
@@ -190,10 +191,17 @@ def get_result(request):
     # 动态问答图
     query_graph_result, error_info = query_graph_model(sentence)
     if error_info:
-        status_code = "400"
-        logger.error(error_info)
-        temp_q = dict(query=sentence)
-        response = dict(result=temp_q, status=status_code, msg="动态知识图谱构建失败")
+        if error_info == 201:
+            status_code = "201"
+            logger.error(error_info)
+            temp_q = dict(query=sentence)
+            msg = "实体识别为空！"
+        else:
+            status_code = "400"
+            logger.error(error_info)
+            temp_q = dict(query=sentence)
+            msg = "动态知识图谱构建失败！"
+        response = dict(result=temp_q, status=status_code, msg=msg)
         return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
 
     end_time = timeit.default_timer()

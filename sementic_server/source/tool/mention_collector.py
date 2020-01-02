@@ -43,6 +43,7 @@ class MentionCollector(object):
         self.relation = list()
         self.value_props = list()
         self.entity = result.get('entity')
+        self.entity = [e for e in self.entity if e['type'].lower() != "date"]
         if len(self.entity) > 1:
             self.scope_correction()
             self.entity_check()
@@ -50,7 +51,7 @@ class MentionCollector(object):
         self.relation = result.get('relation')
         self.value_props = vp_matcher.match(sentence)
         self.scope_correction()
-        # self.relation_filter()
+        self.relation_filter()
 
         # 判断一个mention是实体还是关系
         self.relation_or_entity()
@@ -156,10 +157,16 @@ class MentionCollector(object):
         for k, v in account_dict.items():
             new_account_dict[k.lower()] = v
         for e in self.entity:
-            if e['type'] in new_account_dict.keys():
-                for rel_name in new_account_dict[e['type']]:
-                    new_relation = [x for x in self.relation if x['type'].lower() != rel_name.lower()]
-                    self.relation = new_relation
+            rel_list = new_account_dict.get(e['type'])
+            if not rel_list:
+                continue
+            for rel_name in rel_list:
+                new_relation = list()
+                for r in self.relation:
+                    if r['type'].lower() != rel_name.lower() \
+                            or max(e['begin'], r['begin'])-min(e['end'], r['end']) > 4:
+                        new_relation.append(r)
+                self.relation = new_relation
 
 
 def check_entity_continuous(e1, e2):

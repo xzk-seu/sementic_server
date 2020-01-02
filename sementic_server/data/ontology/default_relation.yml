@@ -46,11 +46,15 @@ EmailHolder:
   domain: email
   range: person
   value: 人与邮箱
-PHasPlate:
+PlateHolder:
   domain: plate
   range: person
   value: 人与车牌
-PHasIDCardDL:
+IDCardDLHolder:
   domain: idcard
   range: person
   value: 人与身份证
+JDHolder:
+  domain: jd
+  range: person
+  value: 人与京东

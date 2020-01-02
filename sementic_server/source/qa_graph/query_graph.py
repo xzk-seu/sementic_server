@@ -21,6 +21,7 @@ class QueryGraph(Graph):
     """
     def __init__(self, dep_graph: Graph, rest_mention_graph: Graph):
         temp_graph = my_disjoint_union(dep_graph, rest_mention_graph)
+        temp_graph = nx.convert_node_labels_to_integers(temp_graph)
         nx.MultiDiGraph.__init__(self, temp_graph)
         self.error_info = ""
         if not temp_graph:
@@ -67,7 +68,10 @@ class QueryGraph(Graph):
         向图中加入一个人物节点，再添加默认边
         :return:
         """
-        self.add_node("temp_person", label="concept", type="person")
+        node_list = self.get_nodes_dict().keys()
+        node_list = [int(x) for x in node_list]
+        node_id = max(node_list) + 1
+        self.add_node(node_id, label="concept", type="person")
         flag = self.add_default_edge()
         return flag
 
