@@ -132,9 +132,10 @@ def query_graph_model(sentence):
         logger.info("[sentence:%s][问答图整体模块][动态知识图谱构建阶段-end][costTime:%dms]\n" %
                     (sentence, timeit.default_timer() - start_time_3))
     except Exception as e:
+        error_info = '动态问答图构建失败！'
         logger.info('动态问答图构建失败！')
         logger.info(e)
-    query_interface = None
+    query_interface = dict()
     try:
         start_time = timeit.default_timer()
         logger.info("[sentence:%s][问答图整体模块][查询接口转化阶段-start]\n" % sentence)
@@ -162,6 +163,8 @@ def get_result(request):
     :return
     """
 
+    print(request.method)
+
     if request.method != 'POST':
         logger.error("仅支持post访问")
         response = dict(result=None, status="500", msg="仅支持post访问")
@@ -188,8 +191,9 @@ def get_result(request):
     query_graph_result, error_info = query_graph_model(sentence)
     if error_info:
         status_code = "400"
+        logger.error(error_info)
         temp_q = dict(query=sentence)
-        response = dict(result=temp_q, status=status_code, msg=error_info)
+        response = dict(result=temp_q, status=status_code, msg="动态知识图谱构建失败")
         return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
 
     end_time = timeit.default_timer()
