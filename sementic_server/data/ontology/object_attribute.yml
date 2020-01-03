@@ -276,3 +276,7 @@ WifeToHusband:
   belong: false
   domain: person
   range: person
+ChildToParent:
+  belong: false
+  domain: person
+  range: person

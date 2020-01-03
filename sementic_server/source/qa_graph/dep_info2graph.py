@@ -52,6 +52,8 @@ class DepGraph(Graph):
             if dom != "person" or ran != "person":
                 continue
             content = self.nodes[n1].get("content")
+            if not content:
+                continue
             n1_type = content.get("type")
             if n1_type and n1_type in ACCOUNT_LIST:
                 self.nodes[n1]['type'] = "person"

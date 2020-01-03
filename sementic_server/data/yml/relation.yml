@@ -44,7 +44,11 @@ CalledBy: []
 ChildToFatherSibling: []
 ChildToMotherSibling:
 - 舅舅
-ChildToParent: []
+ChildToParent:
+- 爸爸
+- 妈妈
+- 父亲
+- 母亲
 CoHasAddr:
 - 公司地址
 - 所在地
@@ -511,7 +515,6 @@ Relative:
 - 长姐
 - 祖母
 - 二老
-- 爸爸
 - 姊姊
 - 大姨
 - 亲属
