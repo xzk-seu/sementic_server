@@ -160,9 +160,11 @@ class QueryGraph(Graph):
                 for pair in combinations:
                     # 若两个节点之间连通，则跳过，不存在则合并
                     test_graph = nx.to_undirected(self)
+                    v_1 = self.nodes[pair[0]].get("value")
+                    v_2 = self.nodes[pair[1]].get("value")
                     if nx.has_path(test_graph, pair[0], pair[1]):
                         continue
-                    elif self.nodes[pair[0]].get("value") != self.nodes[pair[1]].get("value"):
+                    elif v_1 and v_2 and v_1 != v_2:
                         # 同类节点合并时，若都有value值且不相等，则跳过合并
                         continue
                     else:

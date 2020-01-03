@@ -30,7 +30,7 @@ def main():
     意图不通过：
     微信帐户DonDdon担任什么群的群主
     """
-    sentence = "陈州的老婆"
+    sentence = "法人是汪洋并且注册地址是南京市江宁街道的公司的注册时间"
     m_collector = MentionCollector(sentence)
     print("=====================mention===================")
     for m in m_collector.mentions:
