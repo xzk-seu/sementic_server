@@ -24,3 +24,15 @@
 email地址:
 - CoHasEmail
 - PHasEmail
+加入:
+- WeChatGroupMember
+- QQGroupMember
+管理员:
+- ManagerOfQQGroup
+- ManagerOfWeChatGroup
+群管理:
+- ManagerOfQQGroup
+- ManagerOfWeChatGroup
+群主:
+- ManagerOfQQGroup
+- ManagerOfWeChatGroup

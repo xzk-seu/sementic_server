@@ -304,3 +304,11 @@ IMSIBindMobileNum:
   belong: false
   domain: imsi
   range: mobilenum
+ManagerOfQQGroup:
+  belong: false
+  domain: qqgroup
+  range: qq
+ManagerOfWeChatGroup:
+  belong: false
+  domain: wechat
+  range: wechatgroup

@@ -5,6 +5,7 @@ AlipayLoginWithEmail: []
 AlipayLoginWithMobileNum: []
 Ambiguous:
 - 群成员
+- 加入
 - email地址
 - 地址
 - 好友
@@ -132,12 +133,7 @@ IMSIWithIMEI: []
 JDHolder: []
 JDLoginWithEmail: []
 JDLoginWithMobileNum: []
-JoinQQGroup:
-- 加盟
-- 入伙
-- 进群
-- 加群
-- 加入
+JoinQQGroup: []
 JoinWeChatGroup:
 - 加入的微信群
 LegalPersonOfCo:
@@ -284,7 +280,13 @@ QQFriend:
 - qq好友
 QQGroupCreator: []
 QQGroupManager: []
-QQGroupMember: []
+QQGroupMember:
+- 加盟
+- 入伙
+- 进群
+- 加群
+- 加了哪几个QQ群
+- 加的QQ群
 QQHolder: []
 QQLoginWithMobileNum: []
 QQWithCo: []
