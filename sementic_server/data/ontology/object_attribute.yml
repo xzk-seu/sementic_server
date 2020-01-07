@@ -312,3 +312,27 @@ ManagerOfWeChatGroup:
   belong: false
   domain: wechat
   range: wechatgroup
+MobileNumOfWeChatLogin:
+  belong: false
+  domain: mobilenum
+  range: wechat
+MobileNumOfDouYinLogin:
+  belong: false
+  domain: mobilenum
+  range: douyin
+MobileNumOfJDLogin:
+  belong: false
+  domain: mobilenum
+  range: jd
+MobileNumOfAlipayLogin:
+  belong: false
+  domain: mobilenum
+  range: alipay
+MobileNumOfTaoBaoLogin:
+  belong: false
+  domain: mobilenum
+  range: taobao
+MobileNumOfMicroBlogLogin:
+  belong: false
+  domain: mobilenum
+  range: microblog

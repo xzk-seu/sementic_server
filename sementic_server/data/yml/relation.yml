@@ -5,6 +5,8 @@ AlipayLoginWithEmail: []
 AlipayLoginWithMobileNum: []
 Ambiguous:
 - 群成员
+- 管理员
+- 群管理
 - 加入
 - email地址
 - 地址
@@ -13,11 +15,9 @@ Ambiguous:
 - 群主
 - 持有
 - 持有者
-- 报到
 - 登陆
-- 签到
-- 记名
 - 登录
+- 创建人
 Appear:
 - 出没
 - 滞留
@@ -601,6 +601,7 @@ SameCase:
 - 同谋犯
 SameInternetBar:
 - 同网吧
+- 同一家网吧
 SamePrison:
 - 同监
 - 狱友
@@ -618,6 +619,7 @@ SameRoom:
 - 同宿
 - 同住舍友
 - 同户
+- 住在一家旅社
 SameTown:
 - 父老乡亲
 - 乡亲
@@ -631,6 +633,10 @@ SameTrip:
 - 同车
 - 一起去
 - 同汽车
+- 同火车
+- 汽车同行
+- 航班同行
+- 火车同行
 Schoolmate:
 - 同门
 - 老师

@@ -14,10 +14,6 @@
 - PHasMicroBlog
 - PHasMobileNum
 - PHasWeChat
-登录:
-- EmailOfJDLogin
-- EmailOfAlipayLogin
-- EmailOfTaoBaoLogin
 地址:
 - PHasAddr
 - CoHasAddr
@@ -36,3 +32,29 @@ email地址:
 群主:
 - ManagerOfQQGroup
 - ManagerOfWeChatGroup
+登陆:
+- MobileNumOfWeChatLogin
+- MobileNumOfDouYinLogin
+- MobileNumOfJDLogin
+- MobileNumOfAlipayLogin
+- MobileNumOfTaoBaoLogin
+- MobileNumOfMicroBlogLogin
+登录:
+- MobileNumOfWeChatLogin
+- MobileNumOfDouYinLogin
+- MobileNumOfJDLogin
+- MobileNumOfAlipayLogin
+- MobileNumOfTaoBaoLogin
+- MobileNumOfMicroBlogLogin
+- EmailOfJDLogin
+- EmailOfAlipayLogin
+- EmailOfTaoBaoLogin
+创建人:
+- CreateQQGroup
+- CreateWeChatGroup
+创建:
+- CreateQQGroup
+- CreateWeChatGroup
+创建者:
+- CreateQQGroup
+- CreateWeChatGroup
