@@ -74,3 +74,7 @@ PHasIMEI:
   domain: person
   range: imei
   value: 人和imei
+CoHasFixedPhone:
+  domain: company
+  range: fixedphonenumber
+  value: 公司座机

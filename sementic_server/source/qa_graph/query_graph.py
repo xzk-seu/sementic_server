@@ -27,6 +27,7 @@ class QueryGraph(Graph):
         if not temp_graph:
             self.error_info = 'in query graph: 问句缺失必要实体'
             return
+        self.type_correct()
         self.ambiguity_links_process()
         self.type_correct()
         self.loop_assemble()

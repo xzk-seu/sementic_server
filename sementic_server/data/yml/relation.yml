@@ -4,6 +4,7 @@ AlipayHolder: []
 AlipayLoginWithEmail: []
 AlipayLoginWithMobileNum: []
 Ambiguous:
+- 群成员
 - email地址
 - 地址
 - 好友
@@ -135,10 +136,8 @@ JoinQQGroup:
 - 加盟
 - 入伙
 - 进群
-- 群成员
 - 加群
 - 加入
-- 群成员
 JoinWeChatGroup:
 - 加入的微信群
 LegalPersonOfCo:
