@@ -32,7 +32,7 @@ def main():
     户口地址辽宁省大连市甘井子区祥龙西园28号1-16-1的尤成礼
     扣扣群号10453443中谁的微博帐户是1005065716003
     """
-    sentence = "与微信群帐号10494010770的创建人同火车的人"
+    sentence = "微信账户wxid_02onh4z9bgh522加入的微信群"
     m_collector = MentionCollector(sentence)
     intent = m_collector.intention
     print("intent:", intent)

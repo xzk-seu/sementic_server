@@ -336,3 +336,23 @@ MobileNumOfMicroBlogLogin:
   belong: false
   domain: mobilenum
   range: microblog
+JoinWeChatGroup:
+  belong: false
+  domain: wechat
+  range: wechatgroup
+DouYinFollow:
+  belong: false
+  domain: douyin
+  range: douyin
+MicroBlogFollow:
+  belong: false
+  domain: microblog
+  range: microblog
+DouYinFollower:
+  belong: false
+  domain: douyin
+  range: douyin
+MicroBlogFollower:
+  belong: false
+  domain: microblog
+  range: microblog
