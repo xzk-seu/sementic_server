@@ -30,8 +30,10 @@ def main():
     意图不通过：
     微信帐户DonDdon担任什么群的群主
     """
-    sentence = "李冰冰坐过牢，她的爸爸李刚也坐过牢"
+    sentence = "户口地址辽宁省庄河市太平岭乡土城村后土城屯90号的人有哪几个"
     m_collector = MentionCollector(sentence)
+    intent = m_collector.intention
+    print("intent:", intent)
     print("=====================mention===================")
     for m in m_collector.mentions:
         print(m)
@@ -43,7 +45,7 @@ def main():
     for d in dep_info.get_heads():
         print(d)
 
-    qg = QueryParser(m_collector, dep_info)
+    qg = QueryParser(m_collector, dep_info, intent=intent)
     error_info = qg.error_info
     if error_info:
         print(error_info)

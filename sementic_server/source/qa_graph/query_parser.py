@@ -31,7 +31,7 @@ class QueryParser(object):
 
     """
 
-    def __init__(self, m_collector: MentionCollector, dep_info: DepInfo):
+    def __init__(self, m_collector: MentionCollector, dep_info: DepInfo, intent: str):
         logger.info('Query Graph Parsing...')
         self.error_info = None
 
@@ -42,7 +42,9 @@ class QueryParser(object):
         self.relation = m_collector.relation
         self.value_prop = m_collector.value_props
 
-        self.intent = None
+        if intent:
+            intent = intent.lower()
+        self.intent = intent
         self.dep_info = dep_info
         self.relation_component_list = list()
         self.entity_component_list = list()

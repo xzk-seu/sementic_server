@@ -179,7 +179,14 @@ MobileNumWithCo: []
 MobileNumWithIMSI: []
 MotherSiblingToChild: []
 PAppeared: []
-PHasAddr: []
+PHasAddr:
+- 出生地
+- 出生于
+- 籍贯
+- 籍贯所在地
+- 原籍
+- 祖居地
+- 老家的地址
 PHasAlipay:
 - 支付宝账号
 PHasBankCard: []
@@ -561,12 +568,6 @@ Reside:
 - 投宿
 - 租房住在
 - 租房居住
-- 出生地
-- 出生于
-- 籍贯
-- 原籍
-- 祖居地
-- 老家的地址
 Resident: []
 SSCHolder: []
 SameCase:

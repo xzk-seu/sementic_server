@@ -59,6 +59,8 @@ class MentionCollector(object):
         self.set_mentions(self.relation, 'relation')
         self.set_mentions(self.value_props, 'value_props')
 
+        self.intention = result.get('intent')
+
         if len(result.get("entity") + result.get("accounts")) == 0:
             logger.error(sentence + "\t实体识别模块返回空值")
 

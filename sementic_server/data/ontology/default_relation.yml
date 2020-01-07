@@ -6,7 +6,7 @@ WorkForCo:
   domain: person
   range: company
   value: 人与公司
-PersonToDouYin:
+PHasDouyin:
   domain: person
   range: douyin
   value: 人与抖音
