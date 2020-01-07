@@ -31,7 +31,7 @@ def main():
     微信帐户DonDdon担任什么群的群主
     户口地址辽宁省大连市甘井子区祥龙西园28号1-16-1的尤成礼
     """
-    sentence = "IMEI号是866760024312557的同学是哪些"
+    sentence = "住在西善桥北路89号的18526439876的在华为上班的同学是谁"
     m_collector = MentionCollector(sentence)
     intent = m_collector.intention
     print("intent:", intent)

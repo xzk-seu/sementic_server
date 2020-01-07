@@ -14,3 +14,13 @@
 - PHasMicroBlog
 - PHasMobileNum
 - PHasWeChat
+登录:
+- EmailOfJDLogin
+- EmailOfAlipayLogin
+- EmailOfTaoBaoLogin
+地址:
+- PHasAddr
+- CoHasAddr
+email地址:
+- CoHasEmail
+- PHasEmail

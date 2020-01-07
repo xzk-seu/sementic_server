@@ -93,6 +93,21 @@ class DepGraph(Graph):
                 self.remove_edges_from((e1, e2))
                 self.remove_node(e1[1])
 
+    def smart_remove_node(self, ent_flag, rel_flag, ent_mention_id, rel_mention_id):
+        """
+        如果插入前就已经存在的节点，就不删除了
+        :param ent_flag:
+        :param rel_flag:
+        :param ent_mention_id:
+        :param rel_mention_id:
+        :return:
+        """
+        if not ent_flag:
+            self.remove_node(ent_mention_id)
+        if not rel_flag:
+            self.remove_node(rel_mention_id)
+        return
+
     def add_ent_rel_link(self, ent_mention: Mention, rel_mention: Mention, ent_first: bool):
         """
         对实体-关系这样的mention对进行图映射
@@ -110,6 +125,10 @@ class DepGraph(Graph):
         dom = RELATION_DATA[k]['domain']
         ran = RELATION_DATA[k]['range']
 
+        # 图中是否已经存在这样的节点
+        ent_flag = self.has_node(ent_mention_id)
+        rel_flag = self.has_node(rel_mention_id)
+
         self.add_node(ent_mention_id)
         self.nodes[ent_mention_id]['label'] = 'concept'
         self.nodes[ent_mention_id]['type'] = ent_mention.small_type
@@ -126,13 +145,11 @@ class DepGraph(Graph):
                 self.add_edge(rel_mention_id, ent_mention_id, k, **rel_mention.content)
                 self.nodes[rel_mention_id]['type'] = dom
             else:
-                self.remove_node(ent_mention_id)
-                self.remove_node(rel_mention_id)
+                self.smart_remove_node(ent_flag, rel_flag, ent_mention_id, rel_mention_id)
                 return
         else:
             if ent_type_1 != dom:
-                self.remove_node(ent_mention_id)
-                self.remove_node(rel_mention_id)
+                self.smart_remove_node(ent_flag, rel_flag, ent_mention_id, rel_mention_id)
                 return
             if ent_first:
                 self.add_edge(ent_mention_id, rel_mention_id, k, **rel_mention.content)

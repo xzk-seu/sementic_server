@@ -1,4 +1,4 @@
-Reside:
+PHasAddr:
   domain: person
   range: addr
   value: 人与地址
@@ -24,7 +24,7 @@ PHasWeChat:
   value: 拥有微信
 PHasMobileNum:
   domain: person
-  range: mobilenum
+  range: mob_num
   value: 拥有手机
 AddrWithP:
   domain: addr

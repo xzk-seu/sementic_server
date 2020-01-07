@@ -280,3 +280,27 @@ ChildToParent:
   belong: false
   domain: person
   range: person
+EmailOfJDLogin:
+  belong: false
+  domain: email
+  range: jd
+EmailOfAlipayLogin:
+  belong: false
+  domain: email
+  range: alipay
+CoHasAddr:
+  belong: false
+  domain: company
+  range: addr
+CoHasEmail:
+  belong: false
+  domain: company
+  range: email
+EmailOfTaoBaoLogin:
+  belong: false
+  domain: email
+  range: taobao
+IMSIBindMobileNum:
+  belong: false
+  domain: imsi
+  range: mobilenum
