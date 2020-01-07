@@ -10,8 +10,9 @@ import json
 
 import networkx as nx
 
+import itertools
 from sementic_server.source.qa_graph.ent2node import get_node_type
-from sementic_server.source.tool.global_value import RELATION_DATA, ACCOUNT_OBJ_LIST
+from sementic_server.source.tool.global_value import RELATION_DATA, ACCOUNT_OBJ_LIST, DEFAULT_EDGE
 from sementic_server.source.tool.logger import logger
 
 
@@ -253,6 +254,66 @@ class Graph(nx.MultiDiGraph):
             temp_type = temp_content['type']
             self.nodes[n]['type'] = get_node_type(temp_type)
         self.edge_type_correct()
+
+    def add_default_edge(self):
+        """
+        添加默认边
+        :return:
+        """
+        flag = False
+        components_set = self.get_connected_components_subgraph()
+        for i in range(len(components_set) - 1):
+            flag = self.add_default_edge_between_components(components_set, i, i + 1)
+            if flag:
+                break
+        return flag
+
+    def add_default_edge_between_components(self, components_set, c1, c2):
+        """
+        在两个连通分量之间添加默认边
+        :param components_set:
+        :param c1:
+        :param c2:
+        :return:
+        """
+        flag = False
+        d0 = Graph(components_set[c1]).node_type_statistic()
+        d1 = Graph(components_set[c2]).node_type_statistic()
+        candidates = itertools.product(d0.keys(), d1.keys())
+        candidates = list(candidates)
+        trick_index = 0
+        for key, edge in DEFAULT_EDGE.items():
+            for c in candidates:
+                if c[0] == edge['domain'] and c[1] == edge['range']:
+                    node_0 = d0[edge['domain']][trick_index]
+                    node_1 = d1[edge['range']][trick_index]
+                    self.add_edge(node_0, node_1, key, type=key, value=edge['value'])
+                    flag = True
+                    return flag
+                elif c[1] == edge['domain'] and c[0] == edge['range']:
+                    node_0 = d1[edge['domain']][trick_index]
+                    node_1 = d0[edge['range']][trick_index]
+                    self.add_edge(node_0, node_1, key, type=key, value=edge['value'])
+                    flag = True
+                    return flag
+        return flag
+
+    def add_intent_node(self, intent):
+        """
+        意图冲突时，试图添加对应类型的意图节点
+        :param intent:
+        :return:
+        """
+        if intent != "person":
+            return False
+        node_list = self.get_nodes_dict().keys()
+        node_list = [int(x) for x in node_list]
+        node_id = max(node_list) + 1
+        if node_id >= 20:
+            return False
+        self.add_node(node_id, label="concept", type="person", intent=True)
+        flag = self.add_default_edge()
+        return flag
 
 
 def my_disjoint_union_all(graphs):

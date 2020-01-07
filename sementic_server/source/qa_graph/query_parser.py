@@ -125,7 +125,7 @@ class QueryParser(object):
             return
 
         intention_candidates = self.get_intention_candidate()
-        if self.error_info:
+        if self.error_info or not intention_candidates:
             return
         logger.info('determine intention by degree')
         criterion_dict = dict()
@@ -186,7 +186,9 @@ class QueryParser(object):
         if len(intention_candidates) == 0:
             # print('intention recognizer module produce wrong intention!')
             logger.info('intention recognizer module produce wrong intention!')
-            self.error_info = '意图冲突!'
+            flag = self.query_graph.add_intent_node(self.intent)
+            if not flag:
+                self.error_info = '意图冲突!'
             return
 
         none_nodes = self.query_graph.get_none_nodes(self.intent)

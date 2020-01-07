@@ -31,7 +31,7 @@ def main():
     微信帐户DonDdon担任什么群的群主
     户口地址辽宁省大连市甘井子区祥龙西园28号1-16-1的尤成礼
     """
-    sentence = "扣扣群10888658的群成员"
+    sentence = "QQ群账号10475465的群成员有哪些人"
     m_collector = MentionCollector(sentence)
     intent = m_collector.intention
     print("intent:", intent)
