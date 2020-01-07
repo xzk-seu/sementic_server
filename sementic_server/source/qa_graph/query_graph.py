@@ -42,7 +42,7 @@ class QueryGraph(Graph):
         need_loop = False
         for n1, n2, k in self.edges:
             if k == "unknown_relation":
-                flag = self.add_default_edge_between_nodes(n1, n2)
+                self.add_default_edge_between_nodes(n1, n2)
                 self.remove_edge(n1, n2, k)
                 need_loop = True
                 return need_loop
