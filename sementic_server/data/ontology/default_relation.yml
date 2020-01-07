@@ -24,7 +24,7 @@ PHasWeChat:
   value: 拥有微信
 PHasMobileNum:
   domain: person
-  range: mob_num
+  range: mobilenum
   value: 拥有手机
 AddrWithP:
   domain: addr

@@ -247,8 +247,6 @@ class Graph(nx.MultiDiGraph):
         :return:
         """
         for n in self.nodes:
-            if self.nodes[n].get('type'):
-                continue
             temp_content = self.nodes[n].get('content')
             if not temp_content:
                 continue
