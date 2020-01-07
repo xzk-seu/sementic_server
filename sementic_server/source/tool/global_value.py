@@ -88,3 +88,7 @@ ACCOUNT_OBJ_LIST = [x.lower() for x in ACCOUNT_OBJ_LIST]
 
 with open(os.path.join(YML_DIR, 'relation_code.yml'), 'r') as fr:
     RELATION_CODE = yaml.load(fr, Loader=yaml.SafeLoader)
+
+with open(os.path.join(ONTO_DIR, 'amb_rel_resolution.yml'), 'r') as fr:
+    AMB_REL_RESOLUTION = yaml.load(fr, Loader=yaml.SafeLoader)
+

@@ -11,7 +11,7 @@ import itertools
 import networkx as nx
 
 from sementic_server.source.qa_graph.graph import Graph, my_disjoint_union
-from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE, RELATION_CODE
+from sementic_server.source.tool.global_value import RELATION_DATA, DEFAULT_EDGE, RELATION_CODE, AMB_REL_RESOLUTION
 from sementic_server.source.tool.logger import logger
 
 
@@ -30,8 +30,8 @@ class QueryGraph(Graph):
         self.ambiguity_links_process()
         self.type_correct()
         self.loop_assemble()
-        self.loop_add_default_edge()
         self.loop_add_unknown_rel()
+        self.loop_add_default_edge()
 
     def loop_add_unknown_rel(self):
         need_loop = self.add_unknown_rel()
@@ -43,8 +43,6 @@ class QueryGraph(Graph):
         for n1, n2, k in self.edges:
             if k == "unknown_relation":
                 flag = self.add_default_edge_between_nodes(n1, n2)
-                if not flag:
-                    self.error_info = "in add_unknown_rel 添加默认边失败"
                 self.remove_edge(n1, n2, k)
                 need_loop = True
                 return need_loop
@@ -191,10 +189,7 @@ class QueryGraph(Graph):
         :return:
         """
         rel_data = self.get_edge_data(n1, n2, 'Ambiguous')
-        reverse_dict = {'好友': ['QQFriend', 'Partner'],
-                        "成员": ['WeChatGroupMember', 'QQGroupMember'],
-                        "群成员": ['WeChatGroupMember', 'QQGroupMember']}
-        ambiguity_list = reverse_dict[rel_data['value']]
+        ambiguity_list = AMB_REL_RESOLUTION[rel_data['value']]
         sim_list = list()
         for n, r in enumerate(ambiguity_list):
             count = 0

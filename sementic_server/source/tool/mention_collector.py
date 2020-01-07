@@ -48,6 +48,7 @@ class MentionCollector(object):
             self.scope_correction()
             self.entity_check()
         self.entity.extend(result.get('accounts'))
+        self.entity = [e for e in self.entity if e['type'].lower() != "unlabel"]
         self.relation = result.get('relation')
         self.value_props = vp_matcher.match(sentence)
         self.scope_correction()

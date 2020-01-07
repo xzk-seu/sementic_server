@@ -58,3 +58,19 @@ JDHolder:
   domain: jd
   range: person
   value: 人与京东
+PHasTaobao:
+  domain: person
+  range: taobao
+  value: 拥有Taobao
+PHasMicroblog:
+  domain: person
+  range: microblog
+  value: 拥有微博
+PHasMAC:
+  domain: person
+  range: mac
+  value: 拥有MAC
+PHasIMEI:
+  domain: person
+  range: imei
+  value: 人和imei

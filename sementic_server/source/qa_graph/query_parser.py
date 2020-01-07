@@ -31,7 +31,7 @@ class QueryParser(object):
 
     """
 
-    def __init__(self, m_collector: MentionCollector, dep_info: DepInfo, intent: str):
+    def __init__(self, m_collector: MentionCollector, dep_info: DepInfo):
         logger.info('Query Graph Parsing...')
         self.error_info = None
 
@@ -42,6 +42,7 @@ class QueryParser(object):
         self.relation = m_collector.relation
         self.value_prop = m_collector.value_props
 
+        intent = m_collector.intention
         if intent:
             intent = intent.lower()
         self.intent = intent
@@ -72,8 +73,10 @@ class QueryParser(object):
         一条边上，一个节点又有内容又有意图而另一个没有，将意图给另一个
         :return:
         """
+        flag = False
         for n1, n2, k in self.query_graph.edges:
             if self.query_graph.nodes[n1].get("intent") or self.query_graph.nodes[n2].get("intent"):
+                flag = True
                 if self.query_graph.nodes[n1].get("intent") and self.query_graph.nodes[n2].get("intent"):
                     continue
                 if self.query_graph.nodes[n1].get("intent") and self.query_graph.nodes[n1].get("content"):
@@ -82,23 +85,9 @@ class QueryParser(object):
                 elif self.query_graph.nodes[n2].get("intent") and self.query_graph.nodes[n2].get("content"):
                     self.query_graph.nodes[n2]["intent"] = False
                     self.query_graph.nodes[n1]["intent"] = True
+        return flag
 
-    def determine_intention(self):
-        """
-        确定意图：
-        0.是否有空的值属性节点
-
-        1. 意图识别模块通过关键词，获取意图类型；
-        2. 根据依存分析模块，将句法依存树根节点附近的实体节点中作为候选意图节点，若上一步得到了意图类型，删去候选意图中的与意图类型冲突的节点；
-        3. 在所有候选节点中，若有空节点（即没有字面值描述的节点），则将候选节点集合中的所有空节点作为新的候选节点集合；
-        4. 若上一步选出的节点有多个，则优先选择Person类型的节点。
-        5. 在候选节点集合中，按照候选意图节点的入度与出度之差，对候选节点进行排序，选出入度与出度之差最大的节点；
-        :return:
-        """
-        self.intent_rule_0()
-        if self.literal_intention():
-            return
-
+    def intent_rule_1(self):
         has_intent = False
         for n in self.query_graph.nodes:
             if self.query_graph.nodes[n].get('intent'):
@@ -112,7 +101,27 @@ class QueryParser(object):
             if self.query_graph.nodes[n].get('value_props'):
                 self.add_intention_on_node(n)
                 has_intent = True
-        if has_intent:
+        return has_intent
+
+    def determine_intention(self):
+        """
+        确定意图：
+        0.是否有空的值属性节点
+
+        1. 意图识别模块通过关键词，获取意图类型；
+        2. 根据依存分析模块，将句法依存树根节点附近的实体节点中作为候选意图节点，若上一步得到了意图类型，删去候选意图中的与意图类型冲突的节点；
+        3. 在所有候选节点中，若有空节点（即没有字面值描述的节点），则将候选节点集合中的所有空节点作为新的候选节点集合；
+        4. 若上一步选出的节点有多个，则优先选择Person类型的节点。
+        5. 在候选节点集合中，按照候选意图节点的入度与出度之差，对候选节点进行排序，选出入度与出度之差最大的节点；
+        :return:
+        """
+        if self.intent_rule_0():
+            return
+
+        if self.literal_intention():
+            return
+
+        if self.intent_rule_1():
             return
 
         intention_candidates = self.get_intention_candidate()

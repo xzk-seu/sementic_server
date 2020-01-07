@@ -29,8 +29,9 @@ def main():
 
     意图不通过：
     微信帐户DonDdon担任什么群的群主
+    户口地址辽宁省大连市甘井子区祥龙西园28号1-16-1的尤成礼
     """
-    sentence = "户口地址辽宁省庄河市太平岭乡土城村后土城屯90号的人有哪几个"
+    sentence = "IMEI号是866760024312557的同学是哪些"
     m_collector = MentionCollector(sentence)
     intent = m_collector.intention
     print("intent:", intent)
@@ -45,7 +46,7 @@ def main():
     for d in dep_info.get_heads():
         print(d)
 
-    qg = QueryParser(m_collector, dep_info, intent=intent)
+    qg = QueryParser(m_collector, dep_info)
     error_info = qg.error_info
     if error_info:
         print(error_info)

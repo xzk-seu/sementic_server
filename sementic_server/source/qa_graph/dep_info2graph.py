@@ -105,6 +105,8 @@ class DepGraph(Graph):
         rel_mention_id = rel_mention.idx
         k = rel_mention.small_type
         ent_type_1 = ent_mention.small_type
+        if k == "Ambiguous":
+            return
         dom = RELATION_DATA[k]['domain']
         ran = RELATION_DATA[k]['range']
 
