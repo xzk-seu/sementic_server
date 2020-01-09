@@ -90,16 +90,24 @@ class QueryParser(object):
         return flag
 
     def intent_rule_1(self):
+        """
+        一些意图确定规则
+        :return:
+        """
         has_intent = False
         for n in self.query_graph.nodes:
             if self.query_graph.nodes[n].get('intent'):
                 has_intent = True
-            if not self.query_graph.nodes[n].get('value'):
-                if self.query_graph.is_none_node(n):
-                    self.add_intention_on_node(n)
-                    has_intent = True
-                elif self.query_graph.nodes[n].get("intent"):
-                    self.query_graph.nodes[n]['intent'] = False
+            """
+            # if not self.query_graph.nodes[n].get('value'):
+            #     if self.query_graph.is_none_node(n):
+            #         self.add_intention_on_node(n)
+            #         has_intent = True
+            #     elif self.query_graph.nodes[n].get("intent"):
+            #         self.query_graph.nodes[n]['intent'] = False
+            """
+            if not self.query_graph.nodes[n].get('value') and self.query_graph.nodes[n].get("intent"):
+                self.query_graph.nodes[n]['intent'] = False
             if self.query_graph.nodes[n].get('value_props'):
                 self.add_intention_on_node(n)
                 has_intent = True
@@ -168,8 +176,13 @@ class QueryParser(object):
                     break
 
     def add_intention_on_node(self, node):
+        """
+        向图中添加意图，判断添加的节点类型和意图类型，若有的话
+        :param node:
+        :return:
+        """
         temp_type = self.query_graph.nodes[node].get("type")
-        if self.intent and temp_type == self.intent:
+        if not self.intent or temp_type == self.intent:
             self.query_graph.nodes[node]['intent'] = True
 
     def add_intention_on_nodes(self, node_list):
@@ -204,9 +217,10 @@ class QueryParser(object):
             logger.info('intention candidates is %s' % str(intention_candidates))
 
         if len(intention_candidates) == 0:
-            # print('intention recognizer module produce wrong intention!')
             logger.info('intention recognizer module produce wrong intention!')
             flag = self.query_graph.add_intent_node(self.intent)
+            if not flag:
+                flag = self.query_graph.add_person_node()
             if not flag:
                 self.error_info = '意图冲突!'
             return

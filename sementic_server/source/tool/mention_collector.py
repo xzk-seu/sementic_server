@@ -48,6 +48,12 @@ class MentionCollector(object):
             self.scope_correction()
             self.entity_check()
         self.entity.extend(result.get('accounts'))
+        self.unlabel = False
+        for e in self.entity:
+            if e['type'].lower() == "unlabel":
+                logger.error("问句中存在unlabel实体")
+                self.unlabel = True
+                return
         self.entity = [e for e in self.entity if e['type'].lower() != "unlabel"]
         self.relation = result.get('relation')
         self.value_props = vp_matcher.match(sentence)

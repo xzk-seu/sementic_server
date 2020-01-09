@@ -31,8 +31,9 @@ def main():
     微信帐户DonDdon担任什么群的群主
     户口地址辽宁省大连市甘井子区祥龙西园28号1-16-1的尤成礼
     扣扣群号10453443中谁的微博帐户是1005065716003
+    哪个公司的手机是13204031914
     """
-    sentence = "到过尼波和杭州站的人"
+    sentence = "微信群10319046645有哪些成员"
     m_collector = MentionCollector(sentence)
     intent = m_collector.intention
     print("intent:", intent)

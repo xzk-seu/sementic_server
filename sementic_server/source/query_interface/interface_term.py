@@ -29,6 +29,8 @@ class Node(object):
         detail = content.get('detail')
         if not detail or len(detail) == 0 or self.node_type != "person":
             p_type = content.get('type').lower()
+            if p_type in ["wx_group_num", "qq_group_num"]:
+                p_type = "group_num"
             p_value = content.get('value')
             v_type = "string"
             if p_type:

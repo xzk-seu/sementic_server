@@ -356,3 +356,11 @@ MicroBlogFollower:
   belong: false
   domain: microblog
   range: microblog
+ParentToChild:
+  belong: false
+  domain: person
+  range: person
+PresidentOfCo:
+  belong: false
+  domain: person
+  range: company

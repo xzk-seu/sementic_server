@@ -315,14 +315,26 @@ class Graph(nx.MultiDiGraph):
         :param intent:
         :return:
         """
-        if intent != "person":
-            return False
         node_list = self.get_nodes_dict().keys()
         node_list = [int(x) for x in node_list]
         node_id = max(node_list) + 1
         if node_id >= 20:
             return False
-        self.add_node(node_id, label="concept", type="person", intent=True)
+        self.add_node(node_id, label="concept", type=intent, intent=True)
+        flag = self.add_default_edge()
+        return flag
+
+    def add_person_node(self):
+        """
+        意图冲突时，试图添加人物类型的意图节点
+        :return:
+        """
+        node_list = self.get_nodes_dict().keys()
+        node_list = [int(x) for x in node_list]
+        node_id = max(node_list) + 1
+        if node_id >= 20:
+            return False
+        self.add_node(node_id, label="concept", type="person")
         flag = self.add_default_edge()
         return flag
 

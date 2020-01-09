@@ -113,6 +113,9 @@ def query_graph_model(sentence):
         logger.info("=====================mention===================")
         for m in m_collector.mentions:
             logger.info(str(m))
+        if m_collector.unlabel:
+            error_info = 202
+            return None, error_info
         if len(m_collector.entity) == 0:
             error_info = 201
             return None, error_info
@@ -196,6 +199,11 @@ def get_result(request):
             logger.error(error_info)
             temp_q = dict(query=sentence)
             msg = "实体识别为空！"
+        elif error_info == 202:
+            status_code = "202"
+            logger.error(error_info)
+            temp_q = dict(query=sentence)
+            msg = "问句中存在unlabel实体！"
         else:
             status_code = "400"
             logger.error(error_info)

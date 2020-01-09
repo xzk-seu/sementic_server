@@ -155,11 +155,6 @@ LegalPersonOfCo:
 - 企业法定代表人
 - 公司法人
 - 公司法人代表
-- 理事
-- 总经理
-- 副总
-- CEO
-- 执行主席
 MACHolder: []
 MACWithIMEI: []
 ManagerOfQQGroup: []
@@ -216,7 +211,6 @@ PHasEmail:
 - 邮箱账户
 PHasFixedPhone:
 - 电话号码
-- 电话
 PHasIDCardDL: []
 PHasIDCardTW: []
 PHasIMEI: []
@@ -279,7 +273,13 @@ Partner:
 PlateHolder: []
 PlateWithCo: []
 PlateWithVehicle: []
-PresidentOfCo: []
+PresidentOfCo:
+- 总经理
+- 经理
+- 理事
+- 副总
+- CEO
+- 执行主席
 QQFriend:
 - QQ好友
 - qq好友
@@ -301,6 +301,7 @@ RegisterPlace:
 - 注册地
 RegisterPlaceWithCo: []
 Relative:
+- 外孙女
 - 养父
 - 养母
 - 孙子
@@ -593,6 +594,7 @@ Reside:
 - 投宿
 - 租房住在
 - 租房居住
+- 家在哪里
 Resident: []
 SSCHolder: []
 SameCase:
@@ -711,7 +713,6 @@ WifeToHusband:
 - 老伴
 WorkAt:
 - 工作地址
-- 工作
 - 工作单位
 WorkForCo:
 - 上班
