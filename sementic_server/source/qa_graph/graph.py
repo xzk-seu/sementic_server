@@ -30,6 +30,7 @@ class Graph(nx.MultiDiGraph):
             except Exception as e:
                 logger.error(e)
         nx.MultiDiGraph.__init__(self, graph)
+        self.error_info = ""
 
     def get_connected_components_subgraph(self):
         # 获取连通子图
@@ -307,6 +308,34 @@ class Graph(nx.MultiDiGraph):
         for n in self.nodes:
             if self.nodes[n].get("intent"):
                 flag = True
+        return flag
+
+    def loop_add_default_edge(self):
+        while not nx.algorithms.is_weakly_connected(self):
+            # 若不连通则在联通分量之间添加默认边
+            flag = self.add_default_edge()
+            if not flag:
+                flag = self.add_person()
+            if not flag:
+                logger.info('default edge missing!')
+                logger.info('graph is not connected!')
+                self.error_info = 'graph is not connected!'
+                # 未添加上说明缺少默认边
+                return False
+        return True
+
+    def add_person(self):
+        """
+        向图中加入一个人物节点，再添加默认边
+        :return:
+        """
+        node_list = self.get_nodes_dict().keys()
+        node_list = [int(x) for x in node_list]
+        node_id = max(node_list) + 1
+        if node_id >= 20:
+            return False
+        self.add_node(node_id, label="concept", type="person")
+        flag = self.add_default_edge()
         return flag
 
     def add_intent_node(self, intent):
