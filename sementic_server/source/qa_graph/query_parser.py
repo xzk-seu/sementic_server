@@ -81,10 +81,12 @@ class QueryParser(object):
                     continue
                 if self.query_graph.nodes[n1].get("intent") and self.query_graph.nodes[n1].get("content"):
                     self.query_graph.nodes[n1]["intent"] = False
-                    self.query_graph.nodes[n2]["intent"] = True
+                    self.add_intention_on_node(n2)
                 elif self.query_graph.nodes[n2].get("intent") and self.query_graph.nodes[n2].get("content"):
                     self.query_graph.nodes[n2]["intent"] = False
-                    self.query_graph.nodes[n1]["intent"] = True
+                    self.add_intention_on_node(n1)
+        if not self.query_graph.intent_in_graph():
+            flag = False
         return flag
 
     def intent_rule_1(self):
@@ -101,7 +103,22 @@ class QueryParser(object):
             if self.query_graph.nodes[n].get('value_props'):
                 self.add_intention_on_node(n)
                 has_intent = True
+        if not self.query_graph.intent_in_graph():
+            has_intent = False
         return has_intent
+
+    def intention_word_process(self):
+        """
+        判断当前句子中的意图是否与当前句子中的意图冲突
+        :return:
+        """
+        if not self.intent:
+            return
+        for n in self.query_graph.nodes:
+            temp_intent = self.query_graph.nodes[n].get("intent")
+            temp_type = self.query_graph.nodes[n].get("type")
+            if temp_intent and temp_type != self.intent:
+                self.query_graph.nodes[n]["intent"] = False
 
     def determine_intention(self):
         """
@@ -115,6 +132,7 @@ class QueryParser(object):
         5. 在候选节点集合中，按照候选意图节点的入度与出度之差，对候选节点进行排序，选出入度与出度之差最大的节点；
         :return:
         """
+        self.intention_word_process()
         if self.intent_rule_0():
             return
 
@@ -150,7 +168,9 @@ class QueryParser(object):
                     break
 
     def add_intention_on_node(self, node):
-        self.query_graph.nodes[node]['intent'] = True
+        temp_type = self.query_graph.nodes[node].get("type")
+        if self.intent and temp_type == self.intent:
+            self.query_graph.nodes[node]['intent'] = True
 
     def add_intention_on_nodes(self, node_list):
         """

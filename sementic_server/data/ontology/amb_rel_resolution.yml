@@ -39,6 +39,10 @@ email地址:
 - MobileNumOfAlipayLogin
 - MobileNumOfTaoBaoLogin
 - MobileNumOfMicroBlogLogin
+绑定:
+- EmailOfJDLogin
+- EmailOfAlipayLogin
+- EmailOfTaoBaoLogin
 登录:
 - MobileNumOfWeChatLogin
 - MobileNumOfDouYinLogin

@@ -298,6 +298,17 @@ class Graph(nx.MultiDiGraph):
                     return flag
         return flag
 
+    def intent_in_graph(self):
+        """
+        判断图中是否有意图
+        :return:
+        """
+        flag = False
+        for n in self.nodes:
+            if self.nodes[n].get("intent"):
+                flag = True
+        return flag
+
     def add_intent_node(self, intent):
         """
         意图冲突时，试图添加对应类型的意图节点

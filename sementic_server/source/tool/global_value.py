@@ -83,7 +83,7 @@ ACCOUNT_LIST = [x.lower() for x in ACCOUNT_LIST]
 
 ACCOUNT_OBJ_LIST = ['QQ', 'MobileNum', 'FixedPhone', 'Idcard', 'Email', 'WeChat', 'QQGroup',
                     'WeChatGroup', 'Alipay', 'DouYin', 'JD', 'TaoBao', 'MicroBlog', 'UNLABEL',
-                    'VehicleCard', 'IMEI', 'MAC', 'Addr']
+                    'VehicleCard', 'IMEI', 'MAC']
 ACCOUNT_OBJ_LIST = [x.lower() for x in ACCOUNT_OBJ_LIST]
 
 with open(os.path.join(YML_DIR, 'relation_code.yml'), 'r') as fr:

@@ -62,11 +62,19 @@ class DepInfo(object):
         for co in co_data:
             idx = co['idx']
             idx2 = co['idx2']
-            att_data = [x for x in self.source_data if x['idx2'] == idx2]
-            for a in att_data:
-                temp = deepcopy(a)
-                temp['idx2'] = idx
-                temp_list.append(temp)
+            targets = [x for x in self.source_data if x['idx'] == idx2]
+            for a in targets:
+                up_id = a['idx2']
+                if up_id != 0:
+                    temp = deepcopy(co)
+                    temp['idx2'] = up_id
+                    temp['tag'] = a['tag']
+                    temp_list.append(temp)
+                down_terms = [x for x in self.source_data if x['idx2'] == a['idx']]
+                for d in down_terms:
+                    temp = deepcopy(d)
+                    temp['idx2'] = idx
+                    temp_list.append(temp)
         self.source_data.extend(temp_list)
 
     def get_heads(self):
@@ -128,7 +136,7 @@ def demo_1():
     :return:
     """
     da = DepAnalyzer()
-    r = da.get_result("在广东省揭阳市惠来县定居的刘健坤的哥哥和表妹")
+    r = da.get_result("刘健坤的哥哥和表妹")
     for i in r:
         print(i)
     print("======================")
@@ -144,7 +152,7 @@ def main():
     :return:
     """
     da = DepAnalyzer()
-    r = da.get_result("在广东省揭阳市惠来县定居的刘健坤的哥哥和表妹")
+    r = da.get_result("刘健坤的哥哥和表妹")
     di = DepInfo(r)
     r = di.source_data
     print("==========dep========")

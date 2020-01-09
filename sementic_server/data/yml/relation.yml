@@ -22,6 +22,7 @@ Ambiguous:
 - 创建人
 - 创建者
 - 创建
+- 绑定
 Appear:
 - 出没
 - 滞留
@@ -29,6 +30,10 @@ Appear:
 - 逗留
 - 出现
 - 驻留
+- 待过
+- 去过
+- 到过
+- 出现过
 AuthorizeCo: []
 AuthorizedBy:
 - 登记机关
@@ -205,7 +210,6 @@ PHasDouYin:
 - 抖音
 - 抖音账户
 PHasEmail:
-- 邮箱
 - 邮箱地址
 - 邮件地址
 - 邮箱号码
