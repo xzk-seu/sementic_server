@@ -16,6 +16,7 @@ from sementic_server.source.qa_graph.rest_mention2graph import RestMentionGraph
 from sementic_server.source.tool.global_object import dep_analyzer
 from sementic_server.source.tool.logger import logger
 from sementic_server.source.tool.mention_collector import MentionCollector
+from sementic_server.source.tool.global_value import ACCOUNT_OBJ_LIST
 
 
 class QueryParser(object):
@@ -76,7 +77,7 @@ class QueryParser(object):
         """
         if len(self.query_graph.nodes) != 1:
             return
-        if "人" not in self.m_collector.sentence[-3, -1]:
+        if "人" != self.m_collector.sentence[-1]:
             return
         n_type = self.query_graph.nodes[0].get("type")
         if n_type != "addr":
