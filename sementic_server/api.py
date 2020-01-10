@@ -104,7 +104,6 @@ def query_graph_model(sentence):
     :return:
     """
     logger.info("Query Graph model...")
-    t_another = timeit.default_timer()
 
     # 问答图模块
     qg = None
@@ -201,7 +200,6 @@ def get_result(request):
         return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
 
     access_start = datetime.datetime.now()
-    start_time = timeit.default_timer()
     logger.info("[sentence:%s][问答图整体模块][问答图整体模块-start]\n" % sentence)
     # 动态问答图
     query_graph_result, error_info = query_graph_model(sentence)
@@ -223,8 +221,6 @@ def get_result(request):
             msg = "动态知识图谱构建失败！"
         response = dict(result=temp_q, status=status_code, msg=msg)
         return JsonResponse(response, json_dumps_params={'ensure_ascii': False})
-
-    end_time = timeit.default_timer()
 
     """
     [sentence:张三的老婆是谁][命名实体识别][账号识别-start]
