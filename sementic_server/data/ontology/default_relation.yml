@@ -26,37 +26,33 @@ PHasMobileNum:
   domain: person
   range: mobilenum
   value: 拥有手机
-AddrWithP:
-  domain: addr
-  range: person
-  value: 人与地址
-TaoBaoHolder:
-  domain: taobao
-  range: person
+PHasTaoBao:
+  domain: person
+  range: taobao
   value: 人与淘宝
-AlipayHolder:
-  domain: alipay
-  range: person
+PHasAlipay:
+  domain: person
+  range: alipay
   value: 人与支付宝
-DouYinHolder:
-  domain: douyin
-  range: person
+PHasDouYin:
+  domain: person
+  range: douyin
   value: 人与抖音
-EmailHolder:
-  domain: email
-  range: person
+PhasEmail:
+  domain: person
+  range: email
   value: 人与邮箱
-PlateHolder:
-  domain: plate
-  range: person
+PHasPlate:
+  domain: person
+  range: plate
   value: 人与车牌
-IDCardDLHolder:
-  domain: idcard
-  range: person
+PHasIDCardDL:
+  domain: person
+  range: idcard
   value: 人与身份证
-JDHolder:
-  domain: jd
-  range: person
+PHasJD:
+  domain: person
+  range: jd
   value: 人与京东
 PHasTaobao:
   domain: person

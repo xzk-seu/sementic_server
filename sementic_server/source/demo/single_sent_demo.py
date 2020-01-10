@@ -33,7 +33,7 @@ def main():
     扣扣群号10453443中谁的微博帐户是1005065716003
     哪个公司的手机是13204031914
     """
-    sentence = "哪个公司用应十大道199号注册了公司"
+    sentence = "在唐丰商业大厦上班的人有谁"
     m_collector = MentionCollector(sentence)
     intent = m_collector.intention
     print("intent:", intent)

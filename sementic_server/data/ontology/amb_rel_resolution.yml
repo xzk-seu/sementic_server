@@ -1,12 +1,51 @@
+email地址:
+- CoHasEmail
+- PHasEmail
+上班:
+- WorkAt
+- WorkForCo
+公司在哪:
+- WorkAt
+- CoHasAddr
+公司地址:
+- WorkAt
+- CoHasAddr
+关注:
+- DouYinFollow
+- MicroBlogFollow
+创建:
+- CreateQQGroup
+- CreateWeChatGroup
+创建人:
+- CreateQQGroup
+- CreateWeChatGroup
+创建者:
+- CreateQQGroup
+- CreateWeChatGroup
+加入:
+- WeChatGroupMember
+- QQGroupMember
+地址:
+- PHasAddr
+- CoHasAddr
 好友:
 - QQFriend
 - Partner
+工作:
+- WorkAt
+- WorkForCo
+微博:
+- PHasMicroBlog
+- CoHasMicroBlog
+微博号:
+- PHasMicroBlog
+- CoHasMicroBlog
 成员:
-- WeChatGroupMember
-- QQGroupMember
-群成员:
-- WeChatGroupMember
-- QQGroupMember
+- JoinWeChatGroup
+- JoinQQGroup
+手机:
+- PHasMobileNum
+- CoHasMobileNum
 持有者:
 - PHasQQ
 - PHasEmail
@@ -14,35 +53,6 @@
 - PHasMicroBlog
 - PHasMobileNum
 - PHasWeChat
-地址:
-- PHasAddr
-- CoHasAddr
-email地址:
-- CoHasEmail
-- PHasEmail
-加入:
-- WeChatGroupMember
-- QQGroupMember
-管理员:
-- ManagerOfQQGroup
-- ManagerOfWeChatGroup
-群管理:
-- ManagerOfQQGroup
-- ManagerOfWeChatGroup
-群主:
-- ManagerOfQQGroup
-- ManagerOfWeChatGroup
-登陆:
-- MobileNumOfWeChatLogin
-- MobileNumOfDouYinLogin
-- MobileNumOfJDLogin
-- MobileNumOfAlipayLogin
-- MobileNumOfTaoBaoLogin
-- MobileNumOfMicroBlogLogin
-绑定:
-- EmailOfJDLogin
-- EmailOfAlipayLogin
-- EmailOfTaoBaoLogin
 登录:
 - MobileNumOfWeChatLogin
 - MobileNumOfDouYinLogin
@@ -53,18 +63,36 @@ email地址:
 - EmailOfJDLogin
 - EmailOfAlipayLogin
 - EmailOfTaoBaoLogin
-创建人:
-- CreateQQGroup
-- CreateWeChatGroup
-创建:
-- CreateQQGroup
-- CreateWeChatGroup
-创建者:
-- CreateQQGroup
-- CreateWeChatGroup
-关注:
-- DouYinFollow
-- MicroBlogFollow
+登过:
+- MobileNumOfWeChatLogin
+- MobileNumOfDouYinLogin
+- MobileNumOfJDLogin
+- MobileNumOfAlipayLogin
+- MobileNumOfTaoBaoLogin
+- MobileNumOfMicroBlogLogin
+登陆:
+- MobileNumOfWeChatLogin
+- MobileNumOfDouYinLogin
+- MobileNumOfJDLogin
+- MobileNumOfAlipayLogin
+- MobileNumOfTaoBaoLogin
+- MobileNumOfMicroBlogLogin
+管理员:
+- ManagerOfQQGroup
+- ManagerOfWeChatGroup
 粉丝:
 - DouYinFollower
 - MicroBlogFollower
+绑定:
+- EmailOfJDLogin
+- EmailOfAlipayLogin
+- EmailOfTaoBaoLogin
+群主:
+- ManagerOfQQGroup
+- ManagerOfWeChatGroup
+群成员:
+- JoinWeChatGroup
+- JoinQQGroup
+群管理:
+- ManagerOfQQGroup
+- ManagerOfWeChatGroup

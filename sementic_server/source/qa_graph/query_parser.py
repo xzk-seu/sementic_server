@@ -67,6 +67,26 @@ class QueryParser(object):
         self.query_graph.show_log()
         logger.info('next is determine intention')
         self.determine_intention()
+        self.last_person_putin()
+
+    def last_person_putin(self):
+        """
+        江苏南京人的补丁
+        :return:
+        """
+        if len(self.query_graph.nodes) != 1:
+            return
+        if "人" not in self.m_collector.sentence[-3, -1]:
+            return
+        n_type = self.query_graph.nodes[0].get("type")
+        if n_type != "addr":
+            return
+        self.query_graph.nodes[0]["intent"] = False
+        self.query_graph.add_node(1)
+        self.query_graph.nodes[1]["intent"] = True
+        self.query_graph.nodes[1]["label"] = "concept"
+        self.query_graph.nodes[1]["type"] = "person"
+        self.query_graph.add_edge(1, 0, "PHasAddr".lower())
 
     def intent_rule_0(self):
         """

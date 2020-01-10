@@ -6,19 +6,67 @@ AuthorizedBy:
   belong: false
   domain: company
   range: company
+BrotherOrSister:
+  belong: false
+  domain: person
+  range: person
 Call:
   belong: false
   domain: mobilenum
   range: mobilenum
-ChasAddr:
-  belong: true
+CalledBy:
+  belong: false
+  domain: mobilenum
+  range: mobilenum
+ChildToMotherSibling:
+  belong: false
+  domain: person
+  range: person
+ChildToParent:
+  belong: false
+  domain: person
+  range: person
+CoHasAddr:
+  belong: false
   domain: company
   range: addr
-ChasQQ:
+CoHasEmail:
+  belong: false
+  domain: company
+  range: email
+CoHasFixedPhone:
+  belong: true
+  domain: company
+  range: fixedphone
+CoHasMicroBlog:
+  belong: true
+  domain: company
+  range: microblog
+CoHasMobileNum:
+  belong: true
+  domain: company
+  range: mobilenum
+CoHasPlate:
+  belong: true
+  domain: company
+  range: plate
+CoHasQQ:
   belong: true
   domain: company
   range: qq
+CoHasVehicle:
+  belong: true
+  domain: company
+  range: vehicle
+CoHasWeChat:
+  belong: true
+  domain: company
+  range: wechat
 Colleague:
+  belong: false
+  domain: person
+  range: person
+CousinFromMotherSide:
   belong: false
   domain: person
   range: person
@@ -38,30 +86,86 @@ CreatorOfWeChatGroup:
   belong: false
   domain: wechatgroup
   range: wechat
+DouYinFollow:
+  belong: false
+  domain: douyin
+  range: douyin
+DouYinFollower:
+  belong: false
+  domain: douyin
+  range: douyin
 DouYin_FansOf:
   belong: false
   domain: douyin
   range: douyin
+EmailOfAlipayLogin:
+  belong: false
+  domain: email
+  range: alipay
+EmailOfJDLogin:
+  belong: false
+  domain: email
+  range: jd
+EmailOfTaoBaoLogin:
+  belong: false
+  domain: email
+  range: taobao
 Employ:
   belong: false
   domain: company
+  range: person
+FatherSiblingToChild:
+  belong: true
+  domain: person
   range: person
 Friend:
   belong: false
   domain: person
   range: person
-Relative:
+GetMessageFrom:
+  belong: false
+  domain: mobilenum
+  range: mobilenum
+HusbandToWife:
   belong: false
   domain: person
   range: person
+IMEIWithIMSI:
+  belong: true
+  domain: imei
+  range: imsi
+IMSIBindMobileNum:
+  belong: false
+  domain: imsi
+  range: mobilenum
+JoinQQGroup:
+  belong: true
+  domain: qq
+  range: qqgroup
+JoinWeChatGroup:
+  belong: false
+  domain: wechat
+  range: wechatgroup
 LegalPerson:
   belong: false
   domain: company
   range: person
+LegalPersonOfCo:
+  belong: false
+  domain: person
+  range: company
 Manager:
   belong: false
   domain: company
   range: person
+ManagerOfQQGroup:
+  belong: false
+  domain: qqgroup
+  range: qq
+ManagerOfWeChatGroup:
+  belong: false
+  domain: wechat
+  range: wechatgroup
 MemberOfQQGroup:
   belong: false
   domain: qqgroup
@@ -70,26 +174,42 @@ MemberOfWeChatGroup:
   belong: false
   domain: wechat
   range: wechatgroup
+MicroBlogFollow:
+  belong: false
+  domain: microblog
+  range: microblog
+MicroBlogFollower:
+  belong: false
+  domain: microblog
+  range: microblog
 MobileNumLoginWeChat:
   belong: false
   domain: mobilenum
   range: wechat
-PersonToAddr:
-  belong: true
-  domain: person
-  range: addr
-PersonToCompany:
+MobileNumOfAlipayLogin:
   belong: false
-  domain: person
-  range: company
-PersonToDouYin:
-  belong: true
-  domain: person
+  domain: mobilenum
+  range: alipay
+MobileNumOfDouYinLogin:
+  belong: false
+  domain: mobilenum
   range: douyin
-PersonToPerson:
+MobileNumOfJDLogin:
   belong: false
-  domain: person
-  range: person
+  domain: mobilenum
+  range: jd
+MobileNumOfMicroBlogLogin:
+  belong: false
+  domain: mobilenum
+  range: microblog
+MobileNumOfTaoBaoLogin:
+  belong: false
+  domain: mobilenum
+  range: taobao
+MobileNumOfWeChatLogin:
+  belong: false
+  domain: mobilenum
+  range: wechat
 PHasAddr:
   belong: true
   domain: person
@@ -118,11 +238,11 @@ PHasFixedPhone:
   belong: true
   domain: person
   range: fixedphone
-PHasIDCard_DL:
+PHasIDCardDL:
   belong: true
   domain: person
   range: idcard_dl
-PHasIDCard_TW:
+PHasIDCardTW:
   belong: true
   domain: person
   range: idcard_tw
@@ -182,6 +302,34 @@ PHasWeChat:
   belong: true
   domain: person
   range: wechat
+ParentToChild:
+  belong: false
+  domain: person
+  range: person
+Partner:
+  belong: false
+  domain: person
+  range: person
+PersonToAddr:
+  belong: true
+  domain: person
+  range: addr
+PersonToCompany:
+  belong: false
+  domain: person
+  range: company
+PersonToDouYin:
+  belong: true
+  domain: person
+  range: douyin
+PersonToPerson:
+  belong: false
+  domain: person
+  range: person
+PresidentOfCo:
+  belong: false
+  domain: person
+  range: company
 QQFriend:
   belong: false
   domain: qq
@@ -193,6 +341,10 @@ RegisterPlace:
   belong: false
   domain: company
   range: addr
+Relative:
+  belong: false
+  domain: person
+  range: person
 Remark:
   belong: false
   domain: mobilenum
@@ -240,127 +392,15 @@ WeChatFriend:
 WeChatGroupMember:
   domain: wechatgroup
   range: wechat
+WifeToHusband:
+  belong: false
+  domain: person
+  range: person
 WorkAt:
   belong: true
   domain: person
   range: addr
 WorkForCo:
-  belong: false
-  domain: person
-  range: company
-BrotherOrSister:
-  belong: false
-  domain: person
-  range: person
-CousinFromMotherSide:
-  belong: false
-  domain: person
-  range: person
-ChildToMotherSibling:
-  belong: false
-  domain: person
-  range: person
-Partner:
-  belong: false
-  domain: person
-  range: person
-HusbandToWife:
-  belong: false
-  domain: person
-  range: person
-LegalPersonOfCo:
-  belong: false
-  domain: person
-  range: company
-WifeToHusband:
-  belong: false
-  domain: person
-  range: person
-ChildToParent:
-  belong: false
-  domain: person
-  range: person
-EmailOfJDLogin:
-  belong: false
-  domain: email
-  range: jd
-EmailOfAlipayLogin:
-  belong: false
-  domain: email
-  range: alipay
-CoHasAddr:
-  belong: false
-  domain: company
-  range: addr
-CoHasEmail:
-  belong: false
-  domain: company
-  range: email
-EmailOfTaoBaoLogin:
-  belong: false
-  domain: email
-  range: taobao
-IMSIBindMobileNum:
-  belong: false
-  domain: imsi
-  range: mobilenum
-ManagerOfQQGroup:
-  belong: false
-  domain: qqgroup
-  range: qq
-ManagerOfWeChatGroup:
-  belong: false
-  domain: wechat
-  range: wechatgroup
-MobileNumOfWeChatLogin:
-  belong: false
-  domain: mobilenum
-  range: wechat
-MobileNumOfDouYinLogin:
-  belong: false
-  domain: mobilenum
-  range: douyin
-MobileNumOfJDLogin:
-  belong: false
-  domain: mobilenum
-  range: jd
-MobileNumOfAlipayLogin:
-  belong: false
-  domain: mobilenum
-  range: alipay
-MobileNumOfTaoBaoLogin:
-  belong: false
-  domain: mobilenum
-  range: taobao
-MobileNumOfMicroBlogLogin:
-  belong: false
-  domain: mobilenum
-  range: microblog
-JoinWeChatGroup:
-  belong: false
-  domain: wechat
-  range: wechatgroup
-DouYinFollow:
-  belong: false
-  domain: douyin
-  range: douyin
-MicroBlogFollow:
-  belong: false
-  domain: microblog
-  range: microblog
-DouYinFollower:
-  belong: false
-  domain: douyin
-  range: douyin
-MicroBlogFollower:
-  belong: false
-  domain: microblog
-  range: microblog
-ParentToChild:
-  belong: false
-  domain: person
-  range: person
-PresidentOfCo:
   belong: false
   domain: person
   range: company

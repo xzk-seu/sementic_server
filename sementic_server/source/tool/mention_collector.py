@@ -22,6 +22,9 @@ class Mention(object):
         self.begin = m_dict['content']['begin']
         self.end = m_dict['content']['end']
         self.small_type = m_dict['content']['type']
+        self.dom = None
+        if self.mention_type == "value_props":
+            self.dom = m_dict['content']['定义域']
 
 
 class MentionCollector(object):
@@ -37,6 +40,7 @@ class MentionCollector(object):
 
     def __init__(self, sentence):
         self.mentions = list()
+        self.sentence = sentence
         account_info = account.get_account_labels_info(sentence)
         intent = item_matcher.match(sentence, accounts_info=account_info)
         result, _ = semantic.sentence_ner_entities(intent)

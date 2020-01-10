@@ -45,7 +45,13 @@ class QueryInterface(object):
     def init_links(self):
         link_id = 0
         for n1, n2, k in self.graph.edges:
-            temp = dict(link_id=link_id, start_node=n1, end_node=n2, link_type=k.lower(), link_property=dict())
+            link_type = k.lower()
+            if k.lower() == "relative":
+                data = self.graph.get_edge_data(n1, n2, k)
+                v = data.get("value")
+                if v:
+                    link_type = v
+            temp = dict(link_id=link_id, start_node=n1, end_node=n2, link_type=link_type, link_property=dict())
             self.links.append(temp)
             link_id += 1
 

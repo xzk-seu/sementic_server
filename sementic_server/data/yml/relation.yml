@@ -5,11 +5,13 @@ AlipayLoginWithEmail: []
 AlipayLoginWithMobileNum: []
 Ambiguous:
 - 群成员
+- 微博号
 - 管理员
 - 群管理
 - 加入
 - 关注
 - 粉丝
+- 登过
 - email地址
 - 地址
 - 好友
@@ -23,6 +25,11 @@ Ambiguous:
 - 创建者
 - 创建
 - 绑定
+- 上班
+- 工作
+- 公司地址
+- 公司在哪
+- 手机
 Appear:
 - 出没
 - 滞留
@@ -56,9 +63,18 @@ Call:
 - 通电话
 - call
 - 打电话
+- 打的电话
+- 打过电话
 - 通话
+- 打了电话
 - 电话联系
-CalledBy: []
+CalledBy:
+- 通话记录
+- 接到的电话
+- 接到哪位的电话
+- 接到了谁的电话
+- 接到了哪位的电话
+- 接到过哪个人的电话
 ChildToFatherSibling: []
 ChildToMotherSibling:
 - 舅舅
@@ -68,20 +84,82 @@ ChildToParent:
 - 父亲
 - 母亲
 CoHasAddr:
-- 公司地址
 - 所在地
 CoHasEmail:
 - 官方的电邮地址
+- 哪家公司的邮箱号
+- 哪个厂的邮箱地址
+- 注册邮箱
+- 注册的电邮
+- 注册emial
+- 注册的Email
+- 官方电子邮箱
 CoHasEmployee: []
-CoHasFixedPhone: []
+CoHasFixedPhone:
+- 厂的电话
+- 公司的电话
+- 协会的固话
+- 座机
+- 官方固定电话
+- 官方的座机
+- 公司的固定电话
+- 厂的座机
+- 公司的固话
 CoHasLegalPerson: []
-CoHasMicroBlog: []
-CoHasMobileNum: []
-CoHasPlate: []
+CoHasMicroBlog:
+- 企业的微博
+- 企业微博
+- 官方微博
+- 官方的微博
+- 厂的微博
+CoHasMobileNum:
+- 工厂的电话
+- 哪家企业的手机
+- 公司的手机
+- 官方手机
+- 官方的手机
+- 医院的手机
+CoHasPlate:
+- 单位的车的牌
+- 单位的车牌
+- 单位车牌
+- 厂的车牌
+- 公务车车牌号
+- 公务车牌号
+- 公务车车牌
 CoHasPresident: []
-CoHasQQ: []
-CoHasVehicle: []
-CoHasWeChat: []
+CoHasQQ:
+- 哪个公司的Qq号码
+- 哪个公司的qq号码
+- 哪个公司的QQ号码
+- 厂QQ
+- 企业Qq号码
+- 官方qq号码
+- 官方的qq账号
+- 厂的QQ账号
+- 官方qQ账户
+- 官方的qq账号
+CoHasVehicle:
+- 公司的汽车
+- 公司名下的汽车
+- 厂名下的汽车
+- 厂的汽车
+- 公司的车
+- 公司名下的车
+- 名下有多少个车
+- 厂名下的车
+- 名下的车
+- 公司有多少个商务车
+- 厂的车
+- 公司的公务车
+- 公司的公务车
+- 名下的汽车
+CoHasWeChat:
+- 厂的微信
+- 公司的微信账户
+- 官方的微信帐户
+- 官方微信账号
+- 官微
 Colleague:
 - 同仁
 - 共事
@@ -123,17 +201,36 @@ FatherSiblingToChild:
 - 表叔
 FixedPhoneHolder: []
 FixedPhoneWithCo: []
-GetMessageFrom: []
+GetMessageFrom:
+- 短信记录
+- 收到的短信
+- 收到哪位的短信
+- 收到谁的短信
+- 收到了哪几个人的短信
+- 收到了哪些人的短信
+- 收到过谁的短信
 HusbandToWife:
 - 老婆
 - 妻子
 IDCardDLHolder: []
 IDCardTWHolder: []
 IMEIHolder: []
-IMEIWithIMSI: []
+IMEIWithIMSI:
+- 手机imsi号码
+- SIM卡的IMSI
 IMEIWithMAC: []
 IMSIBindMobileNum:
 - 手机物理地址
+- 手机卡imsi号
+- 手机imsi号码
+- 的imsi号
+- 的IMSI号
+- 的IMSI号码
+- 对应的imsi
+- SIM卡IMSI
+- 手机卡imsi号
+- 对应的IMEI号
+- 的IMEI号
 IMSIHolder: []
 IMSIWithIMEI: []
 JDHolder: []
@@ -165,13 +262,27 @@ MicroBlogHolder: []
 MicroBlogLoginWithMobileNum: []
 MicroBlogWithCo: []
 MobileNumHolder: []
-MobileNumOfAlipayLogin: []
+MobileNumOfAlipayLogin:
+- 登陆过的支付宝帐户
+- 登过的支付宝号
 MobileNumOfDouYinLogin: []
-MobileNumOfJDLogin: []
-MobileNumOfMicroBlogLogin: []
+MobileNumOfJDLogin:
+- 登过的京东号
+- 登过的京东账户
+- 登过多少个京东帐号
+MobileNumOfMicroBlogLogin:
+- 登陆过的微博帐户
+- 登过的微博号
+- 登过多少个微博帐户
 MobileNumOfQQLogin: []
-MobileNumOfTaoBaoLogin: []
-MobileNumOfWeChatLogin: []
+MobileNumOfTaoBaoLogin:
+- 登陆过的淘宝帐号
+- 登过的淘宝
+- 登过的淘宝账户
+- 登过多少淘宝账户
+MobileNumOfWeChatLogin:
+- 登过的微信
+- 登过多少个微信
 MobileNumWithCo: []
 MobileNumWithIMSI: []
 MotherSiblingToChild: []
@@ -181,6 +292,7 @@ PHasAddr:
 - 出生
 - 出生于
 - 籍贯
+- 祖籍
 - 籍贯所在地
 - 原籍
 - 祖居地
@@ -211,7 +323,12 @@ PHasEmail:
 - 邮箱账户
 PHasFixedPhone:
 - 电话号码
-PHasIDCardDL: []
+- 固定电话是多少
+- 座机是什么
+- 家的座机
+PHasIDCardDL:
+- 谁的身份证
+- 大陆身份证号码
 PHasIDCardTW: []
 PHasIMEI: []
 PHasIMSI: []
@@ -220,8 +337,11 @@ PHasJD:
 PHasMAC: []
 PHasMicroBlog:
 - 微博
+- 人的微博
+- 谁的微博
 PHasMobileNum:
-- 手机
+- 人的手机
+- 谁的手机
 PHasPlate:
 - 车主
 PHasQQ:
@@ -232,7 +352,15 @@ PHasQQ:
 PHasSSC: []
 PHasTaoBao:
 - 淘宝账户
-PHasVehicle: []
+PHasVehicle:
+- 有哪些车
+- 有多少车
+- 哪几部车
+- 哪辆车
+- 有车吗
+- 有没有车
+- 哪几辆车
+- 的汽车
 PHasWeChat:
 - 微信
 ParentToChild:
@@ -299,7 +427,9 @@ QRemarkedByT: []
 RegisterPlace:
 - 注册地址
 - 注册地
-- 注册
+- 哪里注册
+- 哪个地址注册
+- 注册公司
 RegisterPlaceWithCo: []
 Relative:
 - 外孙女
@@ -588,14 +718,23 @@ Reside:
 - 住在
 - 租房
 - 定居
+- 租过房子
+- 定居
+- 住哪里
 - 业主
 - 借宿
+- 家的地址
+- 家在
 - 家住
 - 家的地址
 - 投宿
 - 租房住在
 - 租房居住
 - 家在哪里
+- 住户
+- 租户
+- 租房在
+- 家住
 Resident: []
 SSCHolder: []
 SameCase:
@@ -606,6 +745,7 @@ SameCase:
 - 同案犯
 - 共案犯
 - 共犯
+- 同一案件
 - 同谋犯
 SameInternetBar:
 - 同网吧
@@ -623,11 +763,15 @@ SameRoom:
 - 开房
 - 同居
 - 舍友
+- 住同一家
+- 住在一起
 - 同屋
+- 寄住在谁
 - 同宿
 - 同住舍友
 - 同户
-- 住在一家旅社
+- 住在一家
+- 同一个酒店
 SameTown:
 - 父老乡亲
 - 乡亲
@@ -640,11 +784,29 @@ SameTrip:
 - 同路
 - 同车
 - 一起去
+- 同飞机
+- 一班高铁
+- 一起来
+- 一起坐车
 - 同汽车
 - 同火车
+- 一起坐过飞机
+- 同一辆汽车
 - 汽车同行
+- 坐一趟车
 - 航班同行
+- 同一航班
+- 一起去过
+- 同飞机邻座
+- 同一火车
+- 坐一班高铁
+- 同一班动车
+- 同一辆汽车
+- 同一辆火车
+- 坐一班飞机
+- 一起坐过火车
 - 火车同行
+- 乘坐同一班列车
 Schoolmate:
 - 同门
 - 老师
@@ -656,6 +818,8 @@ Schoolmate:
 - 职高老师
 - 导师
 - 研究生导师
+- 大学导师
+- 高中同学
 - 辅导员
 - 辅导老师
 - 外教
@@ -690,6 +854,12 @@ SendMessageTo:
 - 发短讯
 - 发短息
 - 发消息
+- 发过哪几个短信
+- 发过短信
+- 发的短信
+- 发了哪些短信
+- 发过的短信
+- 短信记录
 - 发信息
 TRemarkQ: []
 TRemarkT: []
@@ -714,10 +884,9 @@ WifeToHusband:
 - 老伴
 WorkAt:
 - 工作地址
-- 工作单位
 WorkForCo:
-- 上班
 - 雇佣
 - 雇用
 - 员工
+- 工作单位
 Worker: []

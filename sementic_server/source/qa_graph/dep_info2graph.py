@@ -191,13 +191,13 @@ class DepGraph(Graph):
                 self.related_m_id_list.remove(t1)
                 self.related_m_id_list.remove(t2)
 
-        elif m1.mention_type == 'value_props' and m2.mention_type == 'entity':
+        elif m1.mention_type == 'value_props' and m2.mention_type == 'entity' and m1.dom == m2.small_type:
             self.add_node(t2)
             self.nodes[t2]['label'] = 'concept'
             self.nodes[t2]['value'] = self.mentions[t2].value
             self.nodes[t2]['content'] = self.mentions[t2].content
             self.nodes[t2]['value_props'] = self.mentions[t1].content
-        elif m1.mention_type == 'entity' and m2.mention_type == 'value_props':
+        elif m1.mention_type == 'entity' and m2.mention_type == 'value_props' and m2.dom == m1.small_type:
             self.add_node(t1)
             self.nodes[t1]['label'] = 'concept'
             self.nodes[t1]['value'] = self.mentions[t1].value
