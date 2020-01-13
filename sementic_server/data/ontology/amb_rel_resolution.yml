@@ -58,6 +58,9 @@ email地址:
 手机:
 - PHasMobileNum
 - CoHasMobileNum
+手机号:
+- PHasMobileNum
+- CoHasMobileNum
 持有者:
 - PHasQQ
 - PHasEmail
@@ -66,6 +69,68 @@ email地址:
 - PHasMobileNum
 - PHasWeChat
 - PHasTaoBao
+- PHasJD
+- PHasAlipay
+登陆过的手机号码:
+- MobileNumOfWeChatLogin
+- MobileNumOfDouYinLogin
+- MobileNumOfJDLogin
+- MobileNumOfAlipayLogin
+- MobileNumOfTaoBaoLogin
+- MobileNumOfMicroBlogLogin
+- EmailOfJDLogin
+- EmailOfAlipayLogin
+- EmailOfTaoBaoLogin
+登陆的手机号:
+- MobileNumOfWeChatLogin
+- MobileNumOfDouYinLogin
+- MobileNumOfJDLogin
+- MobileNumOfAlipayLogin
+- MobileNumOfTaoBaoLogin
+- MobileNumOfMicroBlogLogin
+- EmailOfJDLogin
+- EmailOfAlipayLogin
+- EmailOfTaoBaoLogin
+登陆过哪几个手机:
+- MobileNumOfWeChatLogin
+- MobileNumOfDouYinLogin
+- MobileNumOfJDLogin
+- MobileNumOfAlipayLogin
+- MobileNumOfTaoBaoLogin
+- MobileNumOfMicroBlogLogin
+- EmailOfJDLogin
+- EmailOfAlipayLogin
+- EmailOfTaoBaoLogin
+登过多少电话:
+- MobileNumOfWeChatLogin
+- MobileNumOfDouYinLogin
+- MobileNumOfJDLogin
+- MobileNumOfAlipayLogin
+- MobileNumOfTaoBaoLogin
+- MobileNumOfMicroBlogLogin
+- EmailOfJDLogin
+- EmailOfAlipayLogin
+- EmailOfTaoBaoLogin
+在哪些号码上登陆过:
+- MobileNumOfWeChatLogin
+- MobileNumOfDouYinLogin
+- MobileNumOfJDLogin
+- MobileNumOfAlipayLogin
+- MobileNumOfTaoBaoLogin
+- MobileNumOfMicroBlogLogin
+- EmailOfJDLogin
+- EmailOfAlipayLogin
+- EmailOfTaoBaoLogin
+在哪些手机号码上登过:
+- MobileNumOfWeChatLogin
+- MobileNumOfDouYinLogin
+- MobileNumOfJDLogin
+- MobileNumOfAlipayLogin
+- MobileNumOfTaoBaoLogin
+- MobileNumOfMicroBlogLogin
+- EmailOfJDLogin
+- EmailOfAlipayLogin
+- EmailOfTaoBaoLogin
 登录:
 - MobileNumOfWeChatLogin
 - MobileNumOfDouYinLogin
@@ -109,3 +174,12 @@ email地址:
 群管理:
 - ManagerOfQQGroup
 - ManagerOfWeChatGroup
+qQ账户:
+- PHasQQ
+- CoHasQQ
+通讯录:
+- TRemarkT
+- TRemarkQ
+imsi:
+- IMEIWithIMSI
+- IMSIBindMobileNum

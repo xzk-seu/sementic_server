@@ -152,7 +152,7 @@ def main():
     :return:
     """
     da = DepAnalyzer()
-    r = da.get_result("刘健坤的哥哥和表妹")
+    r = da.get_result("去过辽宁省庄河市太平岭乡土城村后土城屯90号和东岳路西的人")
     di = DepInfo(r)
     r = di.source_data
     print("==========dep========")

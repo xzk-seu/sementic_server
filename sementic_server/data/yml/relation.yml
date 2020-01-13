@@ -5,7 +5,7 @@ AlipayLoginWithEmail: []
 AlipayLoginWithMobileNum: []
 Ambiguous:
 - 群成员
-- 微博号
+- 通讯录
 - 管理员
 - 群管理
 - 加入
@@ -29,7 +29,16 @@ Ambiguous:
 - 工作
 - 公司地址
 - 公司在哪
+- 手机号
 - 手机
+- qQ账户
+- 登陆过的手机号码
+- 登陆的手机号
+- 登陆过哪几个手机
+- 登过多少电话
+- 在哪些号码上登陆过
+- 在哪些手机号码上登过
+- imsi
 Appear:
 - 出没
 - 滞留
@@ -183,6 +192,7 @@ CoHasQQ:
 - 厂的QQ账号
 - 官方qQ账户
 - 官方的qq账号
+- 企业qQ账户
 CoHasVehicle:
 - 公司的汽车
 - 公司名下的汽车
@@ -381,7 +391,11 @@ MobileNumOfMicroBlogLogin:
 - 登陆过的微博帐户
 - 登过的微博号
 - 登过多少个微博帐户
-MobileNumOfQQLogin: []
+MobileNumOfQQLogin:
+- 登陆过的Qq号码
+- 登陆过的Qq号
+- 登过的Qq账户
+- 登过几个QQ账户
 MobileNumOfTaoBaoLogin:
 - 登陆过的淘宝帐号
 - 登过的淘宝
@@ -451,6 +465,7 @@ PHasMobileNum:
 - 谁的手机
 PHasPlate:
 - 车主
+- 谁的车牌照
 PHasQQ:
 - 拥有QQ号
 - QQ号为
@@ -887,8 +902,16 @@ SendMessageTo:
 - 发了哪些短信
 - 发过的短信
 - 发信息
-TRemarkQ: []
-TRemarkT: []
+TRemarkQ:
+- 通讯录中的Qq号码
+- 通讯录中有多少个qq号
+- 通讯录中的qQ账户
+- 通讯录中有哪几个qq账户
+TRemarkT:
+- 通讯录中的手机号
+- 通讯录中有多少电话
+- 通讯录中的手机号
+- 通讯录中有多少个号码
 TRemarkedByT: []
 TaoBaoHolder: []
 TaoBaoLoginWithEmail: []
@@ -897,7 +920,6 @@ VehicleHolder: []
 VehicleWithCo: []
 VehicleWithPlate:
 - 属于哪辆车
-- 的车
 - 哪辆车的车牌号
 WeChatFriend:
 - 微信好友

@@ -408,3 +408,11 @@ VehicleWithPlate:
   belong: false
   domain: vehicle
   range: plate
+TRemarkT:
+  belong: false
+  domain: mobilenum
+  range: mobilenum
+TRemarkQ:
+  belong: false
+  domain: qq
+  range: qq

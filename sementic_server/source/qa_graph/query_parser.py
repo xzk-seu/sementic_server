@@ -185,10 +185,11 @@ class QueryParser(object):
         :return:
         """
         self.intention_word_process()
-        if self.intent_rule_0():
-            return
 
         if self.literal_intention():
+            return
+
+        if self.intent_rule_0():
             return
 
         if self.intent_rule_1():
