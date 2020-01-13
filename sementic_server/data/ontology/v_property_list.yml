@@ -772,12 +772,6 @@
   定义域: Idcard
   属性名称: NAME
   属性描述: 姓名
-129:
-  inner_id: 129
-  值域: string
-  定义域: Idcard
-  属性名称: SEX
-  属性描述: 性别
 130:
   inner_id: 130
   值域: string
