@@ -13,16 +13,19 @@ from sementic_server.source.dep_analyze.dep_map import DepMap
 from sementic_server.source.dep_analyze.get_analyze_result import DepInfo
 from sementic_server.source.qa_graph.graph import Graph, get_node_type
 from sementic_server.source.tool.global_object import dep_analyzer
-from sementic_server.source.tool.mention_collector import MentionCollector, Mention
 from sementic_server.source.tool.global_value import RELATION_DATA, ACCOUNT_LIST
+from sementic_server.source.tool.mention_collector import MentionCollector, Mention
 
 
 class DepGraph(Graph):
     """
     根据依存信息构建图
     """
+
     def __init__(self, mention_collector: MentionCollector, dep_info: DepInfo):
         nx.MultiDiGraph.__init__(self)
+
+        self.rest_mentions = None
 
         self.mentions = mention_collector.get_mentions()
         self.dep_info = dep_info
@@ -36,6 +39,54 @@ class DepGraph(Graph):
         self.check_person_account()
         self.type_correct()
         self.add_head_target()
+
+        self.get_rest_mentions()
+        self.remove_unknown_relation()
+
+    def borrow_edge(self, type_1, type_2):
+        """
+        获得剩余mention中的关系
+        :return: 匹配上的mention 边的指向是否正确True or False
+        """
+        rel_m = [x for x in self.rest_mentions if x.mention_type == "relation"]
+        for r in rel_m:
+            k = r.small_type
+            if k not in RELATION_DATA.keys():
+                continue
+            dom = RELATION_DATA[k]['domain']
+            ran = RELATION_DATA[k]['range']
+            if type_1 == dom and type_2 == ran:
+                return r, True
+            elif type_1 == ran and type_2 == dom:
+                return r, False
+        return None
+
+    def remove_unknown_relation(self):
+        """
+        将剩余mention中的关系和当前图中的unknown_relation匹配
+        :return:
+        """
+        wait_to_add_edges = list()
+        for n1, n2, k in self.edges:
+            if k != "unknown_relation":
+                continue
+            type_1 = self.nodes[n1].get("type")
+            type_2 = self.nodes[n2].get("type")
+            temp = self.borrow_edge(type_1, type_2)
+            if not temp:
+                continue
+            rel_mention, true_direction = temp
+            wait_to_add_edges.append((n1, n2, rel_mention, true_direction))
+
+        for n1, n2, rel_mention, true_direction in wait_to_add_edges:
+            temp_type = rel_mention.small_type
+            temp_content = rel_mention.content
+            if true_direction:
+                self.add_edge(n1, n2, temp_type, **temp_content)
+            else:
+                self.add_edge(n2, n1, temp_type, **temp_content)
+            self.remove_edge(n1, n2, "unknown_relation")
+            self.rest_mentions = [x for x in self.rest_mentions if x.idx != rel_mention.idx]
 
     def check_person_account(self):
         """
@@ -58,7 +109,7 @@ class DepGraph(Graph):
             if n1_type and n1_type in ACCOUNT_LIST:
                 self.nodes[n1]['type'] = "person"
                 # self.add_node("temp_account_%d" % count, type=n1_type, content=content)
-                wait_to_add_edges.append((n1, 0-n1, n1_type, content))
+                wait_to_add_edges.append((n1, 0 - n1, n1_type, content))
         for n1, n2, n1_type, content in wait_to_add_edges:
             n1_type = get_node_type(n1_type)
             self.add_node(n2, type=n1_type, content=content)
@@ -76,9 +127,12 @@ class DepGraph(Graph):
                 self.related_m_id_list.append(tid)
 
     def get_rest_mentions(self):
+        if isinstance(self.rest_mentions, list):
+            return self.rest_mentions
         m_id_list = [x.idx for x in self.mentions]
         rest_mentions_ids = [x for x in m_id_list if x not in self.related_m_id_list]
         rest_mentions = [x for x in self.mentions if x.idx in rest_mentions_ids]
+        self.rest_mentions = rest_mentions
         return rest_mentions
 
     def remove_inner_node(self):

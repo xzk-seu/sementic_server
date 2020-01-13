@@ -43,6 +43,18 @@ email地址:
 成员:
 - JoinWeChatGroup
 - JoinQQGroup
+加入的群:
+- JoinWeChatGroup
+- JoinQQGroup
+加入了哪几个群:
+- JoinWeChatGroup
+- JoinQQGroup
+加入过的群:
+- JoinWeChatGroup
+- JoinQQGroup
+中所有人:
+- JoinWeChatGroup
+- JoinQQGroup
 手机:
 - PHasMobileNum
 - CoHasMobileNum
@@ -53,6 +65,7 @@ email地址:
 - PHasMicroBlog
 - PHasMobileNum
 - PHasWeChat
+- PHasTaoBao
 登录:
 - MobileNumOfWeChatLogin
 - MobileNumOfDouYinLogin

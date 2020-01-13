@@ -49,6 +49,13 @@ class QueryGraph(Graph):
                 return need_loop
         return need_loop
 
+    def borrow_edge(self, n1, n2):
+        """
+        把图上
+        :return:
+        """
+        pass
+
     def add_default_edge_between_nodes(self, n1, n2):
         """
         在两个点之间添加默认边
