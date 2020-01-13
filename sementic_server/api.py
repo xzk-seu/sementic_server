@@ -25,7 +25,7 @@ from sementic_server.source.tool.mention_collector import MentionCollector
 # 在这里定义在整个程序都会用到的类的实例
 account_model = Account()
 semantic = SemanticSearch()
-item_matcher = ItemMatcher(new_actree=True)
+item_matcher = ItemMatcher()
 
 logger = logging.getLogger("server_log")
 

@@ -14,7 +14,7 @@ from sementic_server.source.tool.v_prop_matcher import VpMatcher
 
 # NER & 匹配器
 semantic = SemanticSearch()
-item_matcher = ItemMatcher(True)
+item_matcher = ItemMatcher()
 account = Account()
 vp_matcher = VpMatcher()
 dep_analyzer = DepAnalyzer()
