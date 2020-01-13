@@ -68,6 +68,30 @@ class QueryParser(object):
         logger.info('next is determine intention')
         self.determine_intention()
         self.last_person_putin()
+        self.tow_node_putin()
+
+    def tow_node_putin(self):
+        """
+        若当前图中只有一条边，2个节点，且其中一个节点是人，且两个节点都不是空节点
+        查人
+        :return:
+        """
+        person = "person"
+        if len(self.query_graph.edges) != 1:
+            return
+        if len(self.query_graph.nodes) != 2:
+            return
+        for n1, n2, k in self.query_graph.edges:
+            if not self.query_graph.nodes[n1].get("value") or not self.query_graph.nodes[n2].get("value"):
+                return
+            if self.query_graph.nodes[n1].get("type") == person and self.query_graph.nodes[n2].get("type") != person:
+                self.query_graph.nodes[n1]['intent'] = True
+                self.query_graph.nodes[n2]['intent'] = False
+                return
+            if self.query_graph.nodes[n2].get("type") == person and self.query_graph.nodes[n1].get("type") != person:
+                self.query_graph.nodes[n2]['intent'] = True
+                self.query_graph.nodes[n1]['intent'] = False
+                return
 
     def last_person_putin(self):
         """
