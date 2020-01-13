@@ -404,3 +404,7 @@ WorkForCo:
   belong: false
   domain: person
   range: company
+VehicleWithPlate:
+  belong: false
+  domain: vehicle
+  range: plate
