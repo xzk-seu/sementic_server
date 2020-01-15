@@ -14,4 +14,8 @@ account.py
 item_matcher.py
 account_label.yml
 ent2node.py
-================================
+==============3.==================
+7. 错误识别车牌号 例如:wxid_061xw19ot9s422是哪个人的
+
+以上修改涉及的文件:
+account.py

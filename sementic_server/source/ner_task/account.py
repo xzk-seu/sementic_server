@@ -330,6 +330,8 @@ class Account:
                 for veh in vehicles:
                     if veh['begin'] <= begin <= veh['end']:
                         is_veh = True
+                    else:
+                        account_list.clear()					
             if is_veh:
                 continue
             result = raw_input[begin: end]
