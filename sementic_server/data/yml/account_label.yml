@@ -50,6 +50,9 @@ JD:
 IMEI:
 - IMEI
 
+IMSI:
+- IMSI
+
 PHONE:
 - 固定电话
 - 固定号码

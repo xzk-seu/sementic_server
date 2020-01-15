@@ -105,7 +105,7 @@ def is_phone(candidate):
     :param candidate:
     :return:
     """
-    pattern_phone = r"^((\d{3}-\d{7,8})|(\d{4}-\d{7,8}))$"
+    pattern_phone = r"^((\d{3}(-?)\d{7,8})|(\d{4}(-?)\d{7,8}))$"
     result = re.match(pattern_phone, candidate)
     if result is not None:
         return True
@@ -207,7 +207,7 @@ class Account:
 
         for identity, label in self.identity_account.items():
             id = -1
-            for match in re.finditer(identity, raw_str):
+            for match in re.finditer(identity, raw_str.upper()):
                 if match.start() > id:
                     id = match.start()
 
@@ -265,7 +265,7 @@ class Account:
         pattern_veh = re.compile(
             "([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}(([0-9]{5}[DF])|(DF[0-9]{4})))|"
             "([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]{1}[A-Z]{1}[A-HJ-NP-Z0-9]{4}"
-            "[A-HJ-NP-Z0-9挂学警港澳]{1})",re.IGNORECASE)
+            "[A-HJ-NP-Z0-9挂学警港澳]{1})", re.IGNORECASE)
         vehicles = []
         for match in re.finditer(pattern_veh, raw_string):
             begin = match.start()
@@ -281,7 +281,7 @@ class Account:
 
         return vehicles
 
-    def get_candidate_label(self, raw_input, account):
+    def get_candidate_label(self, raw_input, account, type=""):
         """
         判断账户是否有对应的账户标识符，如果有则返回
         :param raw_input:
@@ -292,8 +292,19 @@ class Account:
         index = raw_input.find(account)
         if index != -1:
             label = self.get_closest_account_label(raw_input[:index])
+
             if label:
+                if type and type.upper() == "MPHONE" and label.upper() == "PHONE":
+                    label = "MPHONE"
                 return self.account_label[label]
+
+            # 增加以下判断
+            index_new = len(account) + index
+            label_after = self.get_closest_account_label(raw_input[index_new:-1])
+            if label is None and label_after:
+                if type and type.upper() == "MPHONE" and label_after.upper() == "PHONE":
+                    label_after = "MPHONE"
+                return self.account_label[label_after]
             return None
         return None
 
@@ -326,6 +337,7 @@ class Account:
             if is_mac(result):
                 label_name = 'mac_value'
                 sentence = sentence.replace(result, 'mac_value')
+            # email判断，并判断账户是否有对应的账户标识符
             elif is_email(result):
                 label = self.get_candidate_label(raw_input, result)
                 if label:
@@ -335,8 +347,14 @@ class Account:
                     label_name = self.account_label['EMAIL']
                     sentence = sentence.replace(result, self.account_label['EMAIL'])
             elif self.is_id_card(result):
-                label_name = self.account_label['ID']
-                sentence = sentence.replace(result, self.account_label['ID'])
+                label = self.get_candidate_label(raw_input, result)
+                if label:
+                    label_name = label
+                    sentence = sentence.replace(result, label)
+                else:
+                    label_name = self.account_label['ID']
+                    sentence = sentence.replace(result, self.account_label['ID'])
+            # 微信账号判断，并判断是否有对应的账户标识符
             elif is_wechat_candidate(result):
                 label = self.get_candidate_label(raw_input, result)
                 if label:
@@ -348,14 +366,16 @@ class Account:
                 else:
                     label_name = self.account_label['UNLABEL']
                     sentence = sentence.replace(result, self.account_label['UNLABEL'])
+            # 手机号判断，并判断是否有对应的账户标识符
             elif is_mobile_phone(result):
-                label = self.get_candidate_label(raw_input, result)
+                label = self.get_candidate_label(raw_input, result, type="MPHONE")
                 if label:
                     label_name = label
                     sentence = sentence.replace(result, label)
                 else:
                     label_name = self.account_label['MPHONE']
                     sentence = sentence.replace(result, self.account_label['MPHONE'])
+            # IMEI和QQ的判断，并判断是否有对应的账户标识符
             elif is_imei(result) or is_qq(result):
                 label = self.get_candidate_label(raw_input, result)
                 if label:
@@ -379,56 +399,73 @@ class Account:
         return account_result
 
 
-def test():
-    t1 = "15295668658住在哪里？34.54,2656353125"
-    t2 = "xiaocui-kindle@163.com住在哪里？"
-    t3 = "手机号是15295668650的人住在哪里？"
-    t4 = "手机号是15295668650，身份证号是610525199705165219的人住在哪里？"
-    t5 = "张三的手机号是不是15295668765"
-    t6 = "张三的手机15295678908和微信号是不是15295668658和xiaozhang_test？"
-    t7 = "张三的手机好和微信号是不是15295668658、xiaozhang_test？"
-    t8 = "手机号是15295668650，身份证号是610525199403155218的人住在哪里？"
-    t9 = "支付宝是15295668650的人住在哪里？"
-    t10 = "微博15295668650的人住在哪里？"
-    t11 = "15295668658住在哪里？34.54,QQ群2656353125"
-    t12 = "京东账户15295668658住在哪里？"
-    t13 = "QQ号是2656353125住在哪里？"
-    t14 = "武威美嘉源农业科技有限公司的Qq账号16850973070有哪些弟弟？"
-    t15 = "武威美嘉源农业科技有限公司的15295668650有哪些弟弟？"
-    t16 = "武威美嘉源农业科技有限公司的QQ_xiaocui有哪些弟弟？"
-    t17 = "IMEI号码是543216789012345的设备"
-    t18 = "谁的设置号44:2A:60:71:CC:8D曾经在哪里上网"
-    test_list = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18]
+# def test():
+#     t1 = "15295668658住在哪里？34.54,2656353125"
+#     t2 = "xiaocui-kindle@163.com住在哪里？"
+#     t3 = "手机号是15295668650的人住在哪里？"
+#     t4 = "手机号是15295668650，身份证号是610525199705165219的人住在哪里？"
+#     t5 = "张三的手机号是不是15295668765"
+#     t6 = "张三的手机15295678908和微信号是不是15295668658和xiaozhang_test？"
+#     t7 = "张三的手机好和微信号是不是15295668658、xiaozhang_test？"
+#     t8 = "手机号是15295668650，身份证号是610525199403155218的人住在哪里？"
+#     t9 = "支付宝是15295668650的人住在哪里？"
+#     t10 = "微博15295668650的人住在哪里？"
+#     t11 = "15295668658住在哪里？34.54,QQ群2656353125"
+#     t12 = "京东账户15295668658住在哪里？"
+#     t13 = "QQ号是2656353125住在哪里？"
+#     t14 = "武威美嘉源农业科技有限公司的Qq账号16850973070有哪些弟弟？"
+#     t15 = "武威美嘉源农业科技有限公司的15295668650有哪些弟弟？"
+#     t16 = "武威美嘉源农业科技有限公司的QQ_xiaocui有哪些弟弟？"
+#     t17 = "IMEI号码是543216789012345的设备"
+#     t18 = "谁的设置号44:2A:60:71:CC:8D曾经在哪里上网"
+#     test_list = [t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, t13, t14, t15, t16, t17, t18]
+#     account = Account()
+#     for index, raw_input in enumerate(test_list):
+#         result = account.get_account_labels_info(raw_input)
+#         print("\n==============================")
+#         pprint(result)
+#         print("==============================\n")
+
+
+def account_test():
+    import json
     account = Account()
-    for index, raw_input in enumerate(test_list):
-        result = account.get_account_labels_info(raw_input)
-        print("\n==============================")
-        pprint(result)
-        print("==============================\n")
+    file_r = open(
+        "E:\\test_account.txt",
+        "r", encoding="UTF-8")
+    file_w = open(
+        "E:\\result.txt",
+        "w", encoding="UTF-8")
+    for line in file_r.readlines():
+        line = re.sub('\s', '', line)
+        res = account.get_account_labels_info(line)
+        print(line)
+        print(res)
+        file_w.write(json.dumps(res, ensure_ascii=False) + "\n")
 
-
-def test_while():
-    account = Account()
-    while True:
-        sentence = input("input:")
-        pprint(account.get_account_labels_info(sentence))
-
-
-def test_vehicle_num():
-    account = Account()
-    while True:
-        sentence = input("input:")
-        result = account.match_vehicle_num(sentence)
-        pprint(result)
-
-
-def test_mac():
-    while True:
-        sentence = input("input:")
-        result = is_mac(sentence)
-        pprint(result)
+#
+# def test_while():
+#     account = Account()
+#
+#     while True:
+#         sentence = input("input:")
+#         pprint(account.get_account_labels_info(sentence))
+#
+#
+# def test_vehicle_num():
+#     account = Account()
+#     while True:
+#         sentence = input("input:")
+#         result = account.match_vehicle_num(sentence)
+#         pprint(result)
+#
+#
+# def test_mac():
+#     while True:
+#         sentence = input("input:")
+#         result = is_mac(sentence)
+#         pprint(result)
 
 
 if __name__ == '__main__':
-    test()
-    test_while()
+    account_test()

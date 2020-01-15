@@ -1,1 +1,1 @@
-export PYTHONPATH=/Users/abner/Desktop/sementic_server_v2
+export PYTHONPATH='/home/knowledge/sementic_server_v1.2.0_2020_01_03'

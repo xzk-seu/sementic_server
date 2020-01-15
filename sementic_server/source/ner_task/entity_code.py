@@ -42,6 +42,7 @@ class EntityCode(object):
                               "TAOBAO": "taobao_value",
                               "JD": "jd_value",
                               'IMEI': 'imei_value',
+                              'IMSI': 'imsi_value',
                               "UNLABEL": "unlabel"}
 
         self.punctuation = [',', '，', '~', '!', '！', '。', '.', '?', '？']

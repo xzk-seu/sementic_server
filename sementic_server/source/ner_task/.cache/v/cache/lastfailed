@@ -1,0 +1,6 @@
+{
+  "account.py::test_mac": true,
+  "account.py::test_vehicle_num": true,
+  "account.py::test_while": true,
+  "test_account_ner.py": true
+}

@@ -263,7 +263,16 @@ class SemanticSearch(object):
         if label == 'firstname' and len(word) > 2:
             label = 'cpny_name'
         return label
-
+    
+    @staticmethod
+    def deal_addr(self, label, query):
+        sentence, pred_label_result = self.client.send_grpc_request_ner(query.lower())
+        entities = self.__get_entities(sentence, pred_label_result)
+        for word, l in entities:
+            if word == query.lower() and l == 'addr_value':
+                label = l
+        return label
+    
     @staticmethod
     def entity_result(self, entities, query, neagtive_rel):
         """
@@ -286,6 +295,9 @@ class SemanticSearch(object):
                 neagtive_flag = self.pop_negative(word, label, neagtive_rel)
                 label = self.deal_label(label, word)
                 flag = self.pop_account(self, query, begin, end)
+                if label == 'cpny_name':
+                    w = query[begin:end]
+                    label = self.deal_addr(self, label, w)
                 if flag != 1 and neagtive_flag != 1:
                     entity.append({"type": label, "value": query[begin:end], "code": self.code[label], "begin": begin,
                                    "end": end})

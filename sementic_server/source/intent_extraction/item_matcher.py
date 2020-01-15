@@ -99,12 +99,12 @@ class ItemMatcher(object):
             if not exists(path_corr):
                 self.aho_correction = self.__build_actree(dict_info=wrong_word, pkl_path=path_corr)
             else:
-                self.aho_correction = self.__load_actree(dict_info=wrong_word, pkl_path=path_reg)
+                self.aho_correction = self.__load_actree(dict_info=wrong_word, pkl_path=path_corr)
 
             if not exists(path_reg):
                 self.aho_recognizer = self.__build_actree(dict_info=all_kv_pair, pkl_path=path_reg)
             else:
-                self.aho_recognizer = self.__load_actree(dict_info=wrong_word, pkl_path=path_reg)
+                self.aho_recognizer = self.__load_actree(dict_info=all_kv_pair, pkl_path=path_reg)
 
     @staticmethod
     def __build_actree(dict_info, pkl_path):

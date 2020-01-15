@@ -19,13 +19,10 @@ from sementic_server.source.ner_task.semantic_tf_serving import SemanticSearch
 from sementic_server.source.ner_task.system_info import SystemInfo
 from sementic_server.source.qa_graph.query_parser import QueryParser
 from sementic_server.source.query_interface.query_interface import QueryInterface
-from sementic_server.source.tool.global_object import dep_analyzer
+from sementic_server.source.tool.global_object import dep_analyzer, item_matcher, semantic, account
 from sementic_server.source.tool.mention_collector import MentionCollector
 
-# 在这里定义在整个程序都会用到的类的实例
-account_model = Account()
-semantic = SemanticSearch()
-item_matcher = ItemMatcher()
+# 在这里定义在整个程序都会用到的类的实例/
 
 logger = logging.getLogger("server_log")
 
@@ -38,7 +35,7 @@ def account_recognition(sentence):
     """
     logger.info("Account Recognition model...")
     t_account = timeit.default_timer()
-    accounts_info = account_model.get_account_labels_info(sentence)
+    accounts_info = account.get_account_labels_info(sentence)
     logger.info(accounts_info)
     logger.info("Account Recognition model done. Time consume: {0}".format(timeit.default_timer() - t_account))
     return accounts_info
@@ -324,7 +321,7 @@ def account(request):
     try:
         logger.info("Account Recognition Model Test...")
         t_account = timeit.default_timer()
-        accounts_info = account_model.get_account_labels_info(sentence)
+        accounts_info = account.get_account_labels_info(sentence)
 
         logger.info(accounts_info)
         logger.info("Account Recognition Model Test Done. Time consume: {0}".format(timeit.default_timer() - t_account))
