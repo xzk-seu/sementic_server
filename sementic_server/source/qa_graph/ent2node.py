@@ -16,13 +16,13 @@ def get_node_type(entity_type):
     """
     account_list = ['QQ_NUM', 'MOB_NUM', 'PHONE_NUM', 'IDCARD_VALUE', 'EMAIL_VALUE', 'WECHAT_VALUE', 'QQ_GROUP_NUM',
                     'WX_GROUP_NUM', 'ALIPAY_VALUE', 'DOUYIN_VALUE', 'JD_VALUE', 'TAOBAO_VALUE', 'MICROBLOG_VALUE',
-                    'UNLABEL', 'VEHCARD_VALUE', 'IMEI_VALUE', 'MAC_VALUE', 'IMSI_VALUE']
+                    'UNLABEL', 'VEHCARD_VALUE', 'IMEI_VALUE', 'MAC_VALUE', "IMSI_VALUE"]
     account_list = [x.lower() for x in account_list]
     person_types = ['firstname', 'lastname', 'chenwei', 'person']
 
     account_name_list = ['QQ', 'MobileNum', 'FixedPhone', 'Idcard', 'Email', 'WeChat', 'QQGroup',
                          'WeChatGroup', 'Alipay', 'DouYin', 'JD', 'TaoBao', 'MicroBlog', 'UNLABEL',
-                         'Plate', 'IMEI', 'MAC', 'IMSI']
+                         'Plate', 'IMEI', 'MAC', "IMSI"]
     account_name_list = [x.lower() for x in account_name_list]
     if entity_type in account_list:
         index = account_list.index(entity_type)

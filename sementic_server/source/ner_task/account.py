@@ -331,9 +331,10 @@ class Account:
                     if veh['begin'] <= begin <= veh['end']:
                         is_veh = True
                     else:
-                        account_list.clear()					
+                        account_list.clear()
             if is_veh:
                 continue
+
             result = raw_input[begin: end]
 
             if is_mac(result):
@@ -401,6 +402,7 @@ class Account:
         return account_result
 
 
+#
 # def test():
 #     t1 = "15295668658住在哪里？34.54,2656353125"
 #     t2 = "xiaocui-kindle@163.com住在哪里？"
@@ -433,7 +435,7 @@ def account_test():
     import json
     account = Account()
     file_r = open(
-        "E:\\test_account.txt",
+        "E:\\test_account_case.txt",
         "r", encoding="UTF-8")
     file_w = open(
         "E:\\result.txt",
@@ -445,7 +447,7 @@ def account_test():
         print(res)
         file_w.write(json.dumps(res, ensure_ascii=False) + "\n")
 
-#
+
 # def test_while():
 #     account = Account()
 #
