@@ -171,7 +171,7 @@ def is_mac(candidate):
     :param candidate:
     :return:
     """
-    pattern_mac = r"^([0-9a-fA-F]{2})(([:][0-9a-fA-F]{2}){5})$"
+    pattern_mac = r"^([0-9a-fA-F]{2})(([:-][0-9a-fA-F]{2}){5})$"
     result = re.match(pattern_mac, candidate)
     if result:
         return True
