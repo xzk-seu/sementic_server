@@ -33,7 +33,7 @@ def main():
     扣扣群号10453443中谁的微博帐户是1005065716003
     哪个公司的手机是13204031914
     """
-    sentence = "户口所在地辽宁省锦州市凌河区延安路五段20-26号的赵禄波"
+    sentence = "手机号是18625173485的吴佑波是谁"
     m_collector = MentionCollector(sentence)
     intent = m_collector.intention
     print("intent:", intent)

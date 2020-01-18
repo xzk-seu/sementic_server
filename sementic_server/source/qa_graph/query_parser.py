@@ -69,6 +69,28 @@ class QueryParser(object):
         self.determine_intention()
         self.last_person_putin()
         self.tow_node_putin()
+        self.tow_edge_putin()
+
+    def tow_edge_putin(self):
+        """
+        若当前图中有两条边，V字型，二空一实，中间节点为实，删除一条边，意图确定为剩余的空节点
+        查人
+        手机号13993508073的持有者
+        :return:
+        """
+        if len(self.query_graph.edges) != 2:
+            return
+        if len(self.query_graph.nodes) != 3:
+            return
+        if self.query_graph.has_edge(0, 2) and self.query_graph.has_edge(1, 2):
+            type_1 = self.query_graph.nodes[0].get("type")
+            type_2 = self.query_graph.nodes[1].get("type")
+            v1 = self.query_graph.nodes[1].get("value")
+            v2 = self.query_graph.nodes[0].get("value")
+            vm = self.query_graph.nodes[2].get("value")
+            if type_1 == type_2 and vm and not v1 and not v2:
+                self.query_graph.remove_node(0)
+                self.add_intention_on_node(1)
 
     def tow_node_putin(self):
         """
