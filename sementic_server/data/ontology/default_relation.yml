@@ -38,7 +38,7 @@ PHasDouYin:
   domain: person
   range: douyin
   value: 人与抖音
-PhasEmail:
+PHasEmail:
   domain: person
   range: email
   value: 人与邮箱
@@ -74,4 +74,8 @@ CoHasFixedPhone:
   domain: company
   range: fixedphonenumber
   value: 公司座机
+CoHasMobileNum:
+  domain: company
+  range: mobilenum
+  value: 公司手机
 

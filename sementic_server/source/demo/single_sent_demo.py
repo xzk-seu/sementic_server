@@ -32,8 +32,10 @@ def main():
     户口地址辽宁省大连市甘井子区祥龙西园28号1-16-1的尤成礼
     扣扣群号10453443中谁的微博帐户是1005065716003
     哪个公司的手机是13204031914
+    哪位是18625173485
+    严正杰的姑姑
     """
-    sentence = "手机号是18625173485的吴佑波是谁"
+    sentence = "哪个公司的手机是13204031914"
     m_collector = MentionCollector(sentence)
     intent = m_collector.intention
     print("intent:", intent)

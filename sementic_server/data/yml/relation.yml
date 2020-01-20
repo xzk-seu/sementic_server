@@ -508,7 +508,11 @@ LegalPersonOfCo:
 - 企业法定代表人
 - 公司法人
 - 公司法人代表
-MACHolder: []
+MACHolder:
+- mac地址
+- Mac地址
+- MAC地址
+- 物理地址
 MACWithIMEI: []
 ManagerOfQQGroup: []
 ManagerOfWeChatGroup: []
@@ -526,6 +530,7 @@ MobileNumOfJDLogin:
 - 登过的京东号
 - 登过的京东账户
 - 登过多少个京东帐号
+- 登过哪些京东帐号
 MobileNumOfMicroBlogLogin:
 - 登陆过的微博帐户
 - 登过的微博号
@@ -1005,9 +1010,7 @@ WifeToHusband:
 - 孩他爹
 - 伢他爸
 - 伢他爹
-- 人夫
 - 相公
-- 夫
 - 官人
 WorkAt:
 - 工作地址

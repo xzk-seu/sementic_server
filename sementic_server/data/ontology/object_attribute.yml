@@ -22,6 +22,10 @@ ChildToMotherSibling:
   belong: false
   domain: person
   range: person
+ChildToFatherSibling:
+  belong: false
+  domain: person
+  range: person
 ChildToParent:
   belong: false
   domain: person
