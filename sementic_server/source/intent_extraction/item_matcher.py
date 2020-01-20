@@ -45,8 +45,6 @@ class ItemMatcher(object):
         dir_yml = join(dir_data, "yml")
 
         dir_output = join(si.base_path, "output")
-        if not exists(dir_output):
-            mkdir(dir_output)
         dir_pkl = join(dir_output, "pkl")
 
         # 获得关系词和疑问词的类型词典和纠错词典
@@ -60,7 +58,8 @@ class ItemMatcher(object):
                                                 encoding="utf-8"), Loader=yaml.SafeLoader)
             self.ques_word = yaml.load(open(join(dir_yml, "quesword.yml"),
                                             encoding="utf-8"), Loader=yaml.SafeLoader)
-            wrong_word = dict()
+            wrong_word = yaml.load(open(join(dir_yml, "wrong_table.yml"),
+                                        encoding="utf-8"), Loader=yaml.SafeLoader)
             validation = yaml.load(open(join(dir_yml, "intent_validation.yml"),
                                         encoding="utf-8"), Loader=yaml.SafeLoader)
         except FileNotFoundError as e:
@@ -77,7 +76,9 @@ class ItemMatcher(object):
             is_valid = all_values == set(validation)
 
         if not is_valid:
-            wrong_word = dict()
+            build_wrong_table()
+            wrong_word = yaml.load(open(join(dir_yml, "wrong_table.yml"),
+                                        encoding="utf-8"), Loader=yaml.SafeLoader)
             yaml.dump(
                 list(all_values),
                 open(join(dir_yml, "intent_validation.yml"), "w", encoding="utf-8"),
