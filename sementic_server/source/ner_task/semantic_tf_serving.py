@@ -310,7 +310,8 @@ class SemanticSearch(object):
         :return:
         """
         neagtive_rel = ['同伙', '同案', '同学', '初中同学', '小学同学', '高中同学', '大学同学', '中学同学', '中学', '博士生', '研究生', '大学', '老乡',
-                        '幼儿园同学', '研究生同学', '博士生同学', '管理员', '管理', '员工', '同案人员', '同事', '大学导师', '同监人', '职员']
+                        '幼儿园同学', '研究生同学', '博士生同学', '管理员', '管理', '员工', '同案人员', '同事', '大学导师', '同监人', '职员'
+                        '精神病人', '重点人员']
         sentence, pred_label_result = self.client.send_grpc_request_ner(query.lower())
         if pred_label_result is None:
             logger.error("句子: {0}\t实体识别结果为空".format(query))
